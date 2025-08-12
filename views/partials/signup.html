@@ -1,0 +1,88 @@
+<form method="post" id="signup" class="w-fit" hx-post="/signup" hx-target="#form-container" x-data="{
+    name: '',
+    email: '',
+    password: '',
+    repassword: '',
+    isValidPassword() {
+    return this.password.length >= 6 &&
+      /[A-Z]/.test(this.password) &&
+      /[a-z]/.test(this.password) &&
+      /[0-9]/.test(this.password) &&
+      /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password);
+    },
+    passwordsMatch() {
+      return this.password === this.repassword && this.repassword.length > 0;
+    },
+    hasUppercase() { return /[A-Z]/.test(this.password); },
+    hasLowercase() { return /[a-z]/.test(this.password); },
+    hasNumber() { return /[0-9]/.test(this.password); },
+    hasSymbol() { return /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password); }
+  }">
+  <div class="w-full flex-col gap-1">
+    <label for="name">Enter your fullname</label>
+    <input type="text" id="name" x-model="name"
+      class="text-d text-base capitalize px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+      x-bind:class="{ 'border-red-500': name.length < 2 && name.length > 0 }">
+    <p x-show="name.length < 2 && name.length > 0" class="text-red-500 text-sm">Name must be at least 2 characters</p>
+  </div>
+  <div class="w-full flex-col gap-1">
+    <label for="email">Enter your email</label>
+    <input type="email" id="email" x-model="email"
+      class="text-d text-base capitalize px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+      x-bind:class="{ 'border-red-500': !email.includes('@') && email.length > 0 }">
+    <p x-show="!email.includes('@') && email.length > 0" class="text-red-500 text-sm">Invalid email</p>
+  </div>
+  <div class="w-full flex-col gap-1">
+    <label for="password">Enter secure password</label>
+    <input type="password" id="password" x-model="password"
+      class="text-d text-base capitalize px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+      x-bind:class="{ 'border-red-500': password.length > 0 && !isValidPassword() }">
+    <div class="text-sm mt-2">
+      <p x-show="password.length > 0 && password.length < 6" class="text-red-500">Must be at least 6 characters</p>
+      <p x-show="password.length > 0 && !hasUppercase()" class="text-red-500">Must contain at least an uppercase letter
+      </p>
+      <p x-show="password.length > 0 && !hasLowercase()" class="text-red-500">Must contain at least a lowercase letter
+      </p>
+      <p x-show="password.length > 0 && !hasNumber()" class="text-red-500">Must contain at least a number</p>
+      <p x-show="password.length > 0 && !hasSymbol()" class="text-red-500">Must contain at least a symbol</p>
+      <p x-show="isValidPassword()" class="text-green-500">Password meets all requirements</p>
+    </div>
+    <div class="w-full flex-col gap-1">
+      <label for="repassword">Re-enter secure password</label>
+      <input type="password" id="repassword" x-model="repassword"
+        class="text-d text-base capitalize px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
+    </div>
+    <div class="w-full flex-col gap-1">
+      <label for="skill">Enter your skill</label>
+      <input type="text" id="skill"
+        class="text-d text-base capitalize px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
+    </div>
+    <div class="w-full flex-col gap-1">
+      <label for="title">Enter your title</label>
+      <input type="text" id="title"
+        class="text-d text-base capitalize px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
+    </div>
+</form>
+
+
+<div class="mb-6">
+  <label class="block text-gray-700">Password</label>
+  <input type="password" name="password" x-model="password" class="w-full px-3 py-2 border rounded-lg" required
+    x-bind:class="{ 'border-red-500': password.length > 0 && !isValidPassword() }">
+  <div class="text-sm mt-2">
+    <p x-show="password.length > 0 && password.length < 6" class="text-red-500">Password must be at least 6 characters
+    </p>
+    <p x-show="password.length > 0 && !hasUppercase()" class="text-red-500">Password must contain at least one uppercase
+      letter</p>
+    <p x-show="password.length > 0 && !hasLowercase()" class="text-red-500">Password must contain at least one lowercase
+      letter</p>
+    <p x-show="password.length > 0 && !hasNumber()" class="text-red-500">Password must contain at least one number</p>
+    <p x-show="password.length > 0 && !hasSymbol()" class="text-red-500">Password must contain at least one symbol (_=#,
+      or *)</p>
+    <p x-show="isValidPassword()" class="text-green-500">Password meets all requirements</p>
+  </div>
+</div>
+<button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+  x-bind:disabled="!isValidPassword() || name.length < 2 || !email.includes('@')"
+  x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || name.length < 2 || !email.includes('@') }">Sign
+  Up</button>
