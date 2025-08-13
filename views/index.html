@@ -38,15 +38,21 @@
       </div>
     </div>
     <div
-      class="w-full aspect-[3/3.25] max-w-[35%] flex-col items-center justify-between gap-3.5 px-7 py-9 rounded-3xl bg-w">
-      <div class="w-full flex-col items-start justify-start gap-2.5">
+      class="w-full aspect-[3/3.25] max-w-[35%] flex-col items-center justify-between gap-5 px-7 py-9 rounded-3xl bg-w">
+      <div class="w-full flex-col items-start justify-start">
         <h3 class="text-5xl text-start text-d font-bold capitalize">Wanna Benefit!</h3>
-        <p class="text-t">Would you like to checkout and benefit from the telemedicine infrastructure we set at <span
-            class="text-b font-bold">Doc_Apoi</span>, Download our app from for desktop or follo this <span
-            class="text-b font-semibold">link</span> to continue in the browser.</p>
+        <p class="text-t">Would you like to checkout our platform and benefit from the telemedicine
+          infrastructure setup by <span class="text-b font-bold">Doc_Apoi</span> team, consider registering on our
+          platform as a healthcare specialist or one seeking healthcare services.</p>
+      </div>
+      <div class="relative w-full items-center justify-between">
+        <button id="login" class="w-[45%] px-9 py-3.5 text-w text-center font-medium capitalize bg-d"
+          hx-get="/login">log in</button>
+        <button id="signup" class="w-[45%] px-9 py-3.5 text-w text-center font-medium capitalize bg-b"
+          hx-get="/signup">signup</button>
       </div>
       <div class="relative w-full items-end justify-between">
-        <img src="../static/imgs/jpgs/hero.jpg" alt=""
+        <img src="../static/imgs/jpgs/beds.jpg" alt=""
           class="w-[30%] aspect-square object-cover object-center rounded-lg">
         <img src="../static/imgs/jpgs/blood.jpg" alt=""
           class="w-[30%] aspect-square object-cover object-center rounded-lg">
