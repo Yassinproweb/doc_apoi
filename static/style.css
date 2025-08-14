@@ -60,12 +60,8 @@ footer {
   padding: var(--x);
 }
 
-section,
-footer {
-  padding-block: var(--y);
-}
-
 section {
+  padding-block: var(--y);
   padding-top: 85px;
   background-color: var(--w);
 }
@@ -106,57 +102,6 @@ li {
 
 .scroll #titles {
   color: var(--b);
-}
-
-/* doctors section */
-.specialist,
-.diseases {
-  display: none;
-  visibility: hidden;
-  opacity: 0;
-}
-
-.specialist.show,
-.diseases.show {
-  display: flex;
-  visibility: visible;
-  opacity: 1;
-}
-
-.specialist:nth-child(-n+12),
-.diseases:nth-child(-n+17) {
-  display: flex;
-  visibility: visible;
-  opacity: 1;
-}
-
-.specialist h4,
-.diseases h4 {
-  pointer-events: none;
-  text-transform: capitalize;
-  text-align: center;
-}
-
-.specialist h4,
-.diseases h4 {
-  font-size: 19px;
-}
-
-.specialist:hover,
-.diseases:hover {
-  background: var(--b);
-}
-
-.specialist:hover [alt="doctorb"],
-.diseases:hover [alt="doctorb"],
-[alt="patient's records"] {
-  filter: brightness(0) invert(1);
-}
-
-.specialist:hover h4,
-.diseases:hover h4,
-.diseases:hover button {
-  color: var(--w);
 }
 
 
@@ -210,19 +155,4 @@ input[type="radio"]:checked+.label+.arcontent {
   display: block;
   transform: rotate(calc(var(--i) * -30deg));
   transform-origin: center;
-}
-
-
-
-/* footer */
-footer .follow a:hover {
-  color: var(--b);
-}
-
-footer ul li {
-  opacity: 0.75;
-}
-
-footer ul li:hover {
-  color: var(--l);
 }

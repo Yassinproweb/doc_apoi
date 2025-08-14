@@ -46,10 +46,10 @@
           platform as a healthcare specialist or one seeking healthcare services.</p>
       </div>
       <div class="relative w-full items-center justify-between">
-        <button id="login" class="w-[47%] py-3.5 text-w text-center font-medium capitalize rounded-2xl bg-b"
-          hx-get="/join-pat">For Patients <i class="ph ph-virus"></i></button>
-        <button id="signup" class="w-[47%] py-3.5 text-w text-center font-medium capitalize rounded-2xl bg-b"
-          hx-get="/join-doc">For Doctors <i class="ph ph-virus"></i></button>
+        <button id="signup-pat" class="w-[47%] py-3.5 text-w text-center font-medium capitalize rounded-2xl bg-b"
+          hx-get="/join-pat">For Patients <i class="ph-fill ph-virus text-xl"></i></button>
+        <button id="signup-pat" class="w-[47%] py-3.5 text-w text-center font-medium capitalize rounded-2xl bg-b"
+          hx-get="/join-doc">For Doctors <i class="ph-fill ph-syringe text-xl"></i></button>
       </div>
       <div class="relative w-full items-end justify-between">
         <img src="../static/imgs/jpgs/beds.jpg" alt=""
@@ -95,12 +95,16 @@
   </div>
 </section>
 
-
-<section id="healthcare" class="w-full items-start justify-between">
-  <div class="w-[47%] aspect-[3/4] flex-col items-start justify-between">
-    <span class="block text-b text-start font-medium font-['Mozilla_Headline'] uppercase">our specialists</span>
+<section id="healthcare" class="w-full aspect-video items-start justify-between">
+  <div class="w-[47%] aspect-[3/3.5] flex-col items-start justify-between">
+    <span class="block text-b text-start font-medium uppercase">our specialists</span>
     <h3 class="w-full text-5xl text-d text-start font-bold">Consultation with our <br>professional doctors</h3>
-    <p class="text-t"></p>
+    <p class="text-t">We are committed to strengthening our service delivery by combining advanced telemedicine
+      technology with the expertise of our health professionals, each with over 3 years of experience. Over the years,
+      we have proudly served more than 11,000 patients, delivering timely consultations, accurate diagnoses, and
+      effective treatment plans. Our dedication to accessibility, efficiency, and patient-centered care keeps us at the
+      forefront of transforming healthcare, bringing medical expertise directly to the comfort of our patients’ homes.
+    </p>
     <div class="w-full items-end justify-between">
       <div class="w-full flex-col items-center justify-end gap-2.5">
         <h4 class="text-7xl text-d font-bold">3+ yrs</h4>
@@ -114,8 +118,8 @@
   </div>
 
   <div class="w-[47%] flex-col items-start justify-between">
-    <img src="../static/imgs/jpgs/records.jpg" alt=""
-      class="w-full aspect-[3/4] object-cover object-center rounded-3xl brightness-90">
+    <img src="../static/imgs/jpgs/microscope.jpg" alt=""
+      class="w-full aspect-[3/3.5] object-cover object-center rounded-3xl">
   </div>
 </section>
 
@@ -222,39 +226,45 @@
   </div>
 </section>
 
-<section id="appointments" class="w-full aspect-video grid grid-cols-2 gap-14">
-  <div class="w-full aspect-square bg-[url('../static/imgs/jpgs/doctor.jpg')] bg-center bg-cover rounded-xl"></div>
-  <div class="w-full aspect-square flex-col justify-between py-7 pr-3">
-    <h2 class="text-d text-6xl font-bold capitalize">make an <br>appointment</h2>
-    <p class="text-xl text-t font-semibold">Enter your contact details in the form below and schedule an
-      appointment with one of our specialists.</p>
-    <form action="" method="get" accept-charset="utf-8" class="w-full flex-wrap gap-5 px-9 pl-3.5">
-      <input id="name" type="text"
-        class="block text-t text-lg font-medium px-7 py-3 outline outline-2 outline-t placeholder:text-t placeholder:opacity-65 rounded w-full capitalize"
-        placeholder="Enter your name" required>
-      <input id="email" type="email"
-        class="block text-t text-lg font-medium px-7 py-3 outline outline-2 outline-t placeholder:text-t placeholder:opacity-65 rounded w-full"
-        placeholder="Enter your email" required>
-      <div class="w-full items-center justify-between gap-5">
-        <input id="phone" type="tel"
-          class="block text-t text-lg font-medium px-7 py-3 outline outline-2 outline-t placeholder:text-t placeholder:opacity-65 rounded w-full"
-          placeholder="Phone Number" required>
-        <select id="app" type="text"
-          class="block text-t text-lg bg-w font-medium px-7 py-3 outline outline-2 outline-t rounded" required>
-          <option value="select app" disabled selected>Choose Mobile App</option>
-          <option value="Doxy.me">Doxy.me</option>
-          <option value="Zoom">Zoom</option>
-          <option value="Microsoft Teams">Microsoft Teams</option>
-        </select>
+<section id="reviews" class="w-full aspect-[4/1.5] items-center justify-between bg-w">
+  <div class="w-full max-w-[41%] h-full flex-col items-start justify-between gap-5">
+    <span class="block text-b text-start font-medium uppercase">our associates</span>
+    <h2 class="text-d text-5xl font-bold capitalize">what our associates <br>say about us?</h2>
+    <p class="text-xl text-t font-medium">Our doctors and patients share their experiences and ratings while working
+      with us.</p>
+    <button class="text-w font-medium px-11 py-3 rounded-full bg-b">Rate Us</button>
+  </div>
+
+  <div
+    class="relative w-full max-w-[51%] h-full items-start justify-start gap-5 overflow-x-scroll scroll-p-0 snap-mandatory">
+    <div class="absolute right-2.5 bottom-2.5 w-fit items-end justify-end gap-5 text-3xl">
+      <button id="prev"
+        class="w-10 aspect-square outline outline-2 outline-offset-4 outline-b rounded-full text-b font-bold flex items-center justify-center">
+        <i class="ph ph-caret-left"></i>
+      </button>
+    </div>
+    <div class="comment w-full h-full flex-col items-start justify-between gap-3.5 snap-x snap-center">
+      <h4 class="text-3xl text-d font-bold">Appreciation for communication</h4>
+      <p class="text-t text-lg italic">“I warmly take this chance to thank Doc_Apoi for establishing a
+        reliable communication channel linking patients to doctors. The platform provides information important in
+        healthcare and record keeping system is just on point, well engineered.”</p>
+      <span class="w-full h-0.5 bg-t/15"></span>
+
+      <div class="w-fit items-end justify-start gap-5">
+        <img src="../static/imgs/jpgs/chiropractor.jpg" alt=""
+          class="w-16 aspect-square object-cover object-center rounded-full">
+        <div class="w-full h-16 flex-col items-start justify-center gap-1.5">
+          <h6 class="text-xl text-d font-semibold">Asiimwe Latiifah</h6>
+          <div class="w-fit items-center justify-start gap-1.5 text-xl text-amber-500">
+            <i class="ph-fill ph-star"></i>
+            <i class="ph-fill ph-star"></i>
+            <i class="ph-fill ph-star"></i>
+            <i class="ph-fill ph-star"></i>
+            <i class="ph-fill ph-star-half"></i>
+          </div>
+        </div>
       </div>
-      <div class="w-full items-center justify-between gap-5">
-        <input id="diagnosis" type="text"
-          class="block text-t text-lg font-medium px-7 py-3 outline outline-2 outline-t placeholder:text-t placeholder:opacity-65 rounded w-full capitalize"
-          placeholder="Body Part/ Problem" required>
-        <button type="submit"
-          class="w-fit text-w text-lg py-3 px-9 rounded font-medium bg-b outline outline-2 outline-b capitalize">submit&nbsp;details</button>
-      </div>
-    </form>
+    </div>
   </div>
 </section>
 
@@ -269,7 +279,7 @@
       <img src="../static/imgs/jpgs/blood.jpg" alt="article telemedicine image"
         class="h-52 aspect-square object-cover object-center rounded-2xl">
       <div class="w-full h-full flex-col justify-between py-1.5">
-        <span class="text-t font-medium capitalize">healthcare | 24th Jan 2024</span>
+        <span class="text-t font-medium capitalize">healthcare | 24th January 2024</span>
         <h5 class="text-d text-2xl font-bold">The Importance of Preventive Care: How Regular Check-ups Can Save
           Lives</h5>
         <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
