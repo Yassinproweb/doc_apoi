@@ -147,12 +147,12 @@ input[type="radio"]:checked+.label+.arcontent {
   font-size: 35px;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(calc(var(--i) * 30deg)) translate(135px);
+  transform: translate(-50%, -50%) rotate(calc(var(--i) * 40deg)) translate(135px);
   transform-origin: center;
 }
 
 .circle i {
   display: block;
-  transform: rotate(calc(var(--i) * -30deg));
+  transform: rotate(calc(var(--i) * -40deg));
   transform-origin: center;
 }
