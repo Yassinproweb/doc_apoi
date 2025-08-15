@@ -931,6 +931,10 @@ video {
   border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
 }
 
+.border-b\/65 {
+  border-color: rgb(56 124 255 / 0.65);
+}
+
 .bg-b {
   --tw-bg-opacity: 1;
   background-color: rgb(56 124 255 / var(--tw-bg-opacity, 1));
@@ -1196,6 +1200,10 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.text-b\/65 {
+  color: rgb(56 124 255 / 0.65);
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -1241,7 +1249,7 @@ video {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  transition: all 350ms ease-out;
+  transition: all 350ms ease-in-out;
 }
 
 html {
@@ -1249,7 +1257,7 @@ html {
 }
 
 body {
-  background: var(--w);
+  width: 100%;
   font-family: "Encode Sans";
 }
 
