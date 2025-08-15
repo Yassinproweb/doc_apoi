@@ -105,6 +105,27 @@ li {
 }
 
 
+/* service */
+.service:hover {
+  background-color: var(--b);
+  scale: 1.05;
+}
+
+.service:hover h4 {
+  color: var(--w);
+}
+
+.service:hover p {
+  color: var(--f);
+}
+
+.service:hover h4,
+.service:hover p,
+.service:hover img {
+  scale: 1.05;
+}
+
+
 /* treatment section*/
 input[type="radio"]:checked+.label+.arcontent {
   max-height: 300px;
