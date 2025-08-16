@@ -37,9 +37,12 @@ h2,
 h3,
 h4,
 h5,
-h6,
-label {
+h6 label {
   font-family: "Mozilla Headline";
+}
+
+label {
+  font-weight: bold;
 }
 
 div,

@@ -1,9 +1,6 @@
 package models
 
 import (
-	"errors"
-	"strings"
-
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -13,17 +10,6 @@ type Doctor struct {
 	Password string `json:"password"`
 	Skill    string `json:"skill"`
 	Title    string `json:"title"`
-}
-
-// Validate checks if the doctor data is valid
-func (d *Doctor) Validate() error {
-	if len(d.Name) < 2 {
-		return errors.New("name must be at least 2 characters")
-	}
-	if !strings.Contains(d.Email, "@") || len(d.Email) < 3 {
-		return errors.New("invalid email")
-	}
-	return nil
 }
 
 // HashPassword hashes the doctor's password

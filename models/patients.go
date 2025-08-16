@@ -1,21 +1,26 @@
 package models
 
-import "errors"
+import (
+	"golang.org/x/crypto/bcrypt"
+)
 
 type Patient struct {
-	Name       string `json:"name"`
-	Email      string `json:"email"`
-	Age        int    `json:"age"`
-	Diagnostic string `json:"diagnostic"`
-	Contact    string `json:"contact"`
-	Location   string `json:"location"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
-// Validate checks if the student data is valid
-func (p *Patient) Validate() error {
-	if len(p.Name) < 2 {
-		return errors.New("name must be at least 2 characters")
+// HashPassword hashes the patient's password
+func (p *Patient) HashPassword() error {
+	hashed, err := bcrypt.GenerateFromPassword([]byte(p.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return err
 	}
-
+	p.Password = string(hashed)
 	return nil
+}
+
+// VerifyPassword checks if the provided password matches the stored hash
+func (p *Patient) VerifyPassword(password string) error {
+	return bcrypt.CompareHashAndPassword([]byte(p.Password), []byte(password))
 }

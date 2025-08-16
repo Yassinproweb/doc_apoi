@@ -46,15 +46,7 @@ func main() {
 		return c.Render("index", nil)
 	})
 
-	app.Get("/signup", func(c *fiber.Ctx) error {
-		return c.Render("signup", nil)
-	})
-
-	app.Get("/signin", func(c *fiber.Ctx) error {
-		return c.Render("signin", nil)
-	})
-
-	app.Post("/signup", func(c *fiber.Ctx) error {
+	app.Post("/register_doctor", func(c *fiber.Ctx) error {
 		name := c.FormValue("name")
 		email := c.FormValue("email")
 		password := c.FormValue("password")
@@ -151,5 +143,5 @@ func main() {
 	})
 
 	// Start server
-	log.Fatal(app.Listen(":4000"))
+	log.Fatal(app.Listen(":3100"))
 }
