@@ -36,7 +36,7 @@ func main() {
 		}
 		doctorID := sess.Get("doctor_id")
 		if doctorID == nil {
-			return c.Redirect("/signin")
+			return c.Redirect("/login_doctor")
 		}
 		return c.Next()
 	}
@@ -44,6 +44,10 @@ func main() {
 	// Routes
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Render("index", nil)
+	})
+
+	app.Get("/view", func(c *fiber.Ctx) error {
+		return c.Render("dashboard", nil)
 	})
 
 	app.Post("/register_doctor", func(c *fiber.Ctx) error {
@@ -83,7 +87,7 @@ func main() {
 		return c.SendStatus(fiber.StatusOK)
 	})
 
-	app.Post("/signin", func(c *fiber.Ctx) error {
+	app.Post("/login_doctor", func(c *fiber.Ctx) error {
 		email := c.FormValue("email")
 		password := c.FormValue("password")
 
@@ -143,5 +147,5 @@ func main() {
 	})
 
 	// Start server
-	log.Fatal(app.Listen(":3100"))
+	log.Fatal(app.Listen(":3102"))
 }

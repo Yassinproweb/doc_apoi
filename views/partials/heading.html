@@ -1,37 +1,7 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=1280">
-
-  <!-- link to favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="../static/imgs/pngs/doc_apoi.png">
-
-  <!-- link to google fonts-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100..900&family=Mozilla+Headline:wght@200..700&display=swap"
-    rel="stylesheet">
-
-  <!-- linkto tailwindcss -->
-  <link rel="stylesheet" href="../static/dist/style.css">
-
-  <!-- link to phosphor icons -->
-  <link rel="stylesheet" href="../static/icons/regular.css">
-  <link rel="stylesheet" href="../static/icons/bold.css">
-
-  <!-- htmx & alpine js -->
-  <script src="../static/js/htmx.min.js" defer></script>
-  <script src="../static/js/alpine.min.js" defer></script>
-
-  <!-- title of the page -->
-  <title>Doc_Apoi</title>
-</head>
+{{ template "head" . }}
 
 <body>
+
   <header class="sticky top-0 left-0 w-full items-center justify-between bg-f py-3.5 z-[1000]">
     <div id="title" class="w-fit items-center gap-1.5">
       <img src="../static/imgs/pngs/doc_apoi.png" alt="Doc_Apoi logo" class="w-9">

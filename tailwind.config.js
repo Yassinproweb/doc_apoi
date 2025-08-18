@@ -12,6 +12,7 @@ module.exports = {
         d: '#1a1b23', //-- black
         t: '#49433d', //-- text
         b: '#387CFF', //-- blue
+        l: '#98DCFF', //-- light
       },
       padding: {
         x: '5vw',

@@ -1,0 +1,46 @@
+{{ template "head" . }}
+
+<body class="w-full h-screen flex items-center justify-center bg-d">
+  <div class="w-full aspect-[16/9] flex items-center justify-between gap-7 p-7 bg-f">
+    <header class="w-12 h-full shrink-0 flex-col items-center justify-between rounded-xl bg-w">
+      <div class="w-full h-fit flex-col items-center justify-start gap-7 text-t text-3xl">
+        <img src="../static/imgs/pngs/doc_apoi.png" alt="Doc_Apoi logo" class="w-full mb-20">
+
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+          hx-get="/home" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
+          <i class="hgi hgi-stroke hgi-home-02"></i>
+        </span>
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+          hx-get="/calendar" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
+          <i class="hgi hgi-stroke hgi-calendar-03"></i>
+        </span>
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+          hx-get="/doctors" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
+          <i class="hgi hgi-stroke hgi-stethoscope"></i>
+        </span>
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+          hx-get="/healthcenters" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
+          <i class="hgi hgi-stroke hgi-hospital-02"></i>
+        </span>
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+          hx-get="/records" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
+          <i class="hgi hgi-stroke hgi-notebook-02"></i>
+        </span>
+      </div>
+
+      <div class="w-full h-fit flex-col items-center justify-end gap-7 text-t text-3xl">
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+          hx-get="/chat" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
+          <i class="hgi hgi-stroke hgi-message-question"></i>
+        </span>
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+          hx-get="/logout" hx-trigger="click" hx-swap="innerHtml">
+          <i class="hgi hgi-stroke hgi-logout-02"></i>
+        </span>
+      </div>
+    </header>
+
+  </div>
+</body>
+
+</html>

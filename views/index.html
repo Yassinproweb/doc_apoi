@@ -1,4 +1,4 @@
-{{ template "partials/heading" .}}
+{{ template "partials/heading" . }}
 
 <section id="hero" class="relative w-full aspect-[16/9] flex-col items-center justify-end gap-7 bg-f">
   <div class="absolute top-[11%] w-full items-start justify-between gap-5 px-x">
@@ -74,7 +74,7 @@
     <!-- doctor registration form -->
     <form method="post" id="register_doctor"
       class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
-      hx-post="/register_doctor" hx-target="#container" hx-trigger="submit" hx-swap="innerHtml" x-data="{
+      hx-post="/register_doctor" hx-trigger="submit" x-data="{
       name: '',
       email: '',
       password: '',
@@ -160,7 +160,7 @@
     <!-- doctor login form -->
     <form method="post" id="login_doctor"
       class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
-      hx-post="/login_doctor" hx-target="#container" hx-trigger="submit" hx-swap="innerHtml" x-data="{
+      hx-post="/login_doctor" hx-trigger="submit" x-data="{
       name: '',
       email: '',
       password: '',
@@ -215,7 +215,7 @@
     <!-- patient registration form -->
     <form method="post" id="register_patient"
       class="relative w-fit hidden flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
-      hx-post="/register_patient" hx-target="#container" hx-swap="innerHtml" x-data="{
+      hx-post="/register_patient" hx-trigger="submit" x-data="{
         name: '',
         email: '',
         password: '',
@@ -290,7 +290,7 @@
     <!-- patient login form -->
     <form method="post" id="login_patient"
       class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
-      hx-post="/login_patient" hx-target="#container" hx-trigger="submit" hx-swap="innerHtml" x-data="{
+      hx-post="/login_patient" hx-trigger="submit" x-data="{
       name: '',
       email: '',
       password: '',
@@ -770,4 +770,4 @@
   </div>
 </section>
 
-{{ template "partials/footing" .}}
+{{ template "partials/footing" . }}
