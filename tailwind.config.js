@@ -7,12 +7,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        w: '#fefeff', //-- white
-        f: '#f0f0f4', //-- off-white
-        d: '#1a1b23', //-- black
-        t: '#49433d', //-- text
+        w: '#FEFEFF', //-- white
+        f: '#F0F0F4', //-- off-white
+        d: '#1A1B23', //-- black
+        t: '#49433D', //-- text
         b: '#387CFF', //-- blue
-        l: '#98DCFF', //-- light
       },
       padding: {
         x: '5vw',
@@ -22,4 +21,3 @@ module.exports = {
   },
   plugins: [],
 }
-

@@ -1,45 +1,54 @@
 {{ template "head" . }}
 
 <body class="w-full h-screen flex items-center justify-center bg-d">
-  <div class="w-full aspect-[16/9] flex items-center justify-between gap-7 p-7 bg-f">
-    <header class="w-12 h-full shrink-0 flex-col items-center justify-between rounded-xl bg-w">
-      <div class="w-full h-fit flex-col items-center justify-start gap-7 text-t text-3xl">
-        <img src="../static/imgs/pngs/doc_apoi.png" alt="Doc_Apoi logo" class="w-full mb-20">
+  <div class="w-full aspect-[16/10] flex items-center justify-between gap-7 p-7 bg-f">
+    <header
+      class="w-20 h-full shrink-0 flex-col items-center justify-between gap-7 px-3 py-7 text-t text-3xl rounded-xl bg-w">
+      <div class="w-full h-fit flex-col items-center justify-start gap-1.5">
+        <img src="../static/imgs/pngs/doc_apoi.png" alt="Doc_Apoi logo" class="w-10 mb-3">
 
-        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
           hx-get="/home" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
           <i class="hgi hgi-stroke hgi-home-02"></i>
         </span>
-        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
           hx-get="/calendar" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
           <i class="hgi hgi-stroke hgi-calendar-03"></i>
         </span>
-        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
           hx-get="/doctors" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
           <i class="hgi hgi-stroke hgi-stethoscope"></i>
         </span>
-        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
           hx-get="/healthcenters" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
           <i class="hgi hgi-stroke hgi-hospital-02"></i>
         </span>
-        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
           hx-get="/records" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
           <i class="hgi hgi-stroke hgi-notebook-02"></i>
         </span>
       </div>
 
-      <div class="w-full h-fit flex-col items-center justify-end gap-7 text-t text-3xl">
-        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+      <div class="w-full h-fit flex-col items-center justify-end gap-2.5">
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
           hx-get="/chat" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
           <i class="hgi hgi-stroke hgi-message-question"></i>
         </span>
-        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-l"
+        <span class="w-full aspect-square inline-flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
           hx-get="/logout" hx-trigger="click" hx-swap="innerHtml">
-          <i class="hgi hgi-stroke hgi-logout-02"></i>
+          <i class="hgi hgi-stroke hgi-logout-03 rotate-180"></i>
         </span>
       </div>
     </header>
 
+    <div id="dashboard" class="w-full h-full flex-col items-center justify-between gap-7 p-0">
+      <nav class="w-full flex items-center justify-between">
+        <h1 class="text-3xl text-start text-d font-bold">Doc_Apoi</h1>
+        <div class="w-fit items-center justify-end gap-5">
+          <input id="search" type="search" class="w-fit text-start text-lg font-medium px-5 py-2.5 rounded-full bg-w">
+        </div>
+      </nav>
+    </div>
   </div>
 </body>
 
