@@ -1,15 +1,14 @@
 package main
 
 import (
-	"database/sql"
 	"log"
 	"time"
 
+	"github.com/Yassinproweb/TeleMedi/controllers"
 	"github.com/Yassinproweb/TeleMedi/data"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/template/html/v2"
-	"golang.org/x/crypto/bcrypt"
 )
 
 func main() {
@@ -20,7 +19,7 @@ func main() {
 		Views: html.New("./views", ".html"),
 	})
 
-	store := session.New(session.Config{
+	s := session.New(session.Config{
 		Expiration:     24 * time.Hour,
 		CookieHTTPOnly: true,
 		CookieSecure:   false, // Set to true in production with HTTPS
@@ -30,7 +29,7 @@ func main() {
 
 	// Authentication middleware
 	isAuthenticated := func(c *fiber.Ctx) error {
-		sess, err := store.Get(c)
+		sess, err := s.Get(c)
 		if err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
 		}
@@ -51,154 +50,20 @@ func main() {
 	})
 
 	// doctor registration
-	app.Post("/register_doctor", func(c *fiber.Ctx) error {
-		name := c.FormValue("name")
-		email := c.FormValue("email")
-		password := c.FormValue("password")
-		skill := c.FormValue("skill")
-		title := c.FormValue("title")
+	app.Post("/register_doctor", controllers.RegisterDoctor(s))
 
-		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("<p class='text-red-500 text-center'>Error hashing password</p>")
-		}
-
-		// Insert doctor into data
-		result, err := data.DB.Exec("INSERT INTO doctors (name, email, password, title, skill) VALUES (?, ?, ?, ?, ?)", name, email, hashedPassword, title, skill)
-		if err != nil {
-			return c.Status(fiber.StatusBadRequest).SendString("<p class='text-red-500 text-center'>Email already exists</p>")
-		}
-
-		// Get doctor ID
-		doctorID, _ := result.LastInsertId()
-
-		// Create session
-		sess, err := store.Get(c)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("<p class='text-red-500 text-center'>Session error</p>")
-		}
-		sess.Set("doctor_id", doctorID)
-		sess.Set("doctor_name", name)
-		if err := sess.Save(); err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("<p class='text-red-500 text-center'>Failed to save session</p>")
-		}
-
-		// Redirect for HTMX
-		c.Set("HX-Redirect", "/dashboard")
-		return c.SendStatus(fiber.StatusOK)
-	})
-
-	// doctor registration
-	app.Post("/register_patient", func(c *fiber.Ctx) error {
-		name := c.FormValue("name")
-		email := c.FormValue("email")
-		password := c.FormValue("password")
-
-		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("<p class='text-red-500 text-center'>Error hashing password</p>")
-		}
-
-		// Insert doctor into data
-		result, err := data.DB.Exec("INSERT INTO patients (name, email, password) VALUES (?, ?, ?)", name, email, hashedPassword)
-		if err != nil {
-			return c.Status(fiber.StatusBadRequest).SendString("<p class='text-red-500 text-center'>Email already exists</p>")
-		}
-
-		// Get doctor ID
-		patientID, _ := result.LastInsertId()
-
-		// Create session
-		sess, err := store.Get(c)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("<p class='text-red-500 text-center'>Session error</p>")
-		}
-		sess.Set("patient_id", patientID)
-		sess.Set("patient_name", name)
-		if err := sess.Save(); err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("<p class='text-red-500 text-center'>Failed to save session</p>")
-		}
-
-		// Redirect for HTMX
-		c.Set("HX-Redirect", "/dashboard")
-		return c.SendStatus(fiber.StatusOK)
-	})
+	// patient registration
+	app.Post("/register_patient", controllers.RegisterPatient(s))
 
 	// doctor login
-	app.Post("/login_doctor", func(c *fiber.Ctx) error {
-		email := c.FormValue("email")
-		password := c.FormValue("password")
-
-		var storedPassword, name string
-		var doctorID int
-		err := data.DB.QueryRow("SELECT id, name, password FROM doctors(where email = ?", email).Scan(&doctorID, &name, &storedPassword)
-		if err == sql.ErrNoRows {
-			return c.Status(fiber.StatusUnauthorized).SendString("<p class='text-red-500 text-center'>Invalid email or password</p>")
-		}
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("<p class='text-red-500 text-center'>data error</p>")
-		}
-
-		// Verify password
-		if err := bcrypt.CompareHashAndPassword([]byte(storedPassword), []byte(password)); err != nil {
-			return c.Status(fiber.StatusUnauthorized).SendString("<p class='text-red-500 text-center'>Invalid email or password</p>")
-		}
-
-		// Create session
-		sess, err := store.Get(c)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("<p class='text-red-500 text-center'>Session error</p>")
-		}
-		sess.Set("doctor_id", doctorID)
-		sess.Set("doctor_name", name)
-		if err := sess.Save(); err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("<p class='text-red-500 text-center'>Failed to save session</p>")
-		}
-
-		// Redirect for HTMX
-		c.Set("HX-Redirect", "/dashboard")
-		return c.SendStatus(fiber.StatusOK)
-	})
+	app.Post("/login_doctor", controllers.LoginDoctor(s))
 
 	// patient login
-	app.Post("/login_patient", func(c *fiber.Ctx) error {
-		email := c.FormValue("email")
-		password := c.FormValue("password")
-
-		var storedPassword, name string
-		var patientID int
-		err := data.DB.QueryRow("SELECT id, name, password FROM patients(where email = ?", email).Scan(&patientID, &name, &storedPassword)
-		if err == sql.ErrNoRows {
-			return c.Status(fiber.StatusUnauthorized).SendString("<p class='text-red-500 text-center'>Invalid email or password</p>")
-		}
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("<p class='text-red-500 text-center'>data error</p>")
-		}
-
-		// Verify password
-		if err := bcrypt.CompareHashAndPassword([]byte(storedPassword), []byte(password)); err != nil {
-			return c.Status(fiber.StatusUnauthorized).SendString("<p class='text-red-500 text-center'>Invalid email or password</p>")
-		}
-
-		// Create session
-		sess, err := store.Get(c)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("<p class='text-red-500 text-center'>Session error</p>")
-		}
-		sess.Set("patient_id", patientID)
-		sess.Set("patient_name", name)
-		if err := sess.Save(); err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("<p class='text-red-500 text-center'>Failed to save session</p>")
-		}
-
-		// Redirect for HTMX
-		c.Set("HX-Redirect", "/dashboard")
-		return c.SendStatus(fiber.StatusOK)
-	})
+	app.Post("/login_patient", controllers.LoginPatient(s))
 
 	// Protected dashboard route
 	app.Get("/dashboard", isAuthenticated, func(c *fiber.Ctx) error {
-		sess, err := store.Get(c)
+		sess, err := s.Get(c)
 		if err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
 		}
@@ -210,7 +75,7 @@ func main() {
 
 	// Logout route
 	app.Get("/logout", func(c *fiber.Ctx) error {
-		sess, err := store.Get(c)
+		sess, err := s.Get(c)
 		if err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
 		}
