@@ -10,7 +10,7 @@
 
   <div class="w-full items-end justify-between gap-9">
     <div class="w-full max-w-[25%] flex-col items-start justify-end gap-3.5">
-      <h2 class="text-7xl text-d text-start font-bold capitalize">under 1&nbsp;year</h2>
+      <h2 class="text-7xl text-d text-start font-bold capitalize">under <span class="text-b">1</span>&nbsp;year</h2>
       <p class="text-t">With less than a year in service, we're solving communication problems in
         healthcare.</p>
     </div>
@@ -24,16 +24,16 @@
       </div>
       <div class="w-full items-end justify-between gap-2.5 font-['Mozilla_Headline']">
         <div class="w-full flex-col items-center justify-end">
-          <h3 class="text-5xl text-start text-d font-bold capitalize">9</h3>
-          <p class="text-b">Hospitals</p>
+          <h3 class="text-5xl text-start text-b font-bold capitalize">9</h3>
+          <p class="text-d font-medium">Hospitals</p>
         </div>
         <div class="w-full flex-col items-center justify-end">
-          <h3 class="text-5xl text-start text-d font-bold capitalize">11</h3>
-          <p class="text-b">Pharmacies</p>
+          <h3 class="text-5xl text-start text-b font-bold capitalize">11</h3>
+          <p class="text-d font-medium">Pharmacies</p>
         </div>
         <div class="w-full flex-col items-center justify-end">
-          <h3 class="text-5xl text-start text-d font-bold capitalize">27</h3>
-          <p class="text-b">Clinics</p>
+          <h3 class="text-5xl text-start text-b font-bold capitalize">27</h3>
+          <p class="text-d font-medium">Clinics</p>
         </div>
       </div>
     </div>
@@ -46,10 +46,12 @@
           platform as a healthcare specialist or one seeking healthcare services.</p>
       </div>
       <div class="relative w-full items-center justify-between">
-        <button id="register-pat" class="w-[47%] flex items-center justify-center py-3.5 text-w rounded-2xl bg-b">For
-          Patients <i class="ph-fill ph-virus text-2xl"></i></button>
-        <button id="register-doc" class="w-[47%] flex items-center justify-center py-3.5 text-w rounded-2xl bg-b">For
-          Doctors <i class="ph-fill ph-syringe text-2xl"></i></button>
+        <button id="register-pat"
+          class="w-[47%] flex items-center justify-center gap-2.5 py-3.5 text-w rounded-2xl bg-b">For
+          Patients <i class="hgi hgi-stroke hgi-patient text-2xl"></i></button>
+        <button id="register-doc"
+          class="w-[47%] flex items-center justify-center gap-2.5 py-3.5 text-w rounded-2xl bg-b">For
+          Doctors <i class="hgi hgi-stroke hgi-doctor-02 text-2xl"></i></button>
       </div>
       <div class="relative w-full items-end justify-between">
         <img src="../static/imgs/jpgs/beds.jpg" alt=""
@@ -68,7 +70,7 @@
   <div class="relative w-full h-full items-center justify-center bg-f">
     <span id="close-form"
       class="absolute top-[15%] right-[15%] flex items-center justify-center p-2.5 rounded-full bg-b">
-      <i class="ph ph-x text-xl text-w"></i>
+      <i class="hgi hgi-stroke hgi-x text-xl text-w"></i>
     </span>
 
     <!-- doctor registration form -->
@@ -410,16 +412,19 @@
       <img src="../static/imgs/jpgs/techs.jpg" alt=""
         class="absolute h-full aspect-[3.5/4] -top-[1px] left-0 object-cover object-center z-10">
       <div class="container z-20">
-        <div class="center ph-fill ph-first-aid"></div>
-        <div class="circle" style="--i:0;"><i class="ph-fill ph-syringe"></i></div>
-        <div class="circle" style="--i:1;"><i class="ph-fill ph-virus"></i></div>
-        <div class="circle" style="--i:2;"><i class="ph-fill ph-tooth"></i></div>
-        <div class="circle" style="--i:3;"><i class="ph-fill ph-stethoscope"></i></div>
-        <div class="circle" style="--i:4;"><i class="ph-fill ph-pill"></i></div>
-        <div class="circle" style="--i:5;"><i class="ph-fill ph-first-aid-kit"></i></div>
-        <div class="circle" style="--i:6;"><i class="ph-fill ph-face-mask"></i></div>
-        <div class="circle" style="--i:7;"><i class="ph-fill ph-dna"></i></div>
-        <div class="circle" style="--i:8;"><i class="ph-fill ph-heartbeat"></i></div>
+        <div class="center"><i class="hgi hgi-stroke hgi-hospital-02"></i></div>
+        <div class="circle" style="--i:0;"><i class="hgi hgi-stroke hgi-vaccine"></i></div>
+        <div class="circle" style="--i:1;"><i class="hgi hgi-stroke hgi-bacteria"></i></div>
+        <div class="circle" style="--i:2;"><i class="hgi hgi-stroke hgi-dental-broken-tooth"></i></div>
+        <div class="circle" style="--i:3;"><i class="hgi hgi-stroke hgi-blood-bottle"></i></div>
+        <div class="circle" style="--i:4;"><i class="hgi hgi-stroke hgi-medicine-02"></i></div>
+        <div class="circle" style="--i:5;"><i class="hgi hgi-stroke hgi-first-aid-kit"></i></div>
+        <div class="circle" style="--i:6;"><i class="hgi hgi-stroke hgi-broken-bone"></i></div>
+        <div class="circle" style="--i:7;"><i class="hgi hgi-stroke hgi-hospital-bed-02"></i></div>
+        <div class="circle" style="--i:8;"><i class="hgi hgi-stroke hgi-brain-02"></i></div>
+        <div class="circle" style="--i:9;"><i class="hgi hgi-stroke hgi-ambulance"></i></div>
+        <div class="circle" style="--i:10;"><i class="hgi hgi-stroke hgi-labs"></i></div>
+        <div class="circle" style="--i:11;"><i class="hgi hgi-stroke hgi-cardiogram-02"></i></div>
       </div>
     </div>
     <img src="../static/imgs/jpgs/medic.jpg"
@@ -515,11 +520,11 @@
           <div class="w-full h-16 flex-col items-start justify-center gap-1.5">
             <h6 class="text-xl text-d font-semibold">Latiifah Kansiime</h6>
             <div class="w-fit items-center justify-start gap-1.5 text-xl text-amber-500">
-              <i class="ph-fill ph-star"></i>
-              <i class="ph-fill ph-star"></i>
-              <i class="ph-fill ph-star"></i>
-              <i class="ph-fill ph-star"></i>
-              <i class="ph-fill ph-star-half"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star-half"></i>
             </div>
           </div>
         </div>
@@ -538,11 +543,11 @@
           <div class="w-full h-16 flex-col items-start justify-center gap-1.5">
             <h6 class="text-xl text-d font-semibold">Yasin Katungi</h6>
             <div class="w-fit items-center justify-start gap-1.5 text-xl text-amber-500">
-              <i class="ph-fill ph-star"></i>
-              <i class="ph-fill ph-star"></i>
-              <i class="ph-fill ph-star"></i>
-              <i class="ph-fill ph-star"></i>
-              <i class="ph-fill ph-star-half"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star-half"></i>
             </div>
           </div>
         </div>
@@ -562,11 +567,11 @@
           <div class="w-full h-16 flex-col items-start justify-center gap-1.5">
             <h6 class="text-xl text-d font-semibold">Shariifah Kyomuhangi</h6>
             <div class="w-fit items-center justify-start gap-1.5 text-xl text-amber-500">
-              <i class="ph-fill ph-star"></i>
-              <i class="ph-fill ph-star"></i>
-              <i class="ph-fill ph-star"></i>
-              <i class="ph-fill ph-star"></i>
-              <i class="ph-fill ph-star-half"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star-half"></i>
             </div>
           </div>
         </div>
@@ -587,7 +592,7 @@
         <input type="radio" id="faq1" name="accordion" class="hidden" checked>
         <label for="faq1"
           class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">What
-          is telemedicine & Doc_Apoi? <i class="ph-fill ph-question text-3xl"></i></label>
+          is telemedicine & Doc_Apoi? <i class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
         <div class="hidden max-h-0 px-7 pb-5 arcontent">
           <p class="text-t">Telemedicine involves providing medical care and consultations remotely using
             telecommunications technology. Doc_Apoi allows patients to consult with healthcare providers via video
@@ -598,7 +603,7 @@
         <input type="radio" id="faq2" name="accordion" class="hidden">
         <label for="faq2"
           class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">What
-          appointments are suitable for telemedicine? <i class="ph-fill ph-question text-3xl"></i></label>
+          appointments are suitable for telemedicine? <i class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
         <div class="hidden max-h-0 px-7 pb-5 arcontent">
           <p class="text-t">Telemedicine appointments are suitable for a wide range of non-emergency medical
             concerns, including routine check-ups, follow-up visits, medication management, mental health
@@ -609,7 +614,7 @@
         <input type="radio" id="faq3" name="accordion" class="hidden">
         <label for="faq3"
           class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">How
-          do I schedule a telemedicine appointment? <i class="ph-fill ph-question text-3xl"></i></label>
+          do I schedule a telemedicine appointment? <i class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
         <div class="hidden max-h-0 px-7 pb-5 arcontent">
           <p class="text-t">You can schedule a telemedicine appointment by contacting our office during business
             hours. Our staff will assist you in scheduling a convenient time for your virtual consultation.</p>
@@ -619,7 +624,7 @@
         <input type="radio" id="faq4" name="accordion" class="hidden">
         <label for="faq4"
           class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">What
-          technology do I need for telemedicine? <i class="ph-fill ph-question text-3xl"></i></label>
+          technology do I need for telemedicine? <i class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
         <div class="hidden max-h-0 px-7 pb-5 arcontent">
           <p class="text-t">To participate in a telemedicine appointment, you will need a smartphone, tablet, or
             computer with a webcam and microphone. You will also need a stable internet connection to ensure clear
@@ -633,7 +638,7 @@
         <label for="faq5"
           class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">how
           to deal with technical issues in a telemedicine appointment? <i
-            class="ph-fill ph-question text-3xl"></i></label>
+            class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
         <div class="hidden max-h-0 px-7 pb-5 arcontent">
           <p class="text-t">If you experience technical difficulties during your telemedicine appointment, please
             contact our office immediately for assistance. Our staff will work to resolve any technical issues and
@@ -645,7 +650,7 @@
         <label for="faq6"
           class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">Can
           prescriptions be issued during a telemedicine appointment? <i
-            class="ph-fill ph-question text-3xl"></i></label>
+            class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
         <div class="hidden max-h-0 px-7 pb-5 arcontent">
           <p class="text-t">Yes, healthcare providers can issue prescriptions during telemedicine appointments for
             certain medications, when appropriate and medically necessary. Prescription refill requests can also be
@@ -656,7 +661,8 @@
         <input type="radio" id="faq7" name="accordion" class="hidden">
         <label for="faq7"
           class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">how
-          about physical examination or diagnostic tests? <i class="ph-fill ph-question text-3xl"></i></label>
+          about physical examination or diagnostic tests? <i
+            class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
         <div class="hidden max-h-0 px-7 pb-5 arcontent">
           <p class="text-t">In some cases, a physical examination or diagnostic tests may be necessary to fully
             evaluate your medical condition. If needed, your healthcare provider will discuss options for in-person
@@ -667,7 +673,7 @@
         <input type="radio" id="faq8" name="accordion" class="hidden">
         <label for="faq8"
           class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">can
-          i access medical records during telemedicine? <i class="ph-fill ph-question text-3xl"></i></label>
+          I access medical records during telemedicine? <i class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
         <div class="hidden max-h-0 px-7 pb-5 arcontent">
           <p class="text-t">Yes, medical records from telemedicine appointments are securely stored in our
             electronic health records system. You can access your telemedicine visit summaries and medical records
@@ -682,7 +688,7 @@
   <div class="w-full items-end justify-between">
     <h3 class="text-5xl text-d font-bold capitalize">recommended articles for you</h3>
     <button class="text-b text-xl font-medium flex items-center justify-end gap-2">See All <i
-        class="ph ph-circles-four text-3xl"></i></button>
+        class="hgi hgi-stroke hgi-circles-four text-3xl"></i></button>
   </div>
   <div class="w-full grid grid-cols-2 grid-rows-3 gap-9">
     <article class="w-full items-center gap-5">
@@ -693,7 +699,7 @@
         <h5 class="text-d text-2xl font-bold">The Importance of Preventive Care: How Regular Check-ups Can Save
           Lives</h5>
         <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
-            class="ph ph-arrow-right text-2xl"></i></button>
+            class="hgi hgi-stroke hgi-arrow-right-02 text-2xl"></i></button>
       </div>
     </article>
     <article class="w-full items-center gap-5">
@@ -704,7 +710,7 @@
         <h5 class="text-d text-2xl font-bold">Innovations in Healthcare: Exploring the Latest Technologies in Our
           Hospital</h5>
         <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
-            class="ph ph-arrow-right text-2xl"></i></button>
+            class="hgi hgi-stroke hgi-arrow-right-02 text-2xl"></i></button>
       </div>
     </article>
     <article class="w-full items-center gap-5">
@@ -714,7 +720,7 @@
         <span class="text-t font-medium capitalize">Doctors & Nurses | 03rd March 2021</span>
         <h5 class="text-d text-2xl font-bold">A Day in the Life of a Nurse: Behind the Scenes at Our Hospital</h5>
         <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
-            class="ph ph-arrow-right text-2xl"></i></button>
+            class="hgi hgi-stroke hgi-arrow-right-02 text-2xl"></i></button>
       </div>
     </article>
     <article class="w-full items-center gap-5">
@@ -725,7 +731,7 @@
         <h5 class="text-d text-2xl font-bold">The Future of Healthcare: Trends and Predictions for the Next Decade
         </h5>
         <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
-            class="ph ph-arrow-right text-2xl"></i></button>
+            class="hgi hgi-stroke hgi-arrow-right-02 text-2xl"></i></button>
       </div>
     </article>
     <article class="w-full items-center gap-5">
@@ -736,7 +742,7 @@
         <h5 class="text-d text-2xl font-bold">Patient Success Stories: Inspiring Tales of Healing and Recovery
         </h5>
         <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
-            class="ph ph-arrow-right text-2xl"></i></button>
+            class="hgi hgi-stroke hgi-arrow-right-02 text-2xl"></i></button>
       </div>
     </article>
     <article class="w-full items-center gap-5">
@@ -746,7 +752,7 @@
         <span class="text-t font-medium capitalize">Telemedicine | 09th February 2021</span>
         <h5 class="text-d text-2xl font-bold">Embracing Telemedicine: Revolutionizing Healthcare Delivery</h5>
         <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
-            class="ph ph-arrow-right text-2xl"></i></button>
+            class="hgi hgi-stroke hgi-arrow-right-02 text-2xl"></i></button>
       </div>
     </article>
   </div>
