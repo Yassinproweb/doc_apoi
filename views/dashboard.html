@@ -1,9 +1,9 @@
 {{ template "head" . }}
 
 <body class="w-full h-screen flex items-center justify-center bg-d">
-  <div class="w-full aspect-[16/10] flex items-center justify-between gap-7 p-7 bg-f">
+  <div class="w-full aspect-[16/10] flex items-center justify-between gap-5 p-5 bg-f">
     <header
-      class="w-20 h-full shrink-0 flex-col items-center justify-between gap-7 px-3 py-7 text-t text-3xl rounded-xl bg-w">
+      class="w-20 h-full shrink-0 flex-col items-center justify-between gap-7 px-3 py-7 text-b text-3xl rounded-xl bg-w">
       <div class="w-full h-fit flex-col items-center justify-start gap-1.5">
         <img src="../static/imgs/pngs/doc_apoi.png" alt="Doc_Apoi logo" class="w-10 mb-3">
 
@@ -41,16 +41,18 @@
       </div>
     </header>
 
-    <div id="dashboard" class="w-full h-full flex-col items-center justify-start gap-7 p-0">
-      <nav class="w-full flex items-center justify-between">
+    <div id="dashboard" class="w-full h-full flex-col items-center justify-start gap-5 p-0">
+      <nav class="w-full shrink-0 flex items-center justify-between">
         <h1 class="text-3xl text-start text-d font-bold">Doc_Apoi</h1>
         <div class="w-fit items-center justify-end gap-5">
           <input id="search" type="search"
-            class="w-fit h-12 min-w-72 text-start text-lg font-medium px-5 py-2.5 rounded-xl bg-w">
-          <span class="h-12 aspect-square flex items-center justify-center text-3xl text-d rounded-xl bg-w">
+            class="w-fit h-12 min-w-72 text-start text-lg font-medium px-5 py-2.5 rounded-xl border border-d/15 border border-d/15 bg-w">
+          <span
+            class="h-12 aspect-square flex items-center justify-center text-3xl text-b rounded-xl bg-w hover:bg-b/20">
             <i class="hgi hgi-stroke hgi-notification-square"></i>
           </span>
-          <span class="h-12 aspect-square flex items-center justify-center text-3xl text-d rounded-xl bg-w">
+          <span
+            class="h-12 aspect-square flex items-center justify-center text-3xl text-b rounded-xl bg-w hover:bg-b/20">
             <i class="hgi hgi-stroke hgi-account-setting-03"></i>
           </span>
           <div class="h-12 items-center justify-center gap-2.5 px-1.5 rounded-xl bg-w">
@@ -64,20 +66,53 @@
         </div>
       </nav>
 
-      <div class="w-full flex-col items-center justify-start gap-9">
-        <div class="w-full items-end justify-between">
+      <div class="w-full h-full flex-col items-center justify-start gap-9">
+        <div class="w-full shrink-0 items-end justify-between">
           <h2 class="text-2xl text-d font-bold">Speciality</h2>
           <div class="items-end justify-end gap-5">
-            <span class="text-3xl text-d/65 hgi hgi-stroke hgi-arrow-left-04"></span>
-            <span class="text-3xl text-d hgi hgi-stroke hgi-arrow-right-04"></span>
+            <span class="text-3xl text-b/55 hgi hgi-stroke hgi-arrow-left-04"></span>
+            <span class="text-3xl text-b hgi hgi-stroke hgi-arrow-right-04"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full h-full min-h-[67%] items-start justify-start gap-5">
+        <div
+          class="w-[30%] shrink-0 h-full flex-col gap-5 items-center justify-start p-3.5 rounded-2xl overflow-y-scroll bg-w">
+          <div
+            class="doctor w-full aspect-[4/2.5] flex-col items-center justify-between gap-1.5 p-3 rounded-xl border-2 border-t/20 hover:border-b/70">
+            <div class="w-full items-center justify-start gap-2.5">
+              <img src="../static/imgs/jpgs/hero.jpg" alt=""
+                class="pic-profile w-12 aspect-square shrink-0 object-cover object-center rounded-lg">
+              <div class="w-full flex-col items-start justify-between py-1.5">
+                <p class="doc-name text-base text-d font-medium">Katungi Yassin</p>
+                <snap class="doc-speciality text-t/75 text-xs flex items-center justify-start gap-x-1.5">
+                  Otolaryngologist
+                  <snap class="inline-block w-1.5 aspect-square rounded-3xl bg-t/65"></snap> <span
+                    class="doc-experience">5</span> years exp...
+                </snap>
+              </div>
+            </div>
+            <div class="w-full flex-col items-start justify-start gap-2.5">
+              <p class="text-d text-base font-medium capitalize">Available Today</p>
+              <ul class="w-full flex flex-col">
+                <li class="text-xs text-t list-item list-inside list-disc">Online Consultations</li>
+                <li class="text-xs text-t list-item list-inside list-disc">Offline at Poimedic Hospital, Kampala.</li>
+              </ul>
+            </div>
+            <div class="w-full items-end justify-between border-t-2 border-t/25 pt-1.5">
+              <p class="text-t text-xs capitalize">Consultation Fee</p>
+              <p class="text-d text-sm font-bold capitalize"><span class="font-medium opacity-45">Ugx</span>35,000 -
+                150,000</p>
+            </div>
           </div>
         </div>
 
-        <div class="w-full items-center justify-start gap-7">
-
+        <div class="w-full h-full flex-col gap-5 items-center justify-start p-3.5 rounded-2xl bg-w">
         </div>
       </div>
     </div>
+  </div>
   </div>
 </body>
 
