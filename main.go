@@ -19,13 +19,13 @@ func main() {
 		Views: html.New("./views", ".html"),
 	})
 
+	app.Static("/static", "./static")
+
 	s := session.New(session.Config{
 		Expiration:     24 * time.Hour,
 		CookieHTTPOnly: true,
 		CookieSecure:   false, // Set to true in production with HTTPS
 	})
-
-	app.Static("/static", "./static")
 
 	// Authentication middleware
 	isAuthenticated := func(c *fiber.Ctx) error {
@@ -86,5 +86,5 @@ func main() {
 	})
 
 	// Start server
-	log.Fatal(app.Listen(":7001"))
+	log.Fatal(app.Listen(":7007"))
 }
