@@ -181,6 +181,21 @@ input[type="radio"]:checked+.label+.arcontent {
   transform-origin: center;
 }
 
-button.mixitup-control-active {
+/* menu toggle */
+menu {
+  transform: translateX(386px);
+  transform-origin: right;
+}
+
+menu.show {
+  transform: translateX(0);
+}
+
+[data-filter].mixitup-control-active {
   background: var(--b);
+  color: var(--w);
+}
+
+[data-filter].mixitup-control-active img {
+  filter: brightness(0) invert(1);
 }

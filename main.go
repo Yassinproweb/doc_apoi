@@ -19,7 +19,7 @@ func main() {
 		Views: html.New("./views", ".html"),
 	})
 
-	app.Static("/static", "./static")
+	app.Static("/", "./static")
 
 	s := session.New(session.Config{
 		Expiration:     24 * time.Hour,
@@ -86,5 +86,5 @@ func main() {
 	})
 
 	// Start server
-	log.Fatal(app.Listen(":7007"))
+	log.Fatal(app.Listen(":4800"))
 }
