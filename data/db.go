@@ -24,7 +24,8 @@ func InitDB() {
 			password TEXT NOT NULL,
 			name TEXT NOT NULL,
 			skill TEXT NOT NULL,
-			title TEXT NOT NULL
+			title TEXT NOT NULL,
+			venue TEXT NOT NULL
 		)
 	`)
 	if err != nil {
@@ -38,7 +39,6 @@ func InitDB() {
 			doctor_id INTEGER,
 			name TEXT NOT NULL,
 			age INTEGER NOT NULL,
-			diagnosis TEXT NOT NULL,
 			contact TEXT NOT NULL,
 			district TEXT NOT NULL,
 			FOREIGN KEY (doctor_id) REFERENCES doctors(id)
@@ -54,16 +54,28 @@ func InitDB() {
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			doctor_name TEXT NOT NULL,
 			patient_name TEXT NOT NULL,
-			diagnosis TEXT NOT NULL,
 			time DATETIME DEFAULT CURRENT_TIMESTAMP,
 			type TEXT NOT NULL,
 			platform TEXT NOT NULL,
 			FOREIGN KEY (doctor_name) REFERENCES doctors(name),
-			FOREIGN KEY (patient_name) REFERENCES patients(name),
-			FOREIGN KEY (diagnosis) REFERENCES patients(diagnosis)
+			FOREIGN KEY (patient_name) REFERENCES patients(name)
 		)
 	`)
 	if err != nil {
 		log.Fatal("Faile to create appointments table:", err)
+	}
+
+	// diagnoses table
+	_, err = DB.Exec(`
+		CREATE TABLE IF NOT EXISTS diagnoses (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			symptoms TEXT NOT NULL,
+			treatments TEXT NOT NULL,
+			specialty TEXT NOT NULL,
+			FOREIGN KEY (specialty) REFERENCES doctors(skill)
+		)
+	`)
+	if err != nil {
+		log.Fatal("Failed to create doctors table:", err)
 	}
 }

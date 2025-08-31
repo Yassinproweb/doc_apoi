@@ -6,6 +6,18 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/session"
 )
 
+var Store *session.Store
+
+func GetDoctors() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		if _, err := models.GetAllDoctors(); err != nil {
+			return c.SendStatus(fiber.StatusBadRequest)
+		}
+
+		return c.SendStatus(fiber.StatusOK)
+	}
+}
+
 func RegisterDoctor(s *session.Store) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		name := c.FormValue("name")
@@ -13,15 +25,16 @@ func RegisterDoctor(s *session.Store) fiber.Handler {
 		password := c.FormValue("password")
 		skill := c.FormValue("skill")
 		title := c.FormValue("title")
+		venue := c.FormValue("venue")
 
-		err := models.AddDoctor(name, email, password, skill, title)
+		err := models.AddDoctor(name, email, password, skill, title, venue)
 		if err != nil {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
 
 		// Create session
 		sess, _ := s.Get(c)
-		sess.Set("doctor_name", name)
+		sess.Set("doctor_email", email)
 		sess.Save()
 
 		// Redirect for HTMX
@@ -37,7 +50,7 @@ func LoginDoctor(s *session.Store) fiber.Handler {
 
 		d, err := models.GetDoctor(email)
 		if err != nil || !d.CheckPassword(password) {
-			return c.SendStatus(fiber.StatusNotFound)
+			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 
 		// Create session
@@ -50,13 +63,9 @@ func LoginDoctor(s *session.Store) fiber.Handler {
 	}
 }
 
-func UpdateDoctor(s *session.Store) fiber.Handler {
+func UpdateDoctor() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		sess, err := s.Get(c)
-		if err != nil {
-			return c.SendStatus(fiber.StatusInternalServerError)
-		}
-
+		sess, err := Store.Get(c)
 		email := sess.Get("doctor_email")
 		if email == nil {
 			return c.SendStatus(fiber.StatusUnauthorized) // not logged in
@@ -65,9 +74,10 @@ func UpdateDoctor(s *session.Store) fiber.Handler {
 		name := c.FormValue("name")
 		skill := c.FormValue("skill")
 		title := c.FormValue("title")
+		venue := c.FormValue("venue")
 		password := c.FormValue("password")
 
-		_, err = models.EditDoctor(email.(string), name, password, skill, title)
+		_, err = models.EditDoctor(email.(string), name, password, skill, title, venue)
 		if err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}
@@ -79,12 +89,9 @@ func UpdateDoctor(s *session.Store) fiber.Handler {
 }
 
 // Get edit doctor form
-func EditDoctorForm(s *session.Store) fiber.Handler {
+func EditDoctorForm() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		sess, err := s.Get(c)
-		if err != nil {
-			return c.SendStatus(fiber.StatusInternalServerError)
-		}
+		sess, err := Store.Get(c)
 		email := sess.Get("doctor_email")
 		if email == nil {
 			return c.SendStatus(fiber.StatusUnauthorized)
@@ -97,6 +104,7 @@ func EditDoctorForm(s *session.Store) fiber.Handler {
 			return c.SendStatus(fiber.StatusNotFound)
 		}
 
-		return c.Render("update", fiber.Map{"Doctor": d})
+		return c.Render("update-doctor", fiber.Map{"Doctor": d})
 	}
 }
+

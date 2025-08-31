@@ -13,6 +13,7 @@ type Doctor struct {
 	Password string `json:"password"`
 	Skill    string `json:"skill"`
 	Title    string `json:"title"`
+	Venue    string `json:"venue"`
 }
 
 func GetAllDoctors() ([]Doctor, error) {
@@ -27,7 +28,7 @@ func GetAllDoctors() ([]Doctor, error) {
 	for rows.Next() {
 		var d Doctor
 
-		if err := rows.Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title); err != nil {
+		if err := rows.Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title, &d.Venue); err != nil {
 			return nil, err
 		}
 
@@ -37,7 +38,7 @@ func GetAllDoctors() ([]Doctor, error) {
 	return doctors, err
 }
 
-func AddDoctor(name, email, password, skill, title string) error {
+func AddDoctor(name, email, password, skill, title, venue string) error {
 	_, err := GetDoctor(email)
 	if err != nil {
 		return errors.New(`Email already taken`)
@@ -49,7 +50,7 @@ func AddDoctor(name, email, password, skill, title string) error {
 	}
 
 	// Insert doctor into data
-	_, err = data.DB.Exec(`INSERT INTO doctors (name, email, password, title, skill) VALUES (?, ?, ?, ?, ?)`, name, email, string(hashedPassword), title, skill)
+	_, err = data.DB.Exec(`INSERT INTO doctors (name, email, password, title, skill, venue) VALUES (?, ?, ?, ?, ?)`, name, email, string(hashedPassword), title, skill, venue)
 
 	return err
 }
@@ -67,8 +68,8 @@ func GetDoctor(email string) (*Doctor, error) {
 }
 
 func GetDoctorByEmail(email string, d *Doctor) error {
-	return data.DB.QueryRow(`SELECT name, email, skill, title FROM doctors WHERE email=?`, email).
-		Scan(&d.Name, &d.Email, &d.Skill, &d.Title)
+	return data.DB.QueryRow(`SELECT name, email, skill, title, venue FROM doctors WHERE email=?`, email).
+		Scan(&d.Name, &d.Email, &d.Skill, &d.Title, &d.Venue)
 }
 
 func GetDoctorByName(name string) (*Doctor, error) {
@@ -76,7 +77,7 @@ func GetDoctorByName(name string) (*Doctor, error) {
 
 	var d Doctor
 
-	err := row.Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title)
+	err := row.Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title, &d.Venue)
 	if err != nil {
 		return nil, err
 	}
@@ -84,11 +85,11 @@ func GetDoctorByName(name string) (*Doctor, error) {
 	return &d, err
 }
 
-func EditDoctor(email, name, password, skill, title string) (*Doctor, error) {
+func EditDoctor(email, name, password, skill, title, venue string) (*Doctor, error) {
 	// Get current record
 	var d Doctor
-	err := data.DB.QueryRow(`SELECT name, email, password, skill, title FROM doctors WHERE email=?`, email).
-		Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title)
+	err := data.DB.QueryRow(`SELECT name, email, password, skill, title, venue FROM doctors WHERE email=?`, email).
+		Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title, &d.Venue)
 	if err != nil {
 		return nil, err
 	}
@@ -103,6 +104,9 @@ func EditDoctor(email, name, password, skill, title string) (*Doctor, error) {
 	if title != "" {
 		d.Title = title
 	}
+	if venue != "" {
+		d.Venue = venue
+	}
 	if password != "" {
 		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 		if err != nil {
@@ -112,8 +116,8 @@ func EditDoctor(email, name, password, skill, title string) (*Doctor, error) {
 	}
 
 	// Save changes
-	_, err = data.DB.Exec(`UPDATE doctors SET name=?, password=?, skill=?, title=? WHERE email=?`,
-		d.Name, d.Password, d.Skill, d.Title, d.Email)
+	_, err = data.DB.Exec(`UPDATE doctors SET name=?, password=?, skill=?, title=?, venue=? WHERE email=?`,
+		d.Name, d.Password, d.Skill, d.Title, &d.Venue, d.Email)
 	if err != nil {
 		return nil, err
 	}
