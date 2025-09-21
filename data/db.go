@@ -76,6 +76,6 @@ func InitDB() {
 		)
 	`)
 	if err != nil {
-		log.Fatal("Failed to create doctors table:", err)
+		log.Fatal("Failed to create diagnoses table:", err)
 	}
 }

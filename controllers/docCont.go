@@ -8,7 +8,7 @@ import (
 
 var Store *session.Store
 
-func GetDoctors() fiber.Handler {
+func GetDoctorsController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		if _, err := models.GetAllDoctors(); err != nil {
 			return c.SendStatus(fiber.StatusBadRequest)
@@ -18,16 +18,16 @@ func GetDoctors() fiber.Handler {
 	}
 }
 
-func RegisterDoctor(s *session.Store) fiber.Handler {
+func RegisterDoctorController(s *session.Store) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		name := c.FormValue("name")
 		email := c.FormValue("email")
 		password := c.FormValue("password")
 		skill := c.FormValue("skill")
 		title := c.FormValue("title")
-		venue := c.FormValue("venue")
+		location := c.FormValue("location")
 
-		err := models.AddDoctor(name, email, password, skill, title, venue)
+		err := models.AddDoctor(name, email, password, skill, title, location)
 		if err != nil {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
@@ -43,7 +43,7 @@ func RegisterDoctor(s *session.Store) fiber.Handler {
 	}
 }
 
-func LoginDoctor(s *session.Store) fiber.Handler {
+func LoginDoctorController(s *session.Store) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		email := c.FormValue("email")
 		password := c.FormValue("password")
@@ -63,7 +63,7 @@ func LoginDoctor(s *session.Store) fiber.Handler {
 	}
 }
 
-func UpdateDoctor() fiber.Handler {
+func UpdateDoctorController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		sess, err := Store.Get(c)
 		email := sess.Get("doctor_email")
@@ -74,10 +74,10 @@ func UpdateDoctor() fiber.Handler {
 		name := c.FormValue("name")
 		skill := c.FormValue("skill")
 		title := c.FormValue("title")
-		venue := c.FormValue("venue")
+		location := c.FormValue("location")
 		password := c.FormValue("password")
 
-		_, err = models.EditDoctor(email.(string), name, password, skill, title, venue)
+		_, err = models.EditDoctor(email.(string), name, password, skill, title, location)
 		if err != nil {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}
@@ -89,7 +89,7 @@ func UpdateDoctor() fiber.Handler {
 }
 
 // Get edit doctor form
-func EditDoctorForm() fiber.Handler {
+func EditDoctorFormController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		sess, err := Store.Get(c)
 		email := sess.Get("doctor_email")
@@ -107,4 +107,3 @@ func EditDoctorForm() fiber.Handler {
 		return c.Render("update-doctor", fiber.Map{"Doctor": d})
 	}
 }
-

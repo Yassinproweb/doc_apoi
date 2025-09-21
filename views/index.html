@@ -75,6 +75,7 @@
       class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
       hx-post="/register_doctor" hx-trigger="submit" x-data="{
       name: '',
+      location: '',
       email: '',
       password: '',
       repassword: '',
@@ -99,6 +100,15 @@
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': name.length < 2 && name.length > 0 }">
         <p x-show="name.length < 2 && name.length > 0" class="text-red-600 text-xs font-medium">Name must be at least 2
+          characters</p>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="location">Enter work location</label>
+        <input type="text" id="location" x-model="location"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': location.length < 2 && location.length > 0 }">
+        <p x-show="location.length < 2 && location.length > 0" class="text-red-600 text-xs font-medium">Location must be
+          at least 2
           characters</p>
       </div>
       <div class="w-full flex-col gap-1">
