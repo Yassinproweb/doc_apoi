@@ -12,24 +12,28 @@ import (
 )
 
 func main() {
+	// Initialize database
 	data.InitDB()
 	defer data.DB.Close()
 
+	// Fiber app with template engine
 	app := fiber.New(fiber.Config{
 		Views: html.New("./views", ".html"),
 	})
 
-	app.Static("/", "./static")
+	// Serve static files
+	app.Static("/static", "./static")
 
+	// Single session store for the whole app
 	s := session.New(session.Config{
 		Expiration:     24 * time.Hour,
 		CookieHTTPOnly: true,
-		CookieSecure:   false, // Set to true in production with HTTPS
+		CookieSecure:   false, // set to true when using HTTPS in production
 	})
 
-	// Routes
-	routes.DocRoutes(app)
+	// Routes (pass session store)
+	routes.DocRoutes(app, s)
 
 	// Start server
-	log.Fatal(app.Listen(":4300"))
+	log.Fatal(app.Listen("0.0.0.0:4300"))
 }

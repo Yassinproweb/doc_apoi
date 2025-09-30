@@ -25,7 +25,7 @@ func InitDB() {
 			name TEXT NOT NULL,
 			skill TEXT NOT NULL,
 			title TEXT NOT NULL,
-			venue TEXT NOT NULL
+			location TEXT NOT NULL
 		)
 	`)
 	if err != nil {

@@ -6,15 +6,18 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/session"
 )
 
-func DocRoutes(app *fiber.App) {
-	s := session.New()
+func DocRoutes(app *fiber.App, s *session.Store) {
+	// Share session store with controllers
 	controllers.Store = s
 
+	// Homepage
 	app.Get("/", controllers.GetDoctorsController())
-	app.Post("/doctors", controllers.RegisterDoctorController(s))
-	app.Post("/doctors", controllers.LoginDoctorController(s))
-	// app.Post("/patients", controllers.RegisterPatient(s))
-	// app.Post("/patients", controllers.LoginPatient(s))
+
+	// Doctor auth routes
+	app.Post("/doctors/register", controllers.RegisterDoctorController(s))
+	app.Post("/doctors/login", controllers.LoginDoctorController(s))
+
+	// Doctor profile management
 	app.Get("/doctor/edit", controllers.EditDoctorFormController())
 	app.Post("/doctor/update", controllers.UpdateDoctorController())
 
@@ -24,10 +27,13 @@ func DocRoutes(app *fiber.App) {
 		if err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
 		}
-		doctorID := sess.Get("doctor_id")
-		if doctorID == nil {
-			return c.Redirect("/login_doctor")
+
+		// Check session using the same key as controllers
+		doctorEmail := sess.Get("doctor_email")
+		if doctorEmail == nil {
+			return c.Redirect("/signin") // or "/login_doctor"
 		}
+
 		return c.Next()
 	}
 
@@ -37,7 +43,14 @@ func DocRoutes(app *fiber.App) {
 		if err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
 		}
-		name := sess.Get("doctor_name").(string)
+
+		// Use doctor_email for lookup, but show doctor_name if stored
+		name, _ := sess.Get("doctor_name").(string)
+		if name == "" {
+			// fallback if name wasn't saved in session
+			name = sess.Get("doctor_email").(string)
+		}
+
 		return c.Render("dashboard", fiber.Map{
 			"Name": name,
 		})
@@ -54,5 +67,4 @@ func DocRoutes(app *fiber.App) {
 		}
 		return c.Redirect("/signin")
 	})
-
 }
