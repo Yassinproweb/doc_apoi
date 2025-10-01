@@ -76,7 +76,7 @@
     <!-- doctor registration form -->
     <form method="post" id="register_doctor"
       class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
-      hx-post="/register_doctor" hx-trigger="submit" x-data="{
+      hx-post="/doctors/register" hx-swap="none" hx-trigger="submit" x-data="{
       name: '',
       location: '',
       email: '',
@@ -172,7 +172,7 @@
     <!-- doctor login form -->
     <form method="post" id="login_doctor"
       class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
-      hx-post="/login_doctor" hx-trigger="submit" x-data="{
+      hx-post="/doctors/login" hx-swap="none" hx-trigger="submit" x-data="{
       email: '',
       password: '',
       isValidPassword() {

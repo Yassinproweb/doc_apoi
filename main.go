@@ -35,5 +35,5 @@ func main() {
 	routes.DocRoutes(app, s)
 
 	// Start server
-	log.Fatal(app.Listen("0.0.0.0:4300"))
+	log.Fatal(app.Listen("0.0.0.0:4320"))
 }

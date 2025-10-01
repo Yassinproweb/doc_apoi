@@ -31,7 +31,7 @@ func DocRoutes(app *fiber.App, s *session.Store) {
 		// Check session using the same key as controllers
 		doctorEmail := sess.Get("doctor_email")
 		if doctorEmail == nil {
-			return c.Redirect("/signin") // or "/login_doctor"
+			return c.Redirect("/")
 		}
 
 		return c.Next()
