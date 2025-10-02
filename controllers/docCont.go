@@ -17,7 +17,7 @@ func GetDoctorsController() fiber.Handler {
 		}
 
 		// Render homepage with doctors data
-		return c.Render("index", fiber.Map{
+		return c.Render("dashboard", fiber.Map{
 			"Doctors": doctors,
 		})
 	}
@@ -45,7 +45,7 @@ func RegisterDoctorController(s *session.Store) fiber.Handler {
 		sess.Save()
 
 		// Redirect for HTMX
-		c.Redirect("/dashboard")
+		c.Set("HX-Redirect", "/dashboard")
 		return c.SendStatus(fiber.StatusCreated)
 	}
 }
@@ -67,7 +67,7 @@ func LoginDoctorController(s *session.Store) fiber.Handler {
 		sess.Set("doctor_name", d.Name) // save doctor name too
 		sess.Save()
 
-		c.Redirect("/dashboard")
+		c.Set("HX-Redirect", "/dashboard")
 		return c.SendStatus(fiber.StatusOK)
 	}
 }

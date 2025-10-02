@@ -11,7 +11,12 @@ func DocRoutes(app *fiber.App, s *session.Store) {
 	controllers.Store = s
 
 	// Homepage
-	app.Get("/", controllers.GetDoctorsController())
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.Render("index", nil)
+	})
+
+	// get all doctors in dashboard
+	app.Get("/dashboard", controllers.GetDoctorsController())
 
 	// Doctor auth routes
 	app.Post("/doctors/register", controllers.RegisterDoctorController(s))

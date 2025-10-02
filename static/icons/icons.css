@@ -2,7 +2,7 @@
 @font-face {
   font-family: "hugeicons-stroke-rounded";
   src: url("hgi-stroke-rounded.eot?t=1754995216971"); /* IE9*/
-  src: url("hgi-stroke-rounded.eot?t=1754995216971#iefix") format("embedded-opentype"), url("hgi-stroke-rounded.woff2?t=1754995216971") format("woff2"), url("hgi-stroke-rounded.woff?t=1754995216971") format("woff"), url("hgi-stroke-rounded.ttf?t=1754995216971") format("truetype"), url("hgi-stroke-rounded.svg?t=1754995216971#hugeicons-stroke-rounded") format("svg"); /* iOS 4.1- */
+  src: url("hgi-stroke-rounded.woff?t=1754995216971") format("woff"); /* iOS 4.1- */
 }
 .hgi-stroke {
   font-family: "hugeicons-stroke-rounded" !important;

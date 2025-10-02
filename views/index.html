@@ -74,7 +74,7 @@
     </span>
 
     <!-- doctor registration form -->
-    <form method="post" id="register_doctor"
+    <form id="register_doctor"
       class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
       hx-post="/doctors/register" hx-swap="none" hx-trigger="submit" x-data="{
       name: '',
@@ -170,7 +170,7 @@
     </form>
 
     <!-- doctor login form -->
-    <form method="post" id="login_doctor"
+    <form id="login_doctor"
       class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
       hx-post="/doctors/login" hx-swap="none" hx-trigger="submit" x-data="{
       email: '',
@@ -216,7 +216,7 @@
     </form>
 
     <!-- patient registration form -->
-    <form method="post" id="register_patient"
+    <form id="register_patient"
       class="relative w-fit hidden flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
       hx-post="/register_patient" hx-trigger="submit" x-data="{
         name: '',
@@ -291,7 +291,7 @@
     </form>
 
     <!-- patient login form -->
-    <form method="post" id="login_patient"
+    <form id="login_patient"
       class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
       hx-post="/login_patient" hx-trigger="submit" x-data="{
       email: '',
