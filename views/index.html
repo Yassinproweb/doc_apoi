@@ -1,0 +1,770 @@
+{{ template "partials/heading" . }}
+
+<section id="hero" class="relative w-full aspect-[16/9] flex-col items-center justify-end gap-7 bg-f">
+  <div class="absolute top-[11%] w-full items-start justify-between gap-5 px-x">
+    <h1 class="text-d text-6xl text-start font-extrabold capitalize z-10">get unmatched online healthcare consultation
+      at <span class="text-b underline underline-offset-8">Doc_Apoi</span></h1>
+    <p class="text-t text-lg text-end">Instant video consultations with top doctors. Fast,
+      secure, personalized e-healthcare—anytime, anywhere. Book your visit now!</p>
+  </div>
+
+  <div class="w-full items-end justify-between gap-9">
+    <div class="w-full max-w-[25%] flex-col items-start justify-end gap-3.5">
+      <h2 class="text-7xl text-d text-start font-bold capitalize">under <span class="text-b">1</span>&nbsp;year</h2>
+      <p class="text-t">With less than a year in service, we're solving communication problems in
+        healthcare.</p>
+    </div>
+    <div
+      class="w-full aspect-square max-w-[30%] flex-col items-center justify-between gap-3.5 px-7 py-9 rounded-3xl bg-w">
+      <img src="/static/imgs/jpgs/images.jpeg" alt="" class="w-full h-16 object-cover object-center rounded-full">
+      <div class="w-full flex-col items-start justify-start gap-2.5">
+        <h3 class="text-3xl text-start text-d font-bold capitalize">our associates</h3>
+        <p class="text-t"><span class="text-b font-bold">Doc_Apoi</span> works with most healthcare institutes e.g.
+          hospitals, clinics, and pharmacies in improving communication in healthcare in Uganda.</p>
+      </div>
+      <div class="w-full items-end justify-between gap-2.5 font-['Mozilla_Headline']">
+        <div class="w-full flex-col items-center justify-end">
+          <h3 class="text-5xl text-start text-b font-bold capitalize">9</h3>
+          <p class="text-d font-medium">Hospitals</p>
+        </div>
+        <div class="w-full flex-col items-center justify-end">
+          <h3 class="text-5xl text-start text-b font-bold capitalize">11</h3>
+          <p class="text-d font-medium">Pharmacies</p>
+        </div>
+        <div class="w-full flex-col items-center justify-end">
+          <h3 class="text-5xl text-start text-b font-bold capitalize">27</h3>
+          <p class="text-d font-medium">Clinics</p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="w-full aspect-[3/3.25] max-w-[35%] flex-col items-center justify-between gap-5 px-7 py-9 rounded-3xl bg-w">
+      <div class="w-full flex-col items-start justify-start gap-2">
+        <h3 class="text-5xl text-start text-d font-bold capitalize">Wanna Benefit!</h3>
+        <p class="text-t">Would you like to benefit from the telemedicine
+          infrastructure we setup, consider joining on our
+          platform as a healthcare specialist or one seeking healthcare services.</p>
+      </div>
+      <div class="relative w-full items-center justify-between">
+        <button id="register-pat"
+          class="w-[47%] flex items-center justify-center gap-2.5 py-3.5 text-w rounded-2xl bg-b">For
+          Patients <i class="hgi hgi-stroke hgi-patient text-2xl"></i></button>
+        <button id="register-doc"
+          class="w-[47%] flex items-center justify-center gap-2.5 py-3.5 text-w rounded-2xl bg-b">For
+          Doctors <i class="hgi hgi-stroke hgi-doctor-02 text-2xl"></i></button>
+      </div>
+      <div class="relative w-full items-end justify-between">
+        <img src="/static/imgs/jpgs/beds.jpg" alt=""
+          class="w-[30%] aspect-square object-cover object-center rounded-lg">
+        <img src="/static/imgs/jpgs/blood.jpg" alt=""
+          class="w-[30%] aspect-square object-cover object-center rounded-lg">
+        <img src="/static/imgs/jpgs/machine.jpg" alt=""
+          class="w-[30%] aspect-square object-cover object-center rounded-lg">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="form-join"
+  class="fixed w-screen h-dvh top-0 left-0 hidden items-center justify-center backdrop-blur-md z-[5000] bg-f/25">
+  <div class="relative w-full h-full items-center justify-center bg-f">
+    <span id="close-form"
+      class="absolute top-[15%] right-[15%] flex items-center justify-center p-2.5 rounded-full bg-b">
+      <i class="hgi hgi-stroke hgi-cancel-01 text-xl text-w"></i>
+    </span>
+
+    <!-- doctor registration form -->
+    <form id="register_doctor"
+      class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
+      hx-post="/doctors/register" hx-swap="none" hx-trigger="submit" x-data="{
+      name: '',
+      location: '',
+      email: '',
+      password: '',
+      repassword: '',
+      isValidPassword() {
+      return this.password.length >= 6 &&
+        /[A-Z]/.test(this.password) &&
+        /[a-z]/.test(this.password) &&
+        /[0-9]/.test(this.password) &&
+        /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password);
+      },
+      hasUppercase() { return /[A-Z]/.test(this.password); },
+      hasLowercase() { return /[a-z]/.test(this.password); },
+      hasNumber() { return /[0-9]/.test(this.password); },
+      hasSymbol() { return /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password); },
+      passwordsMatch() {
+        return this.password === this.repassword && this.repassword.length > 0;
+      }
+    }">
+      <div class="w-full flex-col gap-1">
+        <label for="name">Enter your fullname</label>
+        <input type="text" id="name" x-model="name"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': name.length < 2 && name.length > 0 }">
+        <p x-show="name.length < 2 && name.length > 0" class="text-red-600 text-xs font-medium">Name must be at least 2
+          characters</p>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="location">Enter work location</label>
+        <input type="text" id="location" x-model="location"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': location.length < 2 && location.length > 0 }">
+        <p x-show="location.length < 2 && location.length > 0" class="text-red-600 text-xs font-medium">Location must be
+          at least 2
+          characters</p>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="email">Enter your email</label>
+        <input type="email" id="email" x-model="email"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
+        <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="password">Enter secure password</label>
+        <input type="password" id="password" x-model="password"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': password.length >= 6 && !isValidPassword() }">
+        <div class="flex-col text-sm text-red-600 font-medium mt-2">
+          <p x-show="password.length > 0 && password.length < 6">At least 6 characters<span
+              x-show="password.length >= 6 && !hasUppercase()">, an uppercase letter</span><span
+              x-show="password.length >= 6 && !hasLowercase()">, a lowercase letter</span><span
+              x-show="password.length >= 6 && !hasNumber()">, a number</span><span
+              x-show="password.length >= 6 && !hasSymbol()">, a symbol</span>.
+          </p>
+          <p x-show="isValidPassword()" class="text-green-500">Password is secure</p>
+        </div>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="repassword">Re-enter secure password</label>
+        <input type="password" id="repassword" x-model="repassword"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none"
+          x-bind:disabled="!isValidPassword()"
+          x-bind:class="{ 'outline-red-600': repassword.length === password.length && !passwordsMatch() }">
+        <div class="flex-col text-sm mt-2">
+          <p x-show="isValidPassword() && repassword.length === password.length && !passwordsMatch()"
+            class="text-red-600 font-medium">
+            Passwords must be the same</p>
+          <p x-show="passwordsMatch()" class="text-green-500 font-medium">Passwords match</p>
+        </div>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="skill">Enter your skill</label>
+        <input type="text" id="skill"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="title">Enter your title</label>
+        <input type="text" id="title"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
+      </div>
+      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-blue-600"
+        x-bind:disabled="!isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch()"
+        x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch() }">Register
+        Doctor</button>
+      <p class="text-lg text-center font-medium w-full flex items-center justify-center gap-2">
+        <span class="text-t/70">Already have an account</span>
+        <button id="login-doc" class="text-b">Login here</button>
+      </p>
+    </form>
+
+    <!-- doctor login form -->
+    <form id="login_doctor"
+      class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
+      hx-post="/doctors/login" hx-swap="none" hx-trigger="submit" x-data="{
+      email: '',
+      password: '',
+      isValidPassword() {
+      return this.password.length >= 6 &&
+        /[A-Z]/.test(this.password) &&
+        /[a-z]/.test(this.password) &&
+        /[0-9]/.test(this.password) &&
+        /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password);
+      },
+      hasUppercase() { return /[A-Z]/.test(this.password); },
+      hasLowercase() { return /[a-z]/.test(this.password); },
+      hasNumber() { return /[0-9]/.test(this.password); },
+      hasSymbol() { return /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password); },
+    }">
+      <div class="w-full flex-col gap-1">
+        <label for="email">Enter your email</label>
+        <input type="email" id="email" x-model="email"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
+        <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="password">Enter secure password</label>
+        <input type="password" id="password" x-model="password"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': password.length >= 6 && !isValidPassword() }">
+        <div class="flex-col text-sm text-red-600 font-medium mt-2">
+          <p x-show="password.length > 0 && password.length < 6">At least 6 characters<span
+              x-show="password.length >= 6 && !hasUppercase()">, an uppercase letter</span><span
+              x-show="password.length >= 6 && !hasLowercase()">, a lowercase letter</span><span
+              x-show="password.length >= 6 && !hasNumber()">, a number</span><span
+              x-show="password.length >= 6 && !hasSymbol()">, a symbol</span>.
+          </p>
+          <p x-show="isValidPassword()" class="text-green-500">Password is secure</p>
+        </div>
+      </div>
+      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-blue-600"
+        x-bind:disabled="!isValidPassword() || !email.includes('@')"
+        x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || !email.includes('@')}">Login
+        Doctor</button>
+    </form>
+
+    <!-- patient registration form -->
+    <form id="register_patient"
+      class="relative w-fit hidden flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
+      hx-post="/register_patient" hx-trigger="submit" x-data="{
+        name: '',
+        email: '',
+        password: '',
+        repassword: '',
+        isValidPassword() {
+        return this.password.length >= 6 &&
+          /[A-Z]/.test(this.password) &&
+          /[a-z]/.test(this.password) &&
+          /[0-9]/.test(this.password) &&
+          /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password);
+        },
+        hasUppercase() { return /[A-Z]/.test(this.password); },
+        hasLowercase() { return /[a-z]/.test(this.password); },
+        hasNumber() { return /[0-9]/.test(this.password); },
+        hasSymbol() { return /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password); },
+        passwordsMatch() {
+          return this.password === this.repassword && this.repassword.length >= 6;
+        }
+      }">
+      <div class="w-full flex-col gap-1">
+        <label for="name">Enter your fullname</label>
+        <input type="text" id="name" x-model="name"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': name.length < 2 && name.length > 0 }">
+        <p x-show="name.length < 2 && name.length > 0" class="text-red-600 text-xs font-medium">Name must be at least 2
+          characters</p>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="email">Enter your email</label>
+        <input type="email" id="email" x-model="email"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
+        <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="password">Enter secure password</label>
+        <input type="password" id="password" x-model="password"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': password.length === 6 && !isValidPassword() }">
+        <div class="flex-col text-sm text-red-600 font-medium mt-2">
+          <p x-show="password.length > 0 && password.length < 6">At least 6 characters<span
+              x-show="password.length >= 6 && !hasUppercase()">, an uppercase letter</span><span
+              x-show="password.length >= 6 && !hasLowercase()">, a lowercase letter</span><span
+              x-show="password.length >= 6 && !hasNumber()">, a number</span><span
+              x-show="password.length >= 6 && !hasSymbol()">, a symbol</span>.
+          </p>
+          <p x-show="isValidPassword()" class="text-green-500">Password is secure</p>
+        </div>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="repassword">Re-enter secure password</label>
+        <input type="password" id="repassword" x-model="repassword" x-bind:disabled="!isValidPassword()"
+          class="text-d text-base capitalize px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none"
+          x-bind:class="{ 'outline-red-600': repassword.length === password.length && !passwordsMatch() }">
+        <div class="flex-col text-sm mt-2">
+          <p x-show="isValidPassword() && repassword.length === password.length && !passwordsMatch()"
+            class="text-red-600 text-xs font-medium">
+            Passwords must be the same</p>
+          <p x-show="passwordsMatch()" class="text-green-500 text-xs font-medium">Passwords match</p>
+        </div>
+      </div>
+      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-b"
+        x-bind:disabled="!isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch()"
+        x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch() }">Register
+        Patient</button>
+      <p class="text-lg text-center font-medium w-full flex items-center justify-center gap-2">
+        <span class="text-t/70">Already have an account</span>
+        <button id="login-pat" class="text-b">Login</button>
+      </p>
+    </form>
+
+    <!-- patient login form -->
+    <form id="login_patient"
+      class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
+      hx-post="/login_patient" hx-trigger="submit" x-data="{
+      email: '',
+      password: '',
+      isValidPassword() {
+      return this.password.length >= 6 &&
+        /[A-Z]/.test(this.password) &&
+        /[a-z]/.test(this.password) &&
+        /[0-9]/.test(this.password) &&
+        /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password);
+      },
+      hasUppercase() { return /[A-Z]/.test(this.password); },
+      hasLowercase() { return /[a-z]/.test(this.password); },
+      hasNumber() { return /[0-9]/.test(this.password); },
+      hasSymbol() { return /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password); },
+    }">
+      <div class="w-full flex-col gap-1">
+        <label for="email">Enter your email</label>
+        <input type="email" id="email" x-model="email"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
+        <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="password">Enter secure password</label>
+        <input type="password" id="password" x-model="password"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': password.length >= 6 && !isValidPassword() }">
+        <div class="flex-col text-sm text-red-600 font-medium mt-2">
+          <p x-show="password.length > 0 && password.length < 6">At least 6 characters<span
+              x-show="password.length >= 6 && !hasUppercase()">, an uppercase letter</span><span
+              x-show="password.length >= 6 && !hasLowercase()">, a lowercase letter</span><span
+              x-show="password.length >= 6 && !hasNumber()">, a number</span><span
+              x-show="password.length >= 6 && !hasSymbol()">, a symbol</span>.
+          </p>
+          <p x-show="isValidPassword()" class="text-green-500">Password is secure</p>
+        </div>
+      </div>
+      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-blue-600"
+        x-bind:disabled="!isValidPassword() || !email.includes('@')"
+        x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || !email.includes('@')}">Login
+        Patient</button>
+    </form>
+  </div>
+</section>
+
+<section id="services" class="flex-col items-center gap-9">
+  <div class="w-full items-start justify-between">
+    <h3 class="w-[55%] text-5xl text-d text-start font-bold"><span class="text-b">Doc_Apoi</span> is ready to provide
+      the best tele-health services</h3>
+    <p class="w-[35%] text-t">We provide a number of channels linking doctors to patients through our tele-health
+      program. Healthcare at your finger-tips here at <span class="font-bold">Doc_Apoi</span>.</p>
+  </div>
+  <div class="w-full items-start justify-between">
+    <div
+      class="service w-full aspect-[3/3.25] max-w-[30%] shrink-0 flex-col items-start justify-between gap-5 px-7 py-9 rounded-3xl bg-f">
+      <h4 class="text-3xl text-d text-start font-bold">Make an <br>Appointment</h4>
+      <p class="text-t">Registered users can book appointments with doctors on our platform.</p>
+      <img src="/static/imgs/jpgs/doctor.jpg" alt="" class="w-full aspect-video object-cover object-center rounded-3xl">
+    </div>
+    <div
+      class="service w-full aspect-[3/3.25] max-w-[30%] shrink-0 flex-col items-start justify-between gap-5 px-7 py-9 rounded-3xl bg-f">
+      <h4 class="text-3xl text-d text-start font-bold">Virtual <br>Consultation</h4>
+      <p class="text-t">Online consultations between doctors and patients are facilitated here.</p>
+      <img src="/static/imgs/jpgs/doctor.jpeg" alt=""
+        class="w-full aspect-video object-cover object-center rounded-3xl">
+    </div>
+    <div
+      class="service w-full aspect-[3/3.25] max-w-[30%] shrink-0 flex-col items-start justify-between gap-5 px-7 py-9 rounded-3xl bg-f">
+      <h4 class="text-3xl text-d text-start font-bold">Online <br>Pharmacies</h4>
+      <p class="text-t">Online prescriptions are also available after your consultations.</p>
+      <img src="/static/imgs/jpgs/pharmacy.jpeg" alt=""
+        class="w-full aspect-video object-cover object-center rounded-3xl">
+    </div>
+  </div>
+</section>
+
+<section id="choice" class="w-full flex-col items-center gap-12 z-50">
+  <div class="w-full flex-col items-center gap-3.5">
+    <h2 class="text-5xl text-d text-center font-bold capitalize">Why choose Doc_Apoi?</h2>
+    <p class="text-lg text-t text-center font-medium">The following features make Doc_Apoi a pivotal healthcare
+      provider in Uganda, especially suited to meet the unique medical needs of its population through both digital and
+      local hospital-based solutions.</p>
+  </div>
+
+  <div class="w-full grid grid-cols-3 gap-5">
+    <div class="w-full aspect-[4/3] flex-col justify-between px-9 py-5 rounded-3xl bg-f">
+      <h3 class="text-6xl text-b/65 font-extrabold">01.</h3>
+      <h5 class="text-xl text-d font-bold capitalize">comprehensive local network</h5>
+      <p class="text-base text-t font-medium">Doc_Apoi collaborates with a vast network of local hospitals and
+        clinics across Uganda, ensuring accessible, seamless transitions from virtual to in-person care when necessary.
+      </p>
+    </div>
+    <div class="w-full aspect-[4/3] flex-col justify-between px-9 py-5 rounded-3xl bg-f">
+      <h3 class="text-6xl text-b/65 font-extrabold">02.</h3>
+      <h5 class="text-xl text-d font-bold capitalize">specialists in tropical diseases</h5>
+      <p class="text-base text-t font-medium">Doc_Apoi specializes in treating over 45 common tropical diseases like
+        malaria and cholera, providing expert, region-specific care and effective treatments tailored to Ugandan
+        climates.</p>
+    </div>
+    <div class="w-full aspect-[4/3] flex-col justify-between px-9 py-5 rounded-3xl bg-f">
+      <h3 class="text-6xl text-b/65 font-extrabold">03.</h3>
+      <h5 class="text-xl text-d font-bold capitalize">innovative Telemedicine technology</h5>
+      <p class="text-base text-t font-medium">Doc_Apoi uses advanced telemedicine technology to break geographical
+        barriers, enabling patients in Uganda's remote areas to conveniently access top healthcare professionals from
+        home.</p>
+    </div>
+    <div class="w-full aspect-[4/3] flex-col justify-between px-9 py-5 rounded-3xl bg-f">
+      <h3 class="text-6xl text-b/65 font-extrabold">04.</h3>
+      <h5 class="text-xl text-d font-bold capitalize">integrated care for advanced treatments</h5>
+      <p class="text-base text-t font-medium">Doc_Apoi offers comprehensive services from virtual consultations to
+        surgical care, coordinating with local hospitals to ensure smooth pre-surgical and post-surgical transitions and
+        patient support.</p>
+    </div>
+    <div class="w-full aspect-[4/3] flex-col justify-between px-9 py-5 rounded-3xl bg-f">
+      <h3 class="text-6xl text-b/65 font-extrabold">05.</h3>
+      <h5 class="text-xl text-d font-bold capitalize">affordability and accessibility</h5>
+      <p class="text-base text-t font-medium">Doc_Apoi reduces the need for costly travel for medical consultations,
+        making healthcare more affordable and accessible, especially in remote areas, thus encouraging regular check-ups
+        and timely treatment.</p>
+    </div>
+  </div>
+
+  <div
+    class="relative w-full aspect-[4/1.5] items-center justify-center px-x py-12 overflow-hidden border-2 border-b rounded-3xl bg-d">
+    <div class="absolute h-full aspect-[3.5/4] -top-[1px] left-0">
+      <img src="/static/imgs/jpgs/techs.jpg" alt=""
+        class="absolute h-full aspect-[3.5/4] -top-[1px] left-0 object-cover object-center z-10">
+      <div class="container z-20">
+        <div class="center"><i class="hgi hgi-stroke hgi-hospital-02"></i></div>
+        <div class="circle" style="--i:0;"><i class="hgi hgi-stroke hgi-vaccine"></i></div>
+        <div class="circle" style="--i:1;"><i class="hgi hgi-stroke hgi-bacteria"></i></div>
+        <div class="circle" style="--i:2;"><i class="hgi hgi-stroke hgi-dental-broken-tooth"></i></div>
+        <div class="circle" style="--i:3;"><i class="hgi hgi-stroke hgi-blood-bottle"></i></div>
+        <div class="circle" style="--i:4;"><i class="hgi hgi-stroke hgi-medicine-02"></i></div>
+        <div class="circle" style="--i:5;"><i class="hgi hgi-stroke hgi-first-aid-kit"></i></div>
+        <div class="circle" style="--i:6;"><i class="hgi hgi-stroke hgi-broken-bone"></i></div>
+        <div class="circle" style="--i:7;"><i class="hgi hgi-stroke hgi-hospital-bed-02"></i></div>
+        <div class="circle" style="--i:8;"><i class="hgi hgi-stroke hgi-brain-02"></i></div>
+        <div class="circle" style="--i:9;"><i class="hgi hgi-stroke hgi-ambulance"></i></div>
+        <div class="circle" style="--i:10;"><i class="hgi hgi-stroke hgi-labs"></i></div>
+        <div class="circle" style="--i:11;"><i class="hgi hgi-stroke hgi-cardiogram-02"></i></div>
+      </div>
+    </div>
+    <img src="/static/imgs/jpgs/medic.jpg"
+      class="absolute h-full aspect-[3.5/4] -top-[1px] right-0 object-cover object-center">
+  </div>
+</section>
+
+<section id="healthcare" class="w-full aspect-video items-start justify-between">
+  <div class="w-[47%] aspect-[3/3.5] flex-col items-start justify-between">
+    <span class="block text-b text-start font-medium uppercase">our specialists</span>
+    <h3 class="w-full text-5xl text-d text-start font-bold">Consultation with our <br>professional doctors</h3>
+    <p class="text-t text-lg">We are committed to strengthening our service delivery by combining advanced telemedicine
+      technology with the expertise of our health professionals, each with over 3 years of experience. Over the years,
+      we have proudly served more than 11,000 patients, delivering timely consultations, accurate diagnoses, and
+      effective treatment plans. Our dedication to accessibility, efficiency, and patient-centered care keeps us at the
+      forefront of transforming healthcare, bringing medical expertise directly to the comfort of our patients’ homes.
+    </p>
+    <div class="w-full items-end justify-between">
+      <div class="w-full max-w-[47%] flex-col items-center justify-end gap-2.5">
+        <h4 class="text-8xl text-center text-b font-bold">+<span class="text-d">3</span>yr</h4>
+        <p class="text-t">Our doctors are certified & have a minimum of 3 years in service.</p>
+      </div>
+      <div class="w-full max-w-[47%] flex-col items-center justify-end gap-2.5">
+        <h4 class="text-8xl text-center text-b font-bold">+<span class="text-d">11</span>k</h4>
+        <p class="text-t">Our doctors have treated over 11,000 patients and still counting.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-[47%] flex-col items-start justify-between">
+    <img src="/static/imgs/jpgs/microscope.jpg" alt=""
+      class="w-full aspect-[3/3.5] object-cover object-center rounded-3xl">
+  </div>
+</section>
+
+<section id="features" class="flex-col items-center justify-center gap-9">
+  <div class="w-full flex-col items-center justify-center gap-5">
+    <h3 class="text-d text-5xl font-bold capitalize">Features you will get on our platform</h3>
+    <p class="text-xl text-t font-medium">We have several features on our platform that will help you consult health
+      professionals and get top-class tele-health services.</p>
+  </div>
+  <div class="w-full aspect-[8/5] items-center justify-between">
+    <div class="w-[60%] h-full grid grid-rows-2 gap-9">
+      <div class="relative w-full h-full flex-col items-start justify-center px-7 py-11 rounded-[2.25rem] bg-f">
+        <div class="w-[55%] flex-col justify-center gap-5">
+          <h4 class="text-4xl text-d font-bold capitalize">finding your preferred specialist doctor</h4>
+          <p class="text-t">Use the search feature and search filters to find the specialist you want for
+            your healthcare consultation.</p>
+        </div>
+      </div>
+      <div class="relative w-full h-full flex-col items-end justify-center px-7 py-11 rounded-[2.25rem] bg-f">
+        <div class="w-[55%] flex-col justify-center gap-5">
+          <h4 class="text-4xl text-d font-bold capitalize">make an appointment with your doctor</h4>
+          <p class="text-t">Pick the doctor of your choice for your health needs and schedule an online consultation or
+            a physical meeting.</p>
+        </div>
+      </div>
+    </div>
+    <div class="relative w-[37%] h-full flex-col items-center justify-start gap-5 px-9 py-11 rounded-[2.25rem] bg-f">
+      <div class="w-full flex-col justify-center gap-5">
+        <h4 class="text-4xl text-d font-bold capitalize">consultation with your doctor online or physically</h4>
+        <p class="text-t">We make it easy for you to consult with your doctor online through our video call feature
+          which inter-operates with Google Meet and Zoom conferencing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="w-full aspect-[4/1.5] items-center justify-between bg-w">
+  <div class="w-full max-w-[41%] h-full flex-col items-start justify-between gap-5">
+    <span class="block text-b text-start font-medium uppercase">our associates</span>
+    <h3 class="text-d text-5xl font-bold capitalize">what our associates <br>say about us?</h3>
+    <p class="text-xl text-t font-medium">Our doctors and patients share their experiences and ratings while working
+      with us.</p>
+    <button class="text-w font-medium px-11 py-3 rounded-full bg-b">Rate Us</button>
+  </div>
+
+  <div class="relative w-full max-w-[51%] h-full items-start justify-start">
+    <swiper-container class="w-full h-full items-center justify-center gap-2.5 z-50" navigation="false"
+      pagination="false" slides-per-view="1" grid-cols="3" space-between="15" autoplay="true" loop="true"
+      mousewheel-force-to-axis="true">
+      <swiper-slide
+        class="comment w-full h-full flex flex-col shrink-0 items-start justify-between gap-3.5 snap-center snap-always">
+        <h4 class="text-3xl text-d font-bold">Efficient Virtual Consultations – Patient Perspective</h4>
+        <p class="text-t text-lg italic">“I truly appreciate Doc_Apoi for introducing virtual consultations that save us
+          the time and cost of hospital visits. Connecting with a doctor from home is quick, the consultations are
+          thorough, and the follow-up reminders show real care for patient well-being.”</p>
+        <span class="w-full h-0.5 bg-t/15"></span>
+
+        <div class="w-fit items-end justify-start gap-5">
+          <img src="/static/imgs/jpgs/chiropractor.jpg" alt=""
+            class="w-16 aspect-square object-cover object-center rounded-full">
+          <div class="w-full h-16 flex-col items-start justify-center gap-1.5">
+            <h6 class="text-xl text-d font-semibold">Latiifah Kansiime</h6>
+            <div class="w-fit items-center justify-start gap-1.5 text-xl text-amber-500">
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star-half"></i>
+            </div>
+          </div>
+        </div>
+      </swiper-slide>
+      <swiper-slide
+        class="comment w-full h-full flex flex-col shrink-0 items-start justify-between gap-3.5 snap-center snap-always">
+        <h4 class="text-3xl text-d font-bold">Streamlined Patient Management – Doctor Perspective</h4>
+        <p class="text-t text-lg italic">“I commend Doc_Apoi for building a patient management system that makes
+          healthcare delivery easier. Access to medical history, lab results, and follow-up schedules in one place has
+          improved my efficiency and helped me give better service to my patients.”</p>
+        <span class="w-full h-0.5 bg-t/15"></span>
+
+        <div class="w-fit items-end justify-start gap-5">
+          <img src="/static/imgs/jpgs/chiropractor.jpg" alt=""
+            class="w-16 aspect-square object-cover object-center rounded-full">
+          <div class="w-full h-16 flex-col items-start justify-center gap-1.5">
+            <h6 class="text-xl text-d font-semibold">Yasin Katungi</h6>
+            <div class="w-fit items-center justify-start gap-1.5 text-xl text-amber-500">
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star-half"></i>
+            </div>
+          </div>
+        </div>
+      </swiper-slide>
+      <swiper-slide
+        class="comment w-full h-full flex flex-col shrink-0 items-start justify-between gap-3.5 snap-center snap-always">
+        <h4 class="text-3xl text-d font-bold">Reliable Prescription Services – Patient Perspective</h4>
+        <p class="text-t text-lg italic">“I thank Doc_Apoi for making prescription services both reliable and
+          convenient. Being able to have my medication orders reviewed and approved online saves me the time and stress
+          of traveling to the hospital. The timely notifications and reminders ensure I never miss a dose, which has
+          greatly improved how I manage my treatment.”</p>
+        <span class="w-full h-0.5 bg-t/15"></span>
+
+        <div class="w-fit items-end justify-start gap-5">
+          <img src="/static/imgs/jpgs/chiropractor.jpg" alt=""
+            class="w-16 aspect-square object-cover object-center rounded-full">
+          <div class="w-full h-16 flex-col items-start justify-center gap-1.5">
+            <h6 class="text-xl text-d font-semibold">Shariifah Kyomuhangi</h6>
+            <div class="w-fit items-center justify-start gap-1.5 text-xl text-amber-500">
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star"></i>
+              <i class="hgi hgi-stroke hgi-star-half"></i>
+            </div>
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+</section>
+
+<section id="faqs" class="flex-col items-center justify-center gap-9">
+  <div class="w-3/5 flex-col items-center justify-center gap-1.5">
+    <h3 class="text-5xl text-d text-center font-bold capitalize">frequently asked questions</h3>
+    <p class="text-t text-lg text-center font-medium">Here are some of the frequently asked questions regarding
+      healthcare.</p>
+  </div>
+  <div class="w-full grid grid-cols-2 gap-11">
+    <div class="w-full grid grid-flow-row gap-7">
+      <div class="w-full flex-col gap-5 border-b border-b/65">
+        <input type="radio" id="faq1" name="accordion" class="hidden" checked>
+        <label for="faq1"
+          class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">What
+          is telemedicine & Doc_Apoi? <i class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
+        <div class="hidden max-h-0 px-7 pb-5 arcontent">
+          <p class="text-t">Telemedicine involves providing medical care and consultations remotely using
+            telecommunications technology. Doc_Apoi allows patients to consult with healthcare providers via video
+            conferencing, phone calls, or secure messaging platforms.</p>
+        </div>
+      </div>
+      <div class="w-full flex-col gap-5 border-b border-b/65">
+        <input type="radio" id="faq2" name="accordion" class="hidden">
+        <label for="faq2"
+          class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">What
+          appointments are suitable for telemedicine? <i class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
+        <div class="hidden max-h-0 px-7 pb-5 arcontent">
+          <p class="text-t">Telemedicine appointments are suitable for a wide range of non-emergency medical
+            concerns, including routine check-ups, follow-up visits, medication management, mental health
+            consultations, and minor illnesses or injuries.</p>
+        </div>
+      </div>
+      <div class="w-full flex-col gap-5 border-b border-b/65">
+        <input type="radio" id="faq3" name="accordion" class="hidden">
+        <label for="faq3"
+          class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">How
+          do I schedule a telemedicine appointment? <i class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
+        <div class="hidden max-h-0 px-7 pb-5 arcontent">
+          <p class="text-t">You can schedule a telemedicine appointment by contacting our office during business
+            hours. Our staff will assist you in scheduling a convenient time for your virtual consultation.</p>
+        </div>
+      </div>
+      <div class="w-full flex-col gap-5 border-b border-b/65">
+        <input type="radio" id="faq4" name="accordion" class="hidden">
+        <label for="faq4"
+          class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">What
+          technology do I need for telemedicine? <i class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
+        <div class="hidden max-h-0 px-7 pb-5 arcontent">
+          <p class="text-t">To participate in a telemedicine appointment, you will need a smartphone, tablet, or
+            computer with a webcam and microphone. You will also need a stable internet connection to ensure clear
+            communication during the appointment.</p>
+        </div>
+      </div>
+    </div>
+    <div class="w-full grid grid-flow-row gap-7">
+      <div class="w-full flex-col gap-5 border-b border-b/65">
+        <input type="radio" id="faq5" name="accordion" class="hidden">
+        <label for="faq5"
+          class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">how
+          to deal with technical issues in a telemedicine appointment? <i
+            class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
+        <div class="hidden max-h-0 px-7 pb-5 arcontent">
+          <p class="text-t">If you experience technical difficulties during your telemedicine appointment, please
+            contact our office immediately for assistance. Our staff will work to resolve any technical issues and
+            ensure a smooth and successful consultation.</p>
+        </div>
+      </div>
+      <div class="w-full flex-col gap-5 border-b border-b/65">
+        <input type="radio" id="faq6" name="accordion" class="hidden">
+        <label for="faq6"
+          class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">Can
+          prescriptions be issued during a telemedicine appointment? <i
+            class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
+        <div class="hidden max-h-0 px-7 pb-5 arcontent">
+          <p class="text-t">Yes, healthcare providers can issue prescriptions during telemedicine appointments for
+            certain medications, when appropriate and medically necessary. Prescription refill requests can also be
+            processed during telemedicine appointments.</p>
+        </div>
+      </div>
+      <div class="w-full flex-col gap-5 border-b border-b/65">
+        <input type="radio" id="faq7" name="accordion" class="hidden">
+        <label for="faq7"
+          class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">how
+          about physical examination or diagnostic tests? <i
+            class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
+        <div class="hidden max-h-0 px-7 pb-5 arcontent">
+          <p class="text-t">In some cases, a physical examination or diagnostic tests may be necessary to fully
+            evaluate your medical condition. If needed, your healthcare provider will discuss options for in-person
+            evaluation or laboratory testing.</p>
+        </div>
+      </div>
+      <div class="w-full flex-col gap-5 border-b border-b/65">
+        <input type="radio" id="faq8" name="accordion" class="hidden">
+        <label for="faq8"
+          class="text-2xl text-b font-bold py-3 cursor-pointer w-full flex justify-between label capitalize">can
+          I access medical records during telemedicine? <i class="hgi hgi-stroke hgi-help-square text-3xl"></i></label>
+        <div class="hidden max-h-0 px-7 pb-5 arcontent">
+          <p class="text-t">Yes, medical records from telemedicine appointments are securely stored in our
+            electronic health records system. You can access your telemedicine visit summaries and medical records
+            through our patient portal for your reference and follow-up care.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="blogs" class="flex-col items-center gap-9">
+  <div class="w-full items-end justify-between">
+    <h3 class="text-5xl text-d font-bold capitalize">recommended articles for you</h3>
+    <button class="text-b text-xl font-medium flex items-center justify-end gap-2">See All <i
+        class="hgi hgi-stroke hgi-circles-four text-3xl"></i></button>
+  </div>
+  <div class="w-full grid grid-cols-2 grid-rows-3 gap-9">
+    <article class="w-full items-center gap-5">
+      <img src="/static/imgs/jpgs/blood.jpg" alt="article telemedicine image"
+        class="h-52 aspect-square object-cover object-center rounded-2xl">
+      <div class="w-full h-full flex-col justify-between py-1.5">
+        <span class="text-t font-medium capitalize">healthcare | 24th January 2024</span>
+        <h5 class="text-d text-2xl font-bold">The Importance of Preventive Care: How Regular Check-ups Can Save
+          Lives</h5>
+        <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
+            class="hgi hgi-stroke hgi-arrow-right-02 text-2xl"></i></button>
+      </div>
+    </article>
+    <article class="w-full items-center gap-5">
+      <img src="/static/imgs/jpgs/machine.jpg" alt="article telemedicine image"
+        class="h-52 aspect-square object-cover object-center rounded-2xl">
+      <div class="w-full h-full flex-col justify-between py-1.5">
+        <span class="text-t font-medium capitalize">Medical Engineering | 11th October 2023</span>
+        <h5 class="text-d text-2xl font-bold">Innovations in Healthcare: Exploring the Latest Technologies in Our
+          Hospital</h5>
+        <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
+            class="hgi hgi-stroke hgi-arrow-right-02 text-2xl"></i></button>
+      </div>
+    </article>
+    <article class="w-full items-center gap-5">
+      <img src="/static/imgs/jpgs/hero.jpg" alt="article telemedicine image"
+        class="h-52 aspect-square object-cover object-center rounded-2xl">
+      <div class="w-full h-full flex-col justify-between py-1.5">
+        <span class="text-t font-medium capitalize">Doctors & Nurses | 03rd March 2021</span>
+        <h5 class="text-d text-2xl font-bold">A Day in the Life of a Nurse: Behind the Scenes at Our Hospital</h5>
+        <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
+            class="hgi hgi-stroke hgi-arrow-right-02 text-2xl"></i></button>
+      </div>
+    </article>
+    <article class="w-full items-center gap-5">
+      <img src="/static/imgs/jpgs/microscope.jpg" alt="article telemedicine image"
+        class="h-52 aspect-square object-cover object-center rounded-2xl">
+      <div class="w-full h-full flex-col justify-between py-1.5">
+        <span class="text-t font-medium capitalize">medical Research | 17th July 2022</span>
+        <h5 class="text-d text-2xl font-bold">The Future of Healthcare: Trends and Predictions for the Next Decade
+        </h5>
+        <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
+            class="hgi hgi-stroke hgi-arrow-right-02 text-2xl"></i></button>
+      </div>
+    </article>
+    <article class="w-full items-center gap-5">
+      <img src="/static/imgs/jpgs/waiting.jpg" alt="article telemedicine image"
+        class="h-52 aspect-square object-cover object-center rounded-2xl">
+      <div class="w-full h-full flex-col justify-between py-1.5">
+        <span class="text-t font-medium capitalize">Treatments | 27th November 2020</span>
+        <h5 class="text-d text-2xl font-bold">Patient Success Stories: Inspiring Tales of Healing and Recovery
+        </h5>
+        <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
+            class="hgi hgi-stroke hgi-arrow-right-02 text-2xl"></i></button>
+      </div>
+    </article>
+    <article class="w-full items-center gap-5">
+      <img src="/static/imgs/jpgs/home.jpg" alt="article telemedicine image"
+        class="h-52 aspect-square object-cover object-center rounded-2xl">
+      <div class="w-full h-full flex-col justify-between py-1.5">
+        <span class="text-t font-medium capitalize">Telemedicine | 09th February 2021</span>
+        <h5 class="text-d text-2xl font-bold">Embracing Telemedicine: Revolutionizing Healthcare Delivery</h5>
+        <button class="text-b text-lg font-medium flex items-center gap-2">Read More<i
+            class="hgi hgi-stroke hgi-arrow-right-02 text-2xl"></i></button>
+      </div>
+    </article>
+  </div>
+</section>
+
+{{ template "partials/footing" . }}

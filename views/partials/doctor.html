@@ -1,0 +1,29 @@
+{{ define "doctor" }}
+<div
+  class="otolaryngologist mix w-full aspect-[4/2.5] flex-col items-center justify-between gap-1.5 p-3 rounded-xl border-2 border-b hover:border-b/70 snap-end">
+  <div class="w-full items-center justify-start gap-2.5">
+    <img src="/imgs/jpgs/hero.jpg" alt=""
+      class="pic-profile w-12 aspect-square shrink-0 object-cover object-center rounded-lg">
+    <div class="w-full flex-col items-start justify-between py-1.5">
+      <p class="doc-name text-base text-d font-medium">Katungi Yassin</p>
+      <snap class="doc-speciality text-t/75 text-xs flex items-center justify-start gap-x-1.5">
+        Otolaryngologist
+        <snap class="inline-block w-1.5 aspect-square rounded-3xl bg-t/65"></snap> <span class="doc-experience">5</span>
+        years experience
+      </snap>
+    </div>
+  </div>
+  <div class="w-full flex-col items-start justify-start gap-2.5">
+    <p class="text-d text-base font-medium capitalize">Available Today</p>
+    <ul class="w-full flex flex-col">
+      <li class="text-xs text-t list-item list-inside list-disc">Online Consultations</li>
+      <li class="text-xs text-t list-item list-inside list-disc">Offline at Poimedic Hospital, Kampala.</li>
+    </ul>
+  </div>
+  <div class="w-full items-end justify-between border-t-2 border-t/25 pt-1.5">
+    <p class="text-t text-xs capitalize">Consultation Fee</p>
+    <p class="text-d text-sm font-bold capitalize"><span class="font-medium opacity-45">Ugx</span>35,000 -
+      150,000</p>
+  </div>
+</div>
+{{ end }}

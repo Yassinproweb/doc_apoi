@@ -1,0 +1,261 @@
+{{ template "head" . }}
+
+<body class="relative w-screen h-screen flex items-center justify-center bg-d">
+  <main class="w-full aspect-[16/10] flex items-center justify-between gap-5 p-5 bg-f overflow-hidden">
+
+    <div id="dashboard" class="relative w-full h-full flex-col items-center justify-start gap-5 p-0">
+      <nav class="relative w-full flex items-center justify-between">
+        <div class="w-fit items-center gap-2.5">
+          <img src="/imgs/pngs/doc_apoi.png" alt="" class="w-9 object-cover object-center rounded-lg">
+          <h1 class="text-3xl text-start text-b font-bold">Doc_Apoi</h1>
+        </div>
+
+        <div id="menu-show" role="button" class="w-12 aspect-square items-center justify-center rounded-full bg-w">
+          <i class="hgi hgi-stroke hgi-menu-circle text-3xl text-b"></i>
+        </div>
+        <div id="menu-hide" role="button"
+          class="hidden w-12 aspect-square items-center justify-center rounded-full bg-w">
+          <i class="hgi hgi-stroke hgi-menu-collapse text-3xl text-b"></i>
+        </div>
+      </nav>
+
+      <menu
+        class="absolute bottom-0 right-0 w-fit h-[93%] flex flex-col items-center justify-between gap-7 px-5 py-3.5 text-b text-4xl rounded-xl border border-b/25 bg-w shadow-xl shadow-b/15 z-[1000]">
+        <div class="h-14 items-center justify-start gap-2.5 px-1.5 rounded-xl">
+          <img src="/imgs/jpgs/doc.jpg" alt="" id="pic-profile"
+            class="w-11 aspect-square object-cover object-center rounded-lg">
+          <div class="flex-col gap-0">
+            <p id="name" class="text-d text-lg font-medium">Arinda Sumayyah</p>
+            <span id="role" class="text-sm">Patient</span>
+          </div>
+        </div>
+
+        <div class="w-full h-fit flex-col items-start justify-start gap-2.5">
+          <span class="w-full h-14 flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
+            hx-get="/home" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
+            <i class="hgi hgi-stroke hgi-home-02"></i>
+          </span>
+          <span class="w-full h-14 flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
+            hx-get="/calendar" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
+            <i class="hgi hgi-stroke hgi-calendar-03"></i>
+          </span>
+          <span class="w-full h-14 flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
+            hx-get="/doctors" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
+            <i class="hgi hgi-stroke hgi-stethoscope"></i>
+          </span>
+          <span class="w-full h-14 flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
+            hx-get="/healthcenters" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
+            <i class="hgi hgi-stroke hgi-hospital-02"></i>
+          </span>
+          <span class="w-full h-14 flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
+            hx-get="/records" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
+            <i class="hgi hgi-stroke hgi-notebook-02"></i>
+          </span>
+        </div>
+
+        <div class="w-full h-fit flex-col items-center justify-end gap-2.5">
+          <span class="w-full h-14 flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
+            hx-get="/chat" hx-trigger="click" hx-target="#details" hx-swap="innerHtml">
+            <i class="hgi hgi-stroke hgi-message-question"></i>
+          </span>
+          <span class="w-full h-14 flex items-center justify-center rounded-md hover:text-b hover:bg-b/20"
+            hx-get="/logout" hx-trigger="click" hx-swap="innerHtml">
+            <i class="hgi hgi-stroke hgi-logout-03 rotate-180"></i>
+          </span>
+        </div>
+      </menu>
+
+      <div class="relative w-full h-full flex-col items-start justify-start gap-3">
+        <div class="relative w-full flex-col items-center justify-start gap-3">
+          <div class="filters relative w-full items-start justify-between gap-5">
+            <div id="by-skill" class="relative max-w-full gap-3.5 py-0.5 overflow-x-auto snap-x text-b">
+              <button data-filter="all"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/doctors.png" alt="" class="w-6">
+                <span class="inline-block">All</span>
+              </button>
+              <button data-filter=".allergist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/allergist.png" alt="" class="w-6">
+                <span class="inline-block">Allergy</span>
+              </button>
+              <button data-filter=".anesthesiologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/anesthesiologist.png" alt="" class="w-6">
+                <span class="inline-block">Anesthesiology</span>
+              </button>
+              <button data-filter=".audiologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/audiologist.png" alt="" class="w-6">
+                <span class="inline-block">Audiology</span>
+              </button>
+              <button data-filter=".cardiologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/cardiologist.png" alt="" class="w-6">
+                <span class="inline-block">Cardiology</span>
+              </button>
+              <button data-filter=".dentist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/dentist.png" alt="" class="w-6">
+                <span class="inline-block">Dentistry</span>
+              </button>
+              <button data-filter=".dermatologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/dermatologist.png" alt="" class="w-6">
+                <span class="inline-block">Dermatology</span>
+              </button>
+              <button data-filter=".gastroenterologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/gastroenterologist.png" alt="" class="w-6">
+                <span class="inline-block">Gastroenterology</span>
+              </button>
+              <button data-filter=".geriatrician"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/geriatrician.png" alt="" class="w-6">
+                <span class="inline-block">Geriatrics</span>
+              </button>
+              <button data-filter=".gynecologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/gynecologist.png" alt="" class="w-6">
+                <span class="inline-block">Gynecology</span>
+              </button>
+              <button data-filter=".nephrologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/nephrologist.png" alt="" class="w-6">
+                <span class="inline-block">Nephrology</span>
+              </button>
+              <button data-filter=".neurologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/neurologist.png" alt="" class="w-6">
+                <span class="inline-block">Neurology</span>
+              </button>
+              <button data-filter=".nutritionist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/nutritionist.png" alt="" class="w-6">
+                <span class="inline-block">Nutrition</span>
+              </button>
+              <button data-filter=".oncologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/oncologist.png" alt="" class="w-6">
+                <span class="inline-block">Oncology</span>
+              </button>
+              <button data-filter=".opthalmologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/opthalmologist.png" alt="" class="w-6">
+                <span class="inline-block">Opthalmology</span>
+              </button>
+              <button data-filter=".orthodontist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/orthodontist.png" alt="" class="w-6">
+                <span class="inline-block">Orthodontics</span>
+              </button>
+              <button data-filter=".orthopedist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/orthopedist.png" alt="" class="w-6">
+                <span class="inline-block">Orthopedics</span>
+              </button>
+              <button data-filter=".otolaryngologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/otolaryngologist.png" alt="" class="w-6">
+                <span class="inline-block">Otolaryngology</span>
+              </button>
+              <button data-filter=".pathologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/pathologist.png" alt="" class="w-6">
+                <span class="inline-block">Pathology</span>
+              </button>
+              <button data-filter=".pediatrician"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/pediatrician.png" alt="" class="w-6">
+                <span class="inline-block">Pediatrics</span>
+              </button>
+              <button data-filter=".pharmacist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/pharmacist.png" alt="" class="w-6">
+                <span class="inline-block">Pharmacy</span>
+              </button>
+              <button data-filter=".psychiatrist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/psychiatrist.png" alt="" class="w-6">
+                <span class="inline-block">Psychiatry</span>
+              </button>
+              <button data-filter=".pulmonologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/pulmonologist.png" alt="" class="w-6">
+                <span class="inline-block">Pulmonology</span>
+              </button>
+              <button data-filter=".radiologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/radiologist.png" alt="" class="w-6">
+                <span class="inline-block">Radiology</span>
+              </button>
+              <button data-filter=".rheumatologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/rheumatologist.png" alt="" class="w-6">
+                <span class="inline-block">Rheumatology</span>
+              </button>
+              <button data-filter=".urologist"
+                class="text-base font-medium shrink-0 flex items-center justify-center gap-3 px-3.5 py-2 rounded-3xl border-2 border-b bg-w snap-center">
+                <img src="/imgs/pngs/urologist.png" alt="" class="w-6">
+                <span class="inline-block">Urology</span>
+              </button>
+            </div>
+
+            <!-- <div class="by-experience w-full items-center justify-end gap-3.5"> -->
+            <!-- </div> -->
+          </div>
+        </div>
+
+        <div class="relative w-full h-full grid grid-cols-[28%_1fr] gap-5">
+          <div id="doctors"
+            class="relative w-full h-full flex-col gap-3.5  items-center justify-start p-3.5 rounded-2xl overflow-y-auto bg-w snap-y">
+            {{ range .doctors}}
+            <div
+              class="sticky top-0 w-full h-11 items-center justify-between gap-2.5 mb-1.5 p-0.5 rounded-3xl border-2 border-b/75 shadow-sm bg-w overflow-clip">
+              <span class="w-9 aspect-square shrink-0 flex items-center justify-center rounded-3xl bg-b/25">
+                <i class="hgi hgi-stroke hgi-user-search-01 text-b text-3xl"></i>
+              </span>
+              <input id="search" type="search" class="w-full pl-2 px-5 py-1.5 text-start outline-none">
+            </div>
+            {{ template "doctor" . }}
+          </div>
+
+          {{ template "details" . }}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- my javascript code-->
+  <script src="/main.js"></script>
+  <script>
+    // dashboard menu
+    let menuShower = document.getElementById("menu-show"),
+      menuHider = document.getElementById("menu-hide"),
+      navSlide = document.querySelector("menu");
+
+    menuShower.addEventListener("click", () => {
+      menuShower.classList.add("hidden");
+      navSlide.classList.add("show");
+      menuHider.classList.remove("hidden");
+    });
+
+    menuHider.addEventListener("click", () => {
+      menuHider.classList.add("hidden");
+      navSlide.classList.remove("show");
+      menuShower.classList.remove("hidden");
+    });
+  </script>
+
+  <!-- mixitup js -->
+  <script src="/js/mixitup.min.js"></script>
+  <!-- <script src="/js/mixitup-multifilter.min.js"></script> -->
+  <script>
+    // mixitup code
+    var containerEl = document.querySelector('#doctors');
+    var mixer = mixitup(containerEl);
+  </script>
+
+</body>
+
+</html>
