@@ -11,11 +11,6 @@ func DocRoutes(app *fiber.App, s *session.Store) {
 	// Share session store with controllers
 	controllers.Store = s
 
-	// Homepage
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.Render("index", nil)
-	})
-
 	app.Get("/doctors/:name", middlewares.DoctorAuth(s), controllers.DoctorRedirect(s))
 
 	// Doctor auth routes
@@ -26,24 +21,8 @@ func DocRoutes(app *fiber.App, s *session.Store) {
 	app.Get("/doctors/:name/edit", controllers.EditDoctorFormController())
 	app.Post("/doctors/:name/update", controllers.UpdateDoctorController())
 
-	// Authentication middleware
-	isAuthenticated := func(c *fiber.Ctx) error {
-		sess, err := s.Get(c)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
-		}
-
-		// Check session using the same key as controllers
-		doctorEmail := sess.Get("doctor_email")
-		if doctorEmail == nil {
-			return c.Redirect("/")
-		}
-
-		return c.Next()
-	}
-
 	// Protected dashboard route
-	app.Get("/doctors/:name", isAuthenticated, func(c *fiber.Ctx) error {
+	app.Get("/doctors/:name", middlewares.DoctorAuth(s), func(c *fiber.Ctx) error {
 		sess, err := s.Get(c)
 		if err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
@@ -52,8 +31,6 @@ func DocRoutes(app *fiber.App, s *session.Store) {
 		// Use doctor_email for lookup, but show doctor_name if stored
 		name, _ := sess.Get("doctor_name").(string)
 		if name == "" {
-			// fallback if name wasn't saved in session
-			// name = sess.Get("doctor_email").(string)
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 

@@ -31,6 +31,11 @@ func main() {
 		CookieSecure:   false, // set to true when using HTTPS in production
 	})
 
+	// Homepage
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.Render("index", nil)
+	})
+
 	// Routes (pass session store)
 	routes.DocRoutes(app, s)
 
