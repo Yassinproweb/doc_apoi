@@ -1,4 +1,16 @@
 {
+  "name": "Meet_Doc",
+  "version": "0.1.0",
+  "description": "A telemedicine company website",
+  "main": "./static/main.js",
+  "scripts": {
+    "w": "tailwindcss -i ./static/style.css -o ./static/dist/style.css --watch",
+    "b": "tailwindcss -i ./static/style.css -o ./static/dist/style.css --build"
+  },
+  "keywords": [],
+  "author": "Katungi Yassin",
+  "license": "ISC",
+  "packageManager": "pnpm@10.18.0",
 	"devDependencies": {
 		"tailwindcss": "^3.4.18",
 		"postcss": "^8.5.6",
