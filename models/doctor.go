@@ -3,7 +3,7 @@ package models
 import (
 	"errors"
 
-	"github.com/Yassinproweb/doc_apoi.git/data"
+	"github.com/Yassinproweb/doc_apoi/data"
 	"golang.org/x/crypto/bcrypt"
 )
 

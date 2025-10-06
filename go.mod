@@ -1,4 +1,4 @@
-module github.com/Yassinproweb/meet_doc.git
+module github.com/Yassinproweb/doc_apoi
 
 go 1.25.0
 

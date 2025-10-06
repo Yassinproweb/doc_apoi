@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"github.com/Yassinproweb/doc_apoi.git/controllers"
-	"github.com/Yassinproweb/doc_apoi.git/middlewares"
+	"github.com/Yassinproweb/doc_apoi/controllers"
+	"github.com/Yassinproweb/doc_apoi/middlewares"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 )

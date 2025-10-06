@@ -4,8 +4,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/Yassinproweb/doc_apoi.git/data"
-	"github.com/Yassinproweb/doc_apoi.git/routes"
+	"github.com/Yassinproweb/doc_apoi/data"
+	"github.com/Yassinproweb/doc_apoi/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/template/html/v2"
