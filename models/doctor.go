@@ -3,7 +3,7 @@ package models
 import (
 	"errors"
 
-	"github.com/Yassinproweb/meet_doc.git/data"
+	"github.com/Yassinproweb/doc_apoi.git/data"
 	"golang.org/x/crypto/bcrypt"
 )
 

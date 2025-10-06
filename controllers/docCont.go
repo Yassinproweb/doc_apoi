@@ -3,7 +3,7 @@ package controllers
 import (
 	"strings"
 
-	"github.com/Yassinproweb/meet_doc.git/models"
+	"github.com/Yassinproweb/doc_apoi.git/models"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 )
