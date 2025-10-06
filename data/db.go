@@ -36,12 +36,11 @@ func InitDB() {
 	_, err = DB.Exec(`
 		CREATE TABLE IF NOT EXISTS patients (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
-			doctor_id INTEGER,
 			name TEXT NOT NULL,
+			email TEXT UNIQUE NOT NULL,
 			age INTEGER NOT NULL,
 			contact TEXT NOT NULL,
-			district TEXT NOT NULL,
-			FOREIGN KEY (doctor_id) REFERENCES doctors(id)
+			district TEXT NOT NULL
 		)
 	`)
 	if err != nil {

@@ -27,15 +27,16 @@
   <script src="/static/js/alpine.min.js" defer></script>
 
   <!-- title of the page -->
-  <title>Doc_Apoi - Doctor {{if eq .Mode "login"}}Login{{else}}Register{{end}}</title>
+  <title>Doc_Apoi - Doctor {{if eq .Mode "login"}}Login{{else}}Registration{{end}}</title>
 </head>
 
 <body class="w-full h-screen flex flex-col items-center justify-center">
   {{if eq .Mode "login"}}
   <!-- doctor login form -->
-  <div class="relative w-full h-full flex-col items-center justify-center bg-w">
+  <div class="relative w-full h-full flex-col items-center justify-center gap-7 bg-w">
+    <h1 class="text-4xl text-center text-d font-bold">Doctor Login Form</h1>
     <form method="post"
-      class="relative min-w-[65%] max-w-[85%] h-full grid grid-cols-2 items-center justify-center gap-7 rounded-[2.25rem] px-7 py-11"
+      class="relative min-w-[65%] max-w-[85%] h-fit mt-11 flex-col items-center justify-center gap-7 rounded-[2.25rem] px-7 py-11"
       hx-post="/doctors/login" hx-swap="none" x-data="{
       email: '',
       password: '',
@@ -73,7 +74,7 @@
           <p x-show="isValidPassword()" class="text-green-500">Password is secure</p>
         </div>
       </div>
-      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-blue-600"
+      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-blue-600"
         x-bind:disabled="!isValidPassword() || !email.includes('@')"
         x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || !email.includes('@')}">Login
         Doctor</button>
@@ -86,10 +87,11 @@
   </div>
 
   {{else}}
-  <div class="relative w-full h-full flex-col items-center justify-center bg-w">
+  <div class="relative w-full h-full flex-col items-center justify-center gap-7 bg-w">
+    <h1 class="text-4xl text-center text-d font-bold">Doctor Registration Form</h1>
     <!-- doctor registration form -->
     <form method="post"
-      class="relative min-w-[65%] max-w-[85%] h-full grid grid-cols-2 items-center justify-center gap-7 rounded-[2.25rem] px-7 py-11"
+      class="relative min-w-[65%] max-w-[85%] h-fit mt-11 grid grid-cols-2 items-center justify-center gap-7 rounded-[2.25rem] px-7 py-11"
       hx-post="/doctors/register" hx-swap="none" x-data="{
       name: '',
       location: '',
@@ -173,7 +175,7 @@
         <input type="text" id="title"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
       </div>
-      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-blue-600"
+      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-blue-600"
         x-bind:disabled="!isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch()"
         x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch() }">Register
         Doctor</button>

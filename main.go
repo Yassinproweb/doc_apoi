@@ -38,7 +38,8 @@ func main() {
 
 	// Routes (pass session store)
 	routes.DocRoutes(app, s)
+	routes.PatRoutes(app, s)
 
 	// Start server
-	log.Fatal(app.Listen("0.0.0.0:4320"))
+	log.Fatal(app.Listen("0.0.0.0:4321"))
 }

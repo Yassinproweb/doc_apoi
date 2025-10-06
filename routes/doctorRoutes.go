@@ -29,24 +29,6 @@ func DocRoutes(app *fiber.App, s *session.Store) {
 	app.Get("/doctors/:name/edit", controllers.EditDoctorFormController())
 	app.Post("/doctors/:name/update", controllers.UpdateDoctorController())
 
-	// Protected dashboard route
-	app.Get("/doctors/:name", middlewares.DoctorAuth(s), func(c *fiber.Ctx) error {
-		sess, err := s.Get(c)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
-		}
-
-		// Use doctor_email for lookup, but show doctor_name if stored
-		name, _ := sess.Get("doctor_name").(string)
-		if name == "" {
-			return c.SendStatus(fiber.StatusUnauthorized)
-		}
-
-		return c.Render("doctors/:name", fiber.Map{
-			"Name": name,
-		})
-	})
-
 	// Logout route
 	app.Get("/logout", func(c *fiber.Ctx) error {
 		sess, err := s.Get(c)

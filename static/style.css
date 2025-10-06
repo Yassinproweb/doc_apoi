@@ -43,6 +43,11 @@ h6 label {
 
 label {
   font-weight: bold;
+  max-width: 360px;
+}
+
+input {
+  max-width: 360px;
 }
 
 div,

@@ -48,7 +48,7 @@ func RegisterDoctorController(s *session.Store) fiber.Handler {
 		sess.Save()
 
 		nameUrl := strings.ReplaceAll(strings.ToLower(name), " ", "_")
-		redirectURL := fmt.Sprintf("/doctors/%s", nameUrl)
+		redirectURL := fmt.Sprintf("/doctors?name=%s", nameUrl)
 
 		// Redirect for HTMX
 		c.Set("HX-Redirect", redirectURL)
@@ -74,7 +74,7 @@ func LoginDoctorController(s *session.Store) fiber.Handler {
 		sess.Save()
 
 		nameUrl := strings.ReplaceAll(strings.ToLower(d.Name), " ", "_")
-		redirectURL := fmt.Sprintf("/doctors/%s", nameUrl)
+		redirectURL := fmt.Sprintf("/doctors?name=%s", nameUrl)
 
 		c.Set("HX-Redirect", redirectURL)
 		return c.SendStatus(fiber.StatusOK)
