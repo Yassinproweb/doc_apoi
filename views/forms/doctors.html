@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=1280">
+
+  <!-- link to favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/static/imgs/pngs/doc_apoi.png">
+
+  <!-- link to google fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100..900&family=Mozilla+Headline:wght@200..700&display=swap"
+    rel="stylesheet">
+
+  <!-- linkto tailwindcss -->
+  <link rel="stylesheet" href="/static/dist/style.css">
+
+  <!-- link to huge-icons -->
+  <link rel="stylesheet" href="/static/icons/icons.css">
+
+  <!-- htmx & alpine js -->
+  <script src="/static/js/htmx.min.js" defer></script>
+  <script src="/static/js/alpine.min.js" defer></script>
+
+  <!-- title of the page -->
+  <title>Doc_Apoi - Doctor {{if eq .Mode "login"}}Login{{else}}Register{{end}}</title>
+</head>
+
+<body class="w-full h-screen flex flex-col items-center justify-center">
+  {{if eq .Mode "login"}}
+  <!-- doctor login form -->
+  <div class="relative w-full h-full flex-col items-center justify-center bg-w">
+    <form method="post"
+      class="relative min-w-[65%] max-w-[85%] h-full grid grid-cols-2 items-center justify-center gap-7 rounded-[2.25rem] px-7 py-11"
+      hx-post="/doctors/login" hx-swap="none" x-data="{
+      email: '',
+      password: '',
+      isValidPassword() {
+      return this.password.length >= 6 &&
+        /[A-Z]/.test(this.password) &&
+        /[a-z]/.test(this.password) &&
+        /[0-9]/.test(this.password) &&
+        /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password);
+      },
+      hasUppercase() { return /[A-Z]/.test(this.password); },
+      hasLowercase() { return /[a-z]/.test(this.password); },
+      hasNumber() { return /[0-9]/.test(this.password); },
+      hasSymbol() { return /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password); },
+    }">
+      <div class="w-full flex-col gap-1">
+        <label for="email">Enter your email</label>
+        <input type="email" id="email" x-model="email"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
+        <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="password">Enter secure password</label>
+        <input type="password" id="password" x-model="password"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': password.length >= 6 && !isValidPassword() }">
+        <div class="flex-col text-sm text-red-600 font-medium mt-2">
+          <p x-show="password.length > 0 && password.length < 6">At least 6 characters<span
+              x-show="password.length >= 6 && !hasUppercase()">, an uppercase letter</span><span
+              x-show="password.length >= 6 && !hasLowercase()">, a lowercase letter</span><span
+              x-show="password.length >= 6 && !hasNumber()">, a number</span><span
+              x-show="password.length >= 6 && !hasSymbol()">, a symbol</span>.
+          </p>
+          <p x-show="isValidPassword()" class="text-green-500">Password is secure</p>
+        </div>
+      </div>
+      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-blue-600"
+        x-bind:disabled="!isValidPassword() || !email.includes('@')"
+        x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || !email.includes('@')}">Login
+        Doctor</button>
+    </form>
+
+    <p class="mt-9 text-lg text-center font-medium w-full flex items-center justify-center gap-2">
+      <span class="text-t/70">Don't have an account</span>
+      <a href="/doctors?mode=register" hx-boost="true" class="text-b underline">Register here</a>
+    </p>
+  </div>
+
+  {{else}}
+  <div class="relative w-full h-full flex-col items-center justify-center bg-w">
+    <!-- doctor registration form -->
+    <form method="post"
+      class="relative min-w-[65%] max-w-[85%] h-full grid grid-cols-2 items-center justify-center gap-7 rounded-[2.25rem] px-7 py-11"
+      hx-post="/doctors/register" hx-swap="none" x-data="{
+      name: '',
+      location: '',
+      email: '',
+      password: '',
+      repassword: '',
+      isValidPassword() {
+      return this.password.length >= 6 &&
+        /[A-Z]/.test(this.password) &&
+        /[a-z]/.test(this.password) &&
+        /[0-9]/.test(this.password) &&
+        /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password);
+      },
+      hasUppercase() { return /[A-Z]/.test(this.password); },
+      hasLowercase() { return /[a-z]/.test(this.password); },
+      hasNumber() { return /[0-9]/.test(this.password); },
+      hasSymbol() { return /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password); },
+      passwordsMatch() {
+        return this.password === this.repassword && this.repassword.length > 0;
+      }
+    }">
+      <div class="w-full flex-col gap-1">
+        <label for="name">Enter your fullname</label>
+        <input type="text" id="name" x-model="name"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': name.length < 2 && name.length > 0 }">
+        <p x-show="name.length < 2 && name.length > 0" class="text-red-600 text-xs font-medium">Name must be at least 2
+          characters</p>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="location">Enter work location</label>
+        <input type="text" id="location" x-model="location"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': location.length < 2 && location.length > 0 }">
+        <p x-show="location.length < 2 && location.length > 0" class="text-red-600 text-xs font-medium">Location must be
+          at least 2
+          characters</p>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="email">Enter your email</label>
+        <input type="email" id="email" x-model="email"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
+        <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="password">Enter secure password</label>
+        <input type="password" id="password" x-model="password"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+          x-bind:class="{ 'outline-red-600': password.length >= 6 && !isValidPassword() }">
+        <div class="flex-col text-sm text-red-600 font-medium mt-2">
+          <p x-show="password.length > 0 && password.length < 6">At least 6 characters<span
+              x-show="password.length >= 6 && !hasUppercase()">, an uppercase letter</span><span
+              x-show="password.length >= 6 && !hasLowercase()">, a lowercase letter</span><span
+              x-show="password.length >= 6 && !hasNumber()">, a number</span><span
+              x-show="password.length >= 6 && !hasSymbol()">, a symbol</span>.
+          </p>
+          <p x-show="isValidPassword()" class="text-green-500">Password is secure</p>
+        </div>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="repassword">Re-enter secure password</label>
+        <input type="password" id="repassword" x-model="repassword"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none"
+          x-bind:disabled="!isValidPassword()"
+          x-bind:class="{ 'outline-red-600': repassword.length === password.length && !passwordsMatch() }">
+        <div class="flex-col text-sm mt-2">
+          <p x-show="isValidPassword() && repassword.length === password.length && !passwordsMatch()"
+            class="text-red-600 font-medium">
+            Passwords must be the same</p>
+          <p x-show="passwordsMatch()" class="text-green-500 font-medium">Passwords match</p>
+        </div>
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="skill">Enter your skill</label>
+        <input type="text" id="skill"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
+      </div>
+      <div class="w-full flex-col gap-1">
+        <label for="title">Enter your title</label>
+        <input type="text" id="title"
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
+      </div>
+      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-blue-600"
+        x-bind:disabled="!isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch()"
+        x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch() }">Register
+        Doctor</button>
+    </form>
+
+    <p class="mt-9 text-lg text-center font-medium w-full flex items-center justify-center gap-2">
+      <span class="text-t/70">Already have an account</span>
+      <a href="/doctors?mode=login" hx-boost="true" class="text-b underline">Login here</a>
+    </p>
+  </div>
+  {{end}}
+
+  <!-- my javascript code-->
+  <script src="/static/main.js"></script>
+</body>
+
+</html>

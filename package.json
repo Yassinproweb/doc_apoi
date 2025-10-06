@@ -1,5 +1,5 @@
 {
-  "name": "Meet_Doc",
+  "name": "Doc_Apoi",
   "version": "0.1.0",
   "description": "A telemedicine company website",
   "main": "./static/main.js",
@@ -7,7 +7,7 @@
     "w": "tailwindcss -i ./static/style.css -o ./static/dist/style.css --watch",
     "b": "tailwindcss -i ./static/style.css -o ./static/dist/style.css --build"
   },
-  "keywords": [],
+  "keywords": ["Doc_Apoi", "doctors", "doctor", "telemedicine", "online", "appointment", "smart doctor"],
   "author": "Katungi Yassin",
   "license": "ISC",
   "packageManager": "pnpm@10.18.0",

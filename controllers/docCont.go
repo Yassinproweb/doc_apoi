@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/Yassinproweb/doc_apoi/models"
@@ -46,10 +47,11 @@ func RegisterDoctorController(s *session.Store) fiber.Handler {
 		sess.Set("doctor_name", name) // save doctor name too
 		sess.Save()
 
-		nameUrl := strings.ReplaceAll(name, " ", "_")
+		nameUrl := strings.ReplaceAll(strings.ToLower(name), " ", "_")
+		redirectURL := fmt.Sprintf("/doctors/%s", nameUrl)
 
 		// Redirect for HTMX
-		c.Set("HX-Redirect", "/doctors/"+nameUrl)
+		c.Set("HX-Redirect", redirectURL)
 		return c.SendStatus(fiber.StatusCreated)
 	}
 }
@@ -71,9 +73,10 @@ func LoginDoctorController(s *session.Store) fiber.Handler {
 		sess.Set("doctor_name", d.Name) // save doctor name too
 		sess.Save()
 
-		nameUrl := strings.ReplaceAll(d.Name, " ", "_")
+		nameUrl := strings.ReplaceAll(strings.ToLower(d.Name), " ", "_")
+		redirectURL := fmt.Sprintf("/doctors/%s", nameUrl)
 
-		c.Set("HX-Redirect", "/doctors/"+nameUrl)
+		c.Set("HX-Redirect", redirectURL)
 		return c.SendStatus(fiber.StatusOK)
 	}
 }

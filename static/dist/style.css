@@ -668,6 +668,10 @@ video {
   margin-top: 0.5rem;
 }
 
+.mt-9 {
+  margin-top: 2.25rem;
+}
+
 .block {
   display: block;
 }
@@ -858,6 +862,10 @@ video {
   min-width: 24rem;
 }
 
+.min-w-\[65\%\] {
+  min-width: 65%;
+}
+
 .max-w-96 {
   max-width: 24rem;
 }
@@ -888,6 +896,10 @@ video {
 
 .max-w-full {
   max-width: 100%;
+}
+
+.max-w-\[85\%\] {
+  max-width: 85%;
 }
 
 .shrink-0 {

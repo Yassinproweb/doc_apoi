@@ -13,6 +13,14 @@ func DocRoutes(app *fiber.App, s *session.Store) {
 
 	app.Get("/doctors/:name", middlewares.DoctorAuth(s), controllers.DoctorRedirect(s))
 
+	// Doctor form routes
+	app.Get("/doctors", func(c *fiber.Ctx) error {
+		mode := c.Query("mode", "register")
+		return c.Render("forms/doctors", fiber.Map{
+			"Mode": mode,
+		})
+	})
+
 	// Doctor auth routes
 	app.Post("/doctors/register", controllers.RegisterDoctorController(s))
 	app.Post("/doctors/login", controllers.LoginDoctorController(s))
@@ -48,6 +56,6 @@ func DocRoutes(app *fiber.App, s *session.Store) {
 		if err := sess.Destroy(); err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString("Failed to logout")
 		}
-		return c.Redirect("/doctors/login")
+		return c.Redirect("/doctors?mode=login")
 	})
 }

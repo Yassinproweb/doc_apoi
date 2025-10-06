@@ -1,0 +1,124 @@
+{{ template "head" }}
+
+<!-- patient registration form -->
+<form id="register_patient"
+  class="relative w-fit hidden flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
+  hx-post="/patients/register" hx-trigger="submit" x-data="{
+        name: '',
+        email: '',
+        password: '',
+        repassword: '',
+        isValidPassword() {
+        return this.password.length >= 6 &&
+          /[A-Z]/.test(this.password) &&
+          /[a-z]/.test(this.password) &&
+          /[0-9]/.test(this.password) &&
+          /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password);
+        },
+        hasUppercase() { return /[A-Z]/.test(this.password); },
+        hasLowercase() { return /[a-z]/.test(this.password); },
+        hasNumber() { return /[0-9]/.test(this.password); },
+        hasSymbol() { return /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password); },
+        passwordsMatch() {
+          return this.password === this.repassword && this.repassword.length >= 6;
+        }
+      }">
+  <div class="w-full flex-col gap-1">
+    <label for="name">Enter your fullname</label>
+    <input type="text" id="name" x-model="name"
+      class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+      x-bind:class="{ 'outline-red-600': name.length < 2 && name.length > 0 }">
+    <p x-show="name.length < 2 && name.length > 0" class="text-red-600 text-xs font-medium">Name must be at least 2
+      characters</p>
+  </div>
+  <div class="w-full flex-col gap-1">
+    <label for="email">Enter your email</label>
+    <input type="email" id="email" x-model="email"
+      class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+      x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
+    <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
+  </div>
+  <div class="w-full flex-col gap-1">
+    <label for="password">Enter secure password</label>
+    <input type="password" id="password" x-model="password"
+      class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+      x-bind:class="{ 'outline-red-600': password.length === 6 && !isValidPassword() }">
+    <div class="flex-col text-sm text-red-600 font-medium mt-2">
+      <p x-show="password.length > 0 && password.length < 6">At least 6 characters<span
+          x-show="password.length >= 6 && !hasUppercase()">, an uppercase letter</span><span
+          x-show="password.length >= 6 && !hasLowercase()">, a lowercase letter</span><span
+          x-show="password.length >= 6 && !hasNumber()">, a number</span><span
+          x-show="password.length >= 6 && !hasSymbol()">, a symbol</span>.
+      </p>
+      <p x-show="isValidPassword()" class="text-green-500">Password is secure</p>
+    </div>
+  </div>
+  <div class="w-full flex-col gap-1">
+    <label for="repassword">Re-enter secure password</label>
+    <input type="password" id="repassword" x-model="repassword" x-bind:disabled="!isValidPassword()"
+      class="text-d text-base capitalize px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none"
+      x-bind:class="{ 'outline-red-600': repassword.length === password.length && !passwordsMatch() }">
+    <div class="flex-col text-sm mt-2">
+      <p x-show="isValidPassword() && repassword.length === password.length && !passwordsMatch()"
+        class="text-red-600 text-xs font-medium">
+        Passwords must be the same</p>
+      <p x-show="passwordsMatch()" class="text-green-500 text-xs font-medium">Passwords match</p>
+    </div>
+  </div>
+  <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-b"
+    x-bind:disabled="!isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch()"
+    x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch() }">Register
+    Patient</button>
+  <p class="text-lg text-center font-medium w-full flex items-center justify-center gap-2">
+    <span class="text-t/70">Already have an account</span>
+    <button id="login-pat" class="text-b">Login</button>
+  </p>
+</form>
+
+<!-- patient login form -->
+<form id="login_patient"
+  class="relative hidden w-fit flex-col items-start justify-center gap-7 min-w-96 max-w-96 rounded-[2.25rem] px-7 py-11 bg-w"
+  hx-post="/patients/login" hx-trigger="submit" x-data="{
+      email: '',
+      password: '',
+      isValidPassword() {
+      return this.password.length >= 6 &&
+        /[A-Z]/.test(this.password) &&
+        /[a-z]/.test(this.password) &&
+        /[0-9]/.test(this.password) &&
+        /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password);
+      },
+      hasUppercase() { return /[A-Z]/.test(this.password); },
+      hasLowercase() { return /[a-z]/.test(this.password); },
+      hasNumber() { return /[0-9]/.test(this.password); },
+      hasSymbol() { return /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password); },
+    }">
+  <div class="w-full flex-col gap-1">
+    <label for="email">Enter your email</label>
+    <input type="email" id="email" x-model="email"
+      class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+      x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
+    <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
+  </div>
+  <div class="w-full flex-col gap-1">
+    <label for="password">Enter secure password</label>
+    <input type="password" id="password" x-model="password"
+      class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
+      x-bind:class="{ 'outline-red-600': password.length >= 6 && !isValidPassword() }">
+    <div class="flex-col text-sm text-red-600 font-medium mt-2">
+      <p x-show="password.length > 0 && password.length < 6">At least 6 characters<span
+          x-show="password.length >= 6 && !hasUppercase()">, an uppercase letter</span><span
+          x-show="password.length >= 6 && !hasLowercase()">, a lowercase letter</span><span
+          x-show="password.length >= 6 && !hasNumber()">, a number</span><span
+          x-show="password.length >= 6 && !hasSymbol()">, a symbol</span>.
+      </p>
+      <p x-show="isValidPassword()" class="text-green-500">Password is secure</p>
+    </div>
+  </div>
+  <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-blue-600"
+    x-bind:disabled="!isValidPassword() || !email.includes('@')"
+    x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || !email.includes('@')}">Login
+    Patient</button>
+</form>
+
+{{ template "footing" }}
