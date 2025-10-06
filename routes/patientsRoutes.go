@@ -11,8 +11,8 @@ func PatRoutes(app *fiber.App, s *session.Store) {
 	// Share session store with controllers
 	controllers.Store = s
 
-	app.Get("/patients/:name", middlewares.PatientAuth(s), controllers.PatientRedirect(s))
 	app.Get("/", controllers.GetDoctorsController())
+	app.Get("/patients/:name", middlewares.PatientAuth(s), controllers.PatientRedirect(s))
 
 	// Patient form routes
 	app.Get("/patients", func(c *fiber.Ctx) error {

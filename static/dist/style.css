@@ -842,16 +842,8 @@ video {
   width: 100vw;
 }
 
-.min-w-96 {
-  min-width: 24rem;
-}
-
 .min-w-\[65\%\] {
   min-width: 65%;
-}
-
-.max-w-96 {
-  max-width: 24rem;
 }
 
 .max-w-\[25\%\] {

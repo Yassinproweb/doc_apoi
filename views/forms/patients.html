@@ -65,7 +65,7 @@
         <p x-show="district.length < 2 && district.length > 0" class="text-red-600 text-xs font-medium">District must be
           at least 2 characters</p>
       </div>
-      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-blue-600"
+      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-blue-600"
         x-bind:disabled="!email.includes('@') || contact.length < 10 || district.length < 2"
         x-bind:class="{ 'opacity-50 cursor-not-allowed': !email.includes('@') || contact.length < 10 || district.length < 2}">Login
         Patient</button>
@@ -128,7 +128,7 @@
         <p x-show="district.length < 2 && district.length > 0" class="text-red-600 text-xs font-medium">District must be
           at least 2 characters</p>
       </div>
-      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-b"
+      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-b"
         x-bind:disabled="name.length < 2 || !email.includes('@') || age <= 0 || contact.length < 10 || district.length < 2"
         x-bind:class="{ 'opacity-50 cursor-not-allowed': name.length < 2 || !email.includes('@') || age <= 0 || contact.length < 10 || district.length < 2 }">Register
         Patient</button>
@@ -141,4 +141,8 @@
   </div>
   {{end}}
 
-  {{ template "footing" }}
+  <!-- my javascript code-->
+  <script src="/static/main.js"></script>
+</body>
+
+</html>
