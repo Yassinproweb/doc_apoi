@@ -9,17 +9,52 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/session"
 )
 
-// Fetch all patients and render homepage
-func GetPatientsController() fiber.Handler {
+// Guest view — no login required
+func GuestDashboardController(s *session.Store) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		patients, err := models.GetAllPatients()
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Failed to fetch patients")
+		sess, _ := s.Get(c)
+		name := sess.Get("patient_name")
+
+		// If user is already logged in, redirect to their personal dashboard
+		if name != nil {
+			c.Set("HX-Redirect", "/dashboard/"+name.(string))
+			return c.SendStatus(fiber.StatusOK)
 		}
 
-		// Render homepage with patients data
+		// Otherwise show guest dashboard
 		return c.Render("dashboard", fiber.Map{
-			"Patients": patients,
+			"Guest": true,
+		})
+	}
+}
+
+// Authenticated patient view
+func PatientDashboardController(s *session.Store) fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		sess, _ := s.Get(c)
+		email := sess.Get("patient_email")
+		name := sess.Get("patient_name")
+
+		// If session missing, fallback to guest view
+		if email == nil || name == nil {
+			return c.Redirect("/dashboard")
+		}
+
+		// Make sure the URL matches the session name
+		paramName := c.Params("name")
+		if paramName != name.(string) {
+			return c.Redirect("/dashboard/" + name.(string))
+		}
+
+		// Fetch patient info
+		p, err := models.GetPatientByName(name.(string))
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).SendString("Failed to load dashboard")
+		}
+
+		return c.Render("dashboard", fiber.Map{
+			"Guest":   false,
+			"Patient": p,
 		})
 	}
 }
@@ -41,13 +76,12 @@ func RegisterPatientController(s *session.Store) fiber.Handler {
 		// Create session
 		sess, _ := s.Get(c)
 		sess.Set("patient_email", email)
-		sess.Set("patient_name", name) // save patient name too
+		sess.Set("patient_name", name)
 		sess.Save()
 
 		nameUrl := strings.ReplaceAll(strings.ToLower(name), " ", "_")
-		redirectURL := fmt.Sprintf("/patients?name=%s", nameUrl)
+		redirectURL := fmt.Sprintf("/dashboard/%s", nameUrl)
 
-		// Redirect for HTMX
 		c.Set("HX-Redirect", redirectURL)
 		return c.SendStatus(fiber.StatusCreated)
 	}
@@ -68,17 +102,18 @@ func LoginPatientController(s *session.Store) fiber.Handler {
 		// Create session
 		sess, _ := s.Get(c)
 		sess.Set("patient_email", p.Email)
-		sess.Set("patient_name", p.Name) // save patient name too
+		sess.Set("patient_name", p.Name)
 		sess.Save()
 
 		nameUrl := strings.ReplaceAll(strings.ToLower(p.Name), " ", "_")
-		redirectURL := fmt.Sprintf("/patients?name=%s", nameUrl)
+		redirectURL := fmt.Sprintf("/dashboard/%s", nameUrl)
 
 		c.Set("HX-Redirect", redirectURL)
 		return c.SendStatus(fiber.StatusOK)
 	}
 }
 
+// View individual patient dashboard
 func PatientRedirect(s *session.Store) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		name := c.Params("name")
@@ -88,7 +123,7 @@ func PatientRedirect(s *session.Store) fiber.Handler {
 			return c.Status(fiber.StatusNotFound).SendString("Patient not found")
 		}
 
-		return c.Render("dashboard", fiber.Map{
+		return c.Render("patient", fiber.Map{
 			"Patient": p,
 		})
 	}
@@ -103,7 +138,7 @@ func UpdatePatientController() fiber.Handler {
 		}
 		email := sess.Get("patient_email")
 		if email == nil {
-			return c.SendStatus(fiber.StatusUnauthorized) // not logged in
+			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 
 		name := c.FormValue("name")
@@ -116,14 +151,13 @@ func UpdatePatientController() fiber.Handler {
 			return c.SendStatus(fiber.StatusInternalServerError)
 		}
 
-		// Update name in session if changed
 		if name != "" {
 			sess.Set("patient_name", name)
 			sess.Save()
 		}
 
-		// Redirect for HTMX
-		c.Set("HX-Redirect", "/dashboard")
+		c.Set("HX-Redirect", "/patients/"+name)
 		return c.SendStatus(fiber.StatusOK)
 	}
 }
+

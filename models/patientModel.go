@@ -16,7 +16,7 @@ type Patient struct {
 
 // Fetch all patients
 func GetAllPatients() ([]Patient, error) {
-	rows, err := data.DB.Query(`SELECT * FROM patients`)
+	rows, err := data.DB.Query(`SELECT name, email, age, contact, district FROM patients`)
 	if err != nil {
 		return nil, err
 	}
@@ -34,23 +34,23 @@ func GetAllPatients() ([]Patient, error) {
 	return patients, nil
 }
 
-// Add new doctor
+// Add new patient
 func AddPatient(name, email, age, contact, district string) error {
-	// Check if doctor already exists
+	// Check if patient already exists
 	_, err := GetPatient(email)
 	if err == nil {
 		return errors.New(`Email already taken`)
 	}
 
-	// Insert doctor into table
+	// Insert patient into table
 	_, err = data.DB.Exec(
-		`INSERT INTO patients (name, email, age, contact, district) VALUES (?, ?, ?, ?, ?, ?)`,
+		`INSERT INTO patients (name, email, age, contact, district) VALUES (?, ?, ?, ?, ?)`,
 		name, email, age, contact, district,
 	)
 	return err
 }
 
-// Fetch doctor by email (for login)
+// Fetch patient by email
 func GetPatient(email string) (*Patient, error) {
 	row := data.DB.QueryRow(
 		`SELECT name, email, age, contact, district FROM patients WHERE email = ?`,
@@ -66,15 +66,15 @@ func GetPatient(email string) (*Patient, error) {
 	return &p, nil
 }
 
-// Fetch doctor by email into struct (for editing profile)
+// Fetch patient by email into struct (for editing profile)
 func GetPatientByEmail(email string, p *Patient) error {
 	return data.DB.QueryRow(
-		`SELECT name, email, contact, district FROM patients WHERE email=?`,
+		`SELECT name, email, age, contact, district FROM patients WHERE email=?`,
 		email,
-	).Scan(&p.Name, &p.Email, &p.Contact, &p.District)
+	).Scan(&p.Name, &p.Email, &p.Age, &p.Contact, &p.District)
 }
 
-// Fetch doctor by name
+// Fetch patient by name
 func GetPatientByName(name string) (*Patient, error) {
 	row := data.DB.QueryRow(
 		`SELECT name, email, age, contact, district FROM patients WHERE name = ?`,
@@ -90,7 +90,7 @@ func GetPatientByName(name string) (*Patient, error) {
 	return &p, nil
 }
 
-// Edit doctor profile
+// Edit patient profile
 func EditPatient(email, name, age, contact, district string) (*Patient, error) {
 	// Get current record
 	var p Patient
@@ -127,3 +127,4 @@ func EditPatient(email, name, age, contact, district string) (*Patient, error) {
 
 	return &p, nil
 }
+

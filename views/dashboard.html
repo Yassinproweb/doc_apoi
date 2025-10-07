@@ -25,8 +25,8 @@
           <img src="/imgs/jpgs/doc.jpg" alt="" id="pic-profile"
             class="w-11 aspect-square object-cover object-center rounded-lg">
           <div class="flex-col gap-0">
-            <p id="name" class="text-d text-lg font-medium">Arinda Sumayyah</p>
-            <span id="role" class="text-sm">Patient</span>
+            <p id="name" class="text-d text-lg font-medium">{{ if .Guest }}Hi Patient{{ else }}Hi {{ .Name }}{{end}}</p>
+            <span id="location" class="text-sm">{{ .Location }} - {{ .Contact }}</span>
           </div>
         </div>
 
