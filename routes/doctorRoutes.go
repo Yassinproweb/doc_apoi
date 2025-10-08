@@ -26,6 +26,5 @@ func DocRoutes(app *fiber.App) {
 	app.Post("/doctors/:name/update", middlewares.DoctorAuth(), controllers.UpdateDoctorController())
 
 	// Logout
-	app.Get("/logout", controllers.LogoutController())
+	app.Get("/logout", controllers.LogoutDoctorController())
 }
-
