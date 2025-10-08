@@ -5,7 +5,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/Yassinproweb/doc_apoi/models"
 	"github.com/Yassinproweb/doc_apoi/utils"
@@ -74,8 +73,11 @@ func RegisterDoctorController() fiber.Handler {
 		c.Cookie(&fiber.Cookie{
 			Name:     "doctor_email",
 			Value:    email,
-			HTTPOnly: true,
-			Expires:  time.Now().Add(24 * time.Hour),
+			Path:     "/",
+			HTTPOnly: true,  // prevent JS access
+			SameSite: "Lax", // protect against CSRF
+			Secure:   false, // only send over HTTPS (use false in localhost)
+			MaxAge:   60 * 60 * 24 * 7,
 		})
 
 		nameURL := strings.ReplaceAll(strings.ToLower(name), " ", "_")
@@ -100,9 +102,12 @@ func LoginDoctorController() fiber.Handler {
 		// Set only email cookie
 		c.Cookie(&fiber.Cookie{
 			Name:     "doctor_email",
-			Value:    d.Email,
-			HTTPOnly: true,
-			Expires:  time.Now().Add(24 * time.Hour),
+			Value:    email,
+			Path:     "/",
+			HTTPOnly: true,  // prevent JS access
+			SameSite: "Lax", // protect against CSRF
+			Secure:   false, // only send over HTTPS (use false in localhost)
+			MaxAge:   60 * 60 * 24 * 7,
 		})
 
 		nameURL := strings.ReplaceAll(strings.ToLower(d.Name), " ", "_")
@@ -202,3 +207,21 @@ func EditDoctorFormController() fiber.Handler {
 	}
 }
 
+// Doctor logout
+func LogoutDoctorController() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		c.Cookie(&fiber.Cookie{
+			Name:     "doctor_email",
+			Value:    "",
+			Path:     "/",
+			HTTPOnly: true,  // prevent JS access
+			SameSite: "Lax", // protect against CSRF
+			Secure:   false, // only send over HTTPS (use false in localhost)
+			MaxAge:   -1,
+		})
+
+		// Redirect for HTMX
+		c.Set("HX-Redirect", "/dashboard")
+		return c.SendStatus(fiber.StatusOK)
+	}
+}
