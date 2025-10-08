@@ -37,7 +37,7 @@
     <h1 class="text-4xl text-center text-d font-bold">Patients' Login Form</h1>
     <form method="post"
       class="relative min-w-[65%] max-w-[85%] h-fit mt-11 flex-col items-center justify-center gap-7 rounded-[2.25rem] px-7 py-11"
-      hx-post="/patients/login" hx-swap="none" x-data="{
+      hx-post="/patients/login" hx-swap="none" hx-trigger="submit" x-data="{
       email: '',
       contact: '',
       district: '',
@@ -65,10 +65,10 @@
         <p x-show="district.length < 2 && district.length > 0" class="text-red-600 text-xs font-medium">District must be
           at least 2 characters</p>
       </div>
-      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-blue-600"
+      <input type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-blue-600"
         x-bind:disabled="!email.includes('@') || contact.length < 10 || district.length < 2"
-        x-bind:class="{ 'opacity-50 cursor-not-allowed': !email.includes('@') || contact.length < 10 || district.length < 2}">Login
-        Patient</button>
+        x-bind:class="{ 'opacity-50 cursor-not-allowed': !email.includes('@') || contact.length < 10 || district.length < 2}"
+        value="Login Patient">
     </form>
 
     <p class="mt-9 text-lg text-center font-medium w-full flex items-center justify-center gap-2">
@@ -83,7 +83,7 @@
     <!-- patient registration form -->
     <form method="post"
       class="relative min-w-[65%] max-w-[85%] h-fit mt-11 grid grid-cols-2 items-center justify-center gap-7 rounded-[2.25rem] px-7 py-11"
-      hx-post="/patients/register" hx-swap="none" x-data="{
+      hx-post="/patients/register" hx-swap="none" hx-trigger="submit" x-data="{
         name: '',
         email: '',
         age: '',
@@ -128,10 +128,10 @@
         <p x-show="district.length < 2 && district.length > 0" class="text-red-600 text-xs font-medium">District must be
           at least 2 characters</p>
       </div>
-      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-b"
+      <input type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-b"
         x-bind:disabled="name.length < 2 || !email.includes('@') || age <= 0 || contact.length < 10 || district.length < 2"
-        x-bind:class="{ 'opacity-50 cursor-not-allowed': name.length < 2 || !email.includes('@') || age <= 0 || contact.length < 10 || district.length < 2 }">Register
-        Patient</button>
+        x-bind:class="{ 'opacity-50 cursor-not-allowed': name.length < 2 || !email.includes('@') || age <= 0 || contact.length < 10 || district.length < 2 }"
+        value="Register Patient">
     </form>
 
     <p class="mt-9 text-lg text-center font-medium w-full flex items-center justify-center gap-2">

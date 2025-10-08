@@ -37,7 +37,7 @@
     <h1 class="text-4xl text-center text-d font-bold">Doctor Login Form</h1>
     <form method="post"
       class="relative min-w-[65%] max-w-[85%] h-fit mt-11 flex-col items-center justify-center gap-7 rounded-[2.25rem] px-7 py-11"
-      hx-post="/doctors/login" hx-swap="none" x-data="{
+      hx-post="/doctors/login" hx-swap="none" hx-trigger="submit" x-data="{
       email: '',
       password: '',
       isValidPassword() {
@@ -74,10 +74,10 @@
           <p x-show="isValidPassword()" class="text-green-500">Password is secure</p>
         </div>
       </div>
-      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-blue-600"
+      <input type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-blue-600"
         x-bind:disabled="!isValidPassword() || !email.includes('@')"
-        x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || !email.includes('@')}">Login
-        Doctor</button>
+        x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || !email.includes('@')}"
+        value="Login Doctor">
     </form>
 
     <p class="mt-9 text-lg text-center font-medium w-full flex items-center justify-center gap-2">
@@ -92,7 +92,7 @@
     <!-- doctor registration form -->
     <form method="post"
       class="relative min-w-[65%] max-w-[85%] h-fit mt-11 grid grid-cols-2 items-center justify-center gap-7 rounded-[2.25rem] px-7 py-11"
-      hx-post="/doctors/register" hx-swap="none" x-data="{
+      hx-post="/doctors/register" hx-swap="none" hx-trigger="submit" x-data="{
       name: '',
       location: '',
       email: '',
@@ -180,10 +180,10 @@
         <input type="file" id="avatar" accept="image/jpeg, image/jpg, image/png, image/webp, image/gif"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
       </div>
-      <button type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-blue-600"
+      <input type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-blue-600"
         x-bind:disabled="!isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch()"
-        x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch() }">Register
-        Doctor</button>
+        x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch() }"
+        value="Register Doctor">
     </form>
 
     <p class="mt-9 text-lg text-center font-medium w-full flex items-center justify-center gap-2">
