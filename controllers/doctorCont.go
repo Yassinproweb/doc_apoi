@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -64,9 +65,11 @@ func RegisterDoctorController() fiber.Handler {
 			avatar = "/static/avatars/" + uniqueName
 		}
 
+		log.Println(avatar)
+
 		err = models.AddDoctor(name, email, password, skill, title, location, avatar)
 		if err != nil {
-			return c.Status(fiber.StatusBadRequest).SendString("Registration failed: " + err.Error())
+			return c.Status(fiber.StatusInternalServerError).SendString("Registration failed: " + err.Error())
 		}
 
 		// Set only email cookie
