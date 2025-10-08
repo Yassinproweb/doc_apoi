@@ -1,21 +1,14 @@
 package middlewares
 
-import (
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
-)
+import "github.com/gofiber/fiber/v2"
 
-func DoctorAuth(s *session.Store) fiber.Handler {
+func DoctorAuth() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		sess, err := s.Get(c)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
+		email := c.Cookies("doctor_email")
+		if email == "" {
+			return c.Redirect("/doctors?mode=login")
 		}
-
-		if sess.Get("doctor_name") == nil {
-			return c.Redirect("/doctors/login")
-		}
-
 		return c.Next()
 	}
 }
+

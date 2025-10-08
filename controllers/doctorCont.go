@@ -5,15 +5,13 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/Yassinproweb/doc_apoi/models"
 	"github.com/Yassinproweb/doc_apoi/utils"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/google/uuid"
 )
-
-var Store *session.Store
 
 // Fetch all doctors and render homepage
 func GetDoctorsController() fiber.Handler {
@@ -23,7 +21,6 @@ func GetDoctorsController() fiber.Handler {
 			return c.Status(fiber.StatusInternalServerError).SendString("Failed to fetch doctors")
 		}
 
-		// Render homepage with doctors data
 		return c.Render("dashboard", fiber.Map{
 			"Doctors": doctors,
 		})
@@ -31,7 +28,7 @@ func GetDoctorsController() fiber.Handler {
 }
 
 // Doctor registration
-func RegisterDoctorController(s *session.Store) fiber.Handler {
+func RegisterDoctorController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		name := c.FormValue("name")
 		email := c.FormValue("email")
@@ -41,31 +38,28 @@ func RegisterDoctorController(s *session.Store) fiber.Handler {
 		location := c.FormValue("location")
 
 		file, err := c.FormFile("avatar")
-		avatar := "/static/imgs/pngs/doc_apoi.png"
+		avatar := "/static/imgs/pngs/doc_apoi.png" // default logo
 
 		allowedFiles := []string{"image/jpeg", "image/png", "image/webp", "image/gif"}
-
 		avatarsDir := "./static/avatars/"
-
-		os.Mkdir(avatarsDir, os.ModePerm)
+		os.MkdirAll(avatarsDir, os.ModePerm)
 
 		if err == nil && file != nil {
 			contentType := file.Header.Get("Content-Type")
-
 			if !utils.IsAllowedFileType(contentType, allowedFiles) {
-				return c.Status(fiber.StatusBadRequest).SendString("Not valid image file! Only .jpg, .jpeg, .png, .webp and .gif files are allowed.")
+				return c.Status(fiber.StatusBadRequest).SendString("Invalid image file! Only .jpg, .jpeg, .png, .webp and .gif are allowed.")
 			}
 
-			const maxFileSize = 2 * 1024 * 1024
+			const maxFileSize = 2 * 1024 * 1024 // 2MB
 			if file.Size > maxFileSize {
-				return c.Status(fiber.StatusBadRequest).SendString("File too large. Max size should be 2MBs.")
+				return c.Status(fiber.StatusBadRequest).SendString("File too large. Max size is 2MB.")
 			}
 
 			ext := filepath.Ext(file.Filename)
 			uniqueName := uuid.New().String() + ext
 
 			if err := c.SaveFile(file, avatarsDir+uniqueName); err != nil {
-				return c.Status(fiber.StatusInternalServerError).SendString("Failed to save image")
+				return c.Status(fiber.StatusInternalServerError).SendString("Failed to save image.")
 			}
 
 			avatar = "/static/avatars/" + uniqueName
@@ -76,23 +70,24 @@ func RegisterDoctorController(s *session.Store) fiber.Handler {
 			return c.Status(fiber.StatusBadRequest).SendString("Registration failed: " + err.Error())
 		}
 
-		// Create session
-		sess, _ := s.Get(c)
-		sess.Set("doctor_email", email)
-		sess.Set("doctor_name", name) // save doctor name too
-		sess.Save()
+		// Set only email cookie
+		c.Cookie(&fiber.Cookie{
+			Name:     "doctor_email",
+			Value:    email,
+			HTTPOnly: true,
+			Expires:  time.Now().Add(24 * time.Hour),
+		})
 
-		nameUrl := strings.ReplaceAll(strings.ToLower(name), " ", "_")
-		redirectURL := fmt.Sprintf("/doctors/%s", nameUrl)
+		nameURL := strings.ReplaceAll(strings.ToLower(name), " ", "_")
+		redirectURL := fmt.Sprintf("/doctors/%s", nameURL)
 
-		// Redirect for HTMX
 		c.Set("HX-Redirect", redirectURL)
 		return c.SendStatus(fiber.StatusCreated)
 	}
 }
 
 // Doctor login
-func LoginDoctorController(s *session.Store) fiber.Handler {
+func LoginDoctorController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		email := c.FormValue("email")
 		password := c.FormValue("password")
@@ -102,21 +97,24 @@ func LoginDoctorController(s *session.Store) fiber.Handler {
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 
-		// Create session
-		sess, _ := s.Get(c)
-		sess.Set("doctor_email", d.Email)
-		sess.Set("doctor_name", d.Name) // save doctor name too
-		sess.Save()
+		// Set only email cookie
+		c.Cookie(&fiber.Cookie{
+			Name:     "doctor_email",
+			Value:    d.Email,
+			HTTPOnly: true,
+			Expires:  time.Now().Add(24 * time.Hour),
+		})
 
-		nameUrl := strings.ReplaceAll(strings.ToLower(d.Name), " ", "_")
-		redirectURL := fmt.Sprintf("/doctors/%s", nameUrl)
+		nameURL := strings.ReplaceAll(strings.ToLower(d.Name), " ", "_")
+		redirectURL := fmt.Sprintf("/doctors/%s", nameURL)
 
 		c.Set("HX-Redirect", redirectURL)
 		return c.SendStatus(fiber.StatusOK)
 	}
 }
 
-func DoctorRedirect(s *session.Store) fiber.Handler {
+// Doctor profile redirect
+func DoctorRedirect() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		name := c.Params("name")
 
@@ -131,16 +129,12 @@ func DoctorRedirect(s *session.Store) fiber.Handler {
 	}
 }
 
-// Update doctor profile
+// Update doctor profile (info + optional new avatar)
 func UpdateDoctorController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		sess, err := Store.Get(c)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
-		}
-		email := sess.Get("doctor_email")
-		if email == nil {
-			return c.SendStatus(fiber.StatusUnauthorized) // not logged in
+		email := c.Cookies("doctor_email")
+		if email == "" {
+			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 
 		name := c.FormValue("name")
@@ -149,15 +143,39 @@ func UpdateDoctorController() fiber.Handler {
 		location := c.FormValue("location")
 		password := c.FormValue("password")
 
-		_, err = models.EditDoctor(email.(string), name, password, skill, title, location)
-		if err != nil {
-			return c.SendStatus(fiber.StatusInternalServerError)
+		// Handle optional avatar update
+		file, err := c.FormFile("avatar")
+		if err == nil && file != nil {
+			allowedFiles := []string{"image/jpeg", "image/png", "image/webp", "image/gif"}
+			contentType := file.Header.Get("Content-Type")
+
+			if !utils.IsAllowedFileType(contentType, allowedFiles) {
+				return c.Status(fiber.StatusBadRequest).SendString("Invalid image file!")
+			}
+
+			const maxFileSize = 2 * 1024 * 1024 // 2MB
+			if file.Size > maxFileSize {
+				return c.Status(fiber.StatusBadRequest).SendString("File too large. Max 2MB.")
+			}
+
+			os.MkdirAll("./static/avatars/", os.ModePerm)
+			ext := filepath.Ext(file.Filename)
+			uniqueName := uuid.New().String() + ext
+			savePath := "./static/avatars/" + uniqueName
+
+			if err := c.SaveFile(file, savePath); err != nil {
+				return c.Status(fiber.StatusInternalServerError).SendString("Failed to save image")
+			}
+
+			avatarPath := "/static/avatars/" + uniqueName
+			if err := models.UpdateDoctorAvatar(email, avatarPath); err != nil {
+				return c.Status(fiber.StatusInternalServerError).SendString("Failed to update avatar")
+			}
 		}
 
-		// Update name in session if changed
-		if name != "" {
-			sess.Set("doctor_name", name)
-			sess.Save()
+		_, err = models.EditDoctor(email, name, password, skill, title, location)
+		if err != nil {
+			return c.SendStatus(fiber.StatusInternalServerError)
 		}
 
 		// Redirect for HTMX
@@ -169,18 +187,13 @@ func UpdateDoctorController() fiber.Handler {
 // Get edit doctor form
 func EditDoctorFormController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		sess, err := Store.Get(c)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
-		}
-		email := sess.Get("doctor_email")
-		if email == nil {
+		email := c.Cookies("doctor_email")
+		if email == "" {
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 
-		// Fetch doctor (without password)
 		var d models.Doctor
-		err = models.GetDoctorByEmail(email.(string), &d)
+		err := models.GetDoctorByEmail(email, &d)
 		if err != nil {
 			return c.SendStatus(fiber.StatusNotFound)
 		}
@@ -188,3 +201,4 @@ func EditDoctorFormController() fiber.Handler {
 		return c.Render("update-doctor", fiber.Map{"Doctor": d})
 	}
 }
+

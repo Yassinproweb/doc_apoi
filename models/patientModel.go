@@ -42,7 +42,6 @@ func AddPatient(name, email, age, contact, district string) error {
 		return errors.New(`Email already taken`)
 	}
 
-	// Insert patient into table
 	_, err = data.DB.Exec(
 		`INSERT INTO patients (name, email, age, contact, district) VALUES (?, ?, ?, ?, ?)`,
 		name, email, age, contact, district,
@@ -66,14 +65,6 @@ func GetPatient(email string) (*Patient, error) {
 	return &p, nil
 }
 
-// Fetch patient by email into struct (for editing profile)
-func GetPatientByEmail(email string, p *Patient) error {
-	return data.DB.QueryRow(
-		`SELECT name, email, age, contact, district FROM patients WHERE email=?`,
-		email,
-	).Scan(&p.Name, &p.Email, &p.Age, &p.Contact, &p.District)
-}
-
 // Fetch patient by name
 func GetPatientByName(name string) (*Patient, error) {
 	row := data.DB.QueryRow(
@@ -92,7 +83,6 @@ func GetPatientByName(name string) (*Patient, error) {
 
 // Edit patient profile
 func EditPatient(email, name, age, contact, district string) (*Patient, error) {
-	// Get current record
 	var p Patient
 	err := data.DB.QueryRow(
 		`SELECT name, email, age, contact, district FROM patients WHERE email=?`,
@@ -102,7 +92,6 @@ func EditPatient(email, name, age, contact, district string) (*Patient, error) {
 		return nil, err
 	}
 
-	// Update fields if provided
 	if name != "" {
 		p.Name = name
 	}
@@ -116,7 +105,6 @@ func EditPatient(email, name, age, contact, district string) (*Patient, error) {
 		p.District = district
 	}
 
-	// Save changes
 	_, err = data.DB.Exec(
 		`UPDATE patients SET name=?, age=?, contact=?, district=? WHERE email=?`,
 		p.Name, p.Age, p.Contact, p.District, p.Email,

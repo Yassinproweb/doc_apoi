@@ -17,9 +17,12 @@ type Doctor struct {
 	Avatar   string `json:"avatar"`
 }
 
+// Default avatar path
+const DefaultAvatar = "/static/imgs/pngs/doc_apoi.png"
+
 // Fetch all doctors
 func GetAllDoctors() ([]Doctor, error) {
-	rows, err := data.DB.Query(`SELECT * FROM doctors`)
+	rows, err := data.DB.Query(`SELECT name, email, password, skill, title, location, avatar FROM doctors`)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +37,7 @@ func GetAllDoctors() ([]Doctor, error) {
 		}
 
 		if d.Avatar == "" {
-			d.Avatar = "/static/imgs/pngs/doc_apoi.png"
+			d.Avatar = DefaultAvatar
 		}
 
 		doctors = append(doctors, d)
@@ -79,7 +82,7 @@ func GetDoctor(email string) (*Doctor, error) {
 	}
 
 	if d.Avatar == "" {
-		d.Avatar = "/static/imgs/pngs/doc_apoi.png"
+		d.Avatar = DefaultAvatar
 	}
 
 	return &d, nil
@@ -99,20 +102,30 @@ func GetDoctorByName(name string) (*Doctor, error) {
 	}
 
 	if d.Avatar == "" {
-		d.Avatar = "/static/imgs/pngs/doc_apoi.png"
+		d.Avatar = DefaultAvatar
 	}
 
 	return &d, nil
 }
 
+// Fetch doctor by email (into provided struct)
 func GetDoctorByEmail(email string, d *Doctor) error {
-	return data.DB.QueryRow(
+	err := data.DB.QueryRow(
 		`SELECT name, email, password, skill, title, location, avatar FROM doctors WHERE email = ?`,
 		email,
 	).Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title, &d.Location, &d.Avatar)
+	if err != nil {
+		return err
+	}
+
+	if d.Avatar == "" {
+		d.Avatar = DefaultAvatar
+	}
+
+	return nil
 }
 
-// Edit doctor profile
+// Edit doctor profile (name, password, etc.)
 func EditDoctor(email, name, password, skill, title, location string) (*Doctor, error) {
 	// Get current record
 	var d Doctor
@@ -157,8 +170,15 @@ func EditDoctor(email, name, password, skill, title, location string) (*Doctor, 
 	return &d, nil
 }
 
+// ✅ Update doctor avatar using their email
+func UpdateDoctorAvatar(email, avatarPath string) error {
+	_, err := data.DB.Exec(`UPDATE doctors SET avatar = ? WHERE email = ?`, avatarPath, email)
+	return err
+}
+
 // Compare hashed password with plain text
 func (d *Doctor) CheckPassword(password string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(d.Password), []byte(password))
 	return err == nil
 }
+

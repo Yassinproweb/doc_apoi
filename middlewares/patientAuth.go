@@ -2,20 +2,18 @@ package middlewares
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 )
 
-func PatientAuth(s *session.Store) fiber.Handler {
+func PatientAuth() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		sess, err := s.Get(c)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
-		}
+		name := c.Cookies("patient_name")
+		email := c.Cookies("patient_email")
 
-		if sess.Get("patient_name") == nil {
-			return c.Redirect("/patients/login")
+		if name == "" || email == "" {
+			return c.Redirect("/patients?mode=login")
 		}
 
 		return c.Next()
 	}
 }
+

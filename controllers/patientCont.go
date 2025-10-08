@@ -3,25 +3,21 @@ package controllers
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/Yassinproweb/doc_apoi/models"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 )
 
 // Guest view — no login required
-func GuestDashboardController(s *session.Store) fiber.Handler {
+func GuestDashboardController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		sess, _ := s.Get(c)
-		name := sess.Get("patient_name")
-
-		// If user is already logged in, redirect to their personal dashboard
-		if name != nil {
-			c.Set("HX-Redirect", "/dashboard/"+name.(string))
+		name := c.Cookies("patient_name")
+		if name != "" {
+			c.Set("HX-Redirect", "/dashboard/"+name)
 			return c.SendStatus(fiber.StatusOK)
 		}
 
-		// Otherwise show guest dashboard
 		return c.Render("dashboard", fiber.Map{
 			"Guest": true,
 		})
@@ -29,25 +25,21 @@ func GuestDashboardController(s *session.Store) fiber.Handler {
 }
 
 // Authenticated patient view
-func PatientDashboardController(s *session.Store) fiber.Handler {
+func PatientDashboardController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		sess, _ := s.Get(c)
-		email := sess.Get("patient_email")
-		name := sess.Get("patient_name")
+		email := c.Cookies("patient_email")
+		name := c.Cookies("patient_name")
 
-		// If session missing, fallback to guest view
-		if email == nil || name == nil {
+		if email == "" || name == "" {
 			return c.Redirect("/dashboard")
 		}
 
-		// Make sure the URL matches the session name
 		paramName := c.Params("name")
-		if paramName != name.(string) {
-			return c.Redirect("/dashboard/" + name.(string))
+		if paramName != name {
+			return c.Redirect("/dashboard/" + name)
 		}
 
-		// Fetch patient info
-		p, err := models.GetPatientByName(name.(string))
+		p, err := models.GetPatientByName(name)
 		if err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString("Failed to load dashboard")
 		}
@@ -66,7 +58,7 @@ func PatientDashboardController(s *session.Store) fiber.Handler {
 }
 
 // Patient registration
-func RegisterPatientController(s *session.Store) fiber.Handler {
+func RegisterPatientController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		name := c.FormValue("name")
 		email := c.FormValue("email")
@@ -74,16 +66,16 @@ func RegisterPatientController(s *session.Store) fiber.Handler {
 		contact := c.FormValue("contact")
 		district := c.FormValue("district")
 
-		err := models.AddPatient(name, email, age, contact, district)
-		if err != nil {
+		if err := models.AddPatient(name, email, age, contact, district); err != nil {
 			return c.Status(fiber.StatusBadRequest).SendString("Registration failed: " + err.Error())
 		}
 
-		// Create session
-		sess, _ := s.Get(c)
-		sess.Set("patient_email", email)
-		sess.Set("patient_name", name)
-		sess.Save()
+		c.Cookie(&fiber.Cookie{
+			Name:     "patient_email",
+			Value:    email,
+			HTTPOnly: true,
+			Expires:  time.Now().Add(24 * time.Hour),
+		})
 
 		nameUrl := strings.ReplaceAll(strings.ToLower(name), " ", "_")
 		redirectURL := fmt.Sprintf("/dashboard/%s", nameUrl)
@@ -94,7 +86,7 @@ func RegisterPatientController(s *session.Store) fiber.Handler {
 }
 
 // Patient login
-func LoginPatientController(s *session.Store) fiber.Handler {
+func LoginPatientController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		email := c.FormValue("email")
 		contact := c.FormValue("contact")
@@ -105,11 +97,12 @@ func LoginPatientController(s *session.Store) fiber.Handler {
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 
-		// Create session
-		sess, _ := s.Get(c)
-		sess.Set("patient_email", p.Email)
-		sess.Set("patient_name", p.Name)
-		sess.Save()
+		c.Cookie(&fiber.Cookie{
+			Name:     "patient_email",
+			Value:    p.Email,
+			HTTPOnly: true,
+			Expires:  time.Now().Add(24 * time.Hour),
+		})
 
 		nameUrl := strings.ReplaceAll(strings.ToLower(p.Name), " ", "_")
 		redirectURL := fmt.Sprintf("/dashboard/%s", nameUrl)
@@ -119,31 +112,11 @@ func LoginPatientController(s *session.Store) fiber.Handler {
 	}
 }
 
-// View individual patient dashboard
-func PatientRedirect(s *session.Store) fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		name := c.Params("name")
-
-		p, err := models.GetPatientByName(name)
-		if err != nil {
-			return c.Status(fiber.StatusNotFound).SendString("Patient not found")
-		}
-
-		return c.Render("patient", fiber.Map{
-			"Patient": p,
-		})
-	}
-}
-
 // Update patient profile
 func UpdatePatientController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		sess, err := Store.Get(c)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
-		}
-		email := sess.Get("patient_email")
-		if email == nil {
+		email := c.Cookies("patient_email")
+		if email == "" {
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 
@@ -152,17 +125,21 @@ func UpdatePatientController() fiber.Handler {
 		district := c.FormValue("district")
 		age := c.FormValue("age")
 
-		_, err = models.EditPatient(email.(string), name, age, contact, district)
+		_, err := models.EditPatient(email, name, age, contact, district)
 		if err != nil {
-			return c.SendStatus(fiber.StatusInternalServerError)
+			return c.Status(fiber.StatusInternalServerError).SendString("Failed to update profile")
 		}
 
-		if name != "" {
-			sess.Set("patient_name", name)
-			sess.Save()
-		}
-
-		c.Set("HX-Redirect", "/patients/"+name)
+		c.Set("HX-Redirect", "/dashboard/"+name)
 		return c.SendStatus(fiber.StatusOK)
+	}
+}
+
+// Logout
+func LogoutPatientController() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		c.ClearCookie("patient_email")
+		c.ClearCookie("patient_name")
+		return c.Redirect("/patients?mode=login")
 	}
 }

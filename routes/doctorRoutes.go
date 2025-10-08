@@ -4,16 +4,12 @@ import (
 	"github.com/Yassinproweb/doc_apoi/controllers"
 	"github.com/Yassinproweb/doc_apoi/middlewares"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 )
 
-func DocRoutes(app *fiber.App, s *session.Store) {
-	// Share session store with controllers
-	controllers.Store = s
+func DocRoutes(app *fiber.App) {
+	app.Get("/doctors/:name", middlewares.DoctorAuth(), controllers.DoctorRedirect())
 
-	app.Get("/doctors/:name", middlewares.DoctorAuth(s), controllers.DoctorRedirect(s))
-
-	// Doctor form routes
+	// Doctor form
 	app.Get("/doctors", func(c *fiber.Ctx) error {
 		mode := c.Query("mode", "register")
 		return c.Render("forms/doctors", fiber.Map{
@@ -21,23 +17,15 @@ func DocRoutes(app *fiber.App, s *session.Store) {
 		})
 	})
 
-	// Doctor auth routes
-	app.Post("/doctors/register", controllers.RegisterDoctorController(s))
-	app.Post("/doctors/login", controllers.LoginDoctorController(s))
+	// Auth
+	app.Post("/doctors/register", controllers.RegisterDoctorController())
+	app.Post("/doctors/login", controllers.LoginDoctorController())
 
-	// Doctor profile management
-	app.Get("/doctors/:name/edit", controllers.EditDoctorFormController())
-	app.Post("/doctors/:name/update", controllers.UpdateDoctorController())
+	// Profile management
+	app.Get("/doctors/:name/edit", middlewares.DoctorAuth(), controllers.EditDoctorFormController())
+	app.Post("/doctors/:name/update", middlewares.DoctorAuth(), controllers.UpdateDoctorController())
 
-	// Logout route
-	app.Get("/logout", func(c *fiber.Ctx) error {
-		sess, err := s.Get(c)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Session error")
-		}
-		if err := sess.Destroy(); err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Failed to logout")
-		}
-		return c.Redirect("/doctors?mode=login")
-	})
+	// Logout
+	app.Get("/logout", controllers.LogoutController())
 }
+
