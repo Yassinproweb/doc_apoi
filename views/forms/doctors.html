@@ -35,9 +35,9 @@
   <!-- doctor login form -->
   <div class="relative w-full h-full flex-col items-center justify-center gap-7 bg-w">
     <h1 class="text-4xl text-center text-d font-bold">Doctor Login Form</h1>
-    <form method="post"
+    <form method="post" enctype="multipart/form-data"
       class="relative min-w-[65%] max-w-[85%] h-fit mt-11 flex-col items-center justify-center gap-7 rounded-[2.25rem] px-7 py-11"
-      hx-post="/doctors/login" hx-swap="none" hx-trigger="submit" x-data="{
+      hx-post="/doctors/login" hx-swap="none" hx-encoding="multipart/form-data" hx-trigger="submit" x-data="{
       email: '',
       password: '',
       isValidPassword() {
@@ -54,14 +54,14 @@
     }">
       <div class="w-full flex-col gap-1">
         <label for="email">Enter your email</label>
-        <input type="email" id="email" x-model="email"
+        <input type="email" id="email" name="email" x-model="email"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
         <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
       </div>
       <div class="w-full flex-col gap-1">
         <label for="password">Enter secure password</label>
-        <input type="password" id="password" x-model="password"
+        <input type="password" id="password" name="password" x-model="password"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': password.length >= 6 && !isValidPassword() }">
         <div class="flex-col text-sm text-red-600 font-medium mt-2">
@@ -90,9 +90,9 @@
   <div class="relative w-full h-full flex-col items-center justify-center gap-7 bg-w">
     <h1 class="text-4xl text-center text-d font-bold">Doctor Registration Form</h1>
     <!-- doctor registration form -->
-    <form method="post"
+    <form method="post" enctype="multipart/form-data"
       class="relative min-w-[65%] max-w-[85%] h-fit mt-11 grid grid-cols-2 items-center justify-center gap-7 rounded-[2.25rem] px-7 py-11"
-      hx-post="/doctors/register" hx-swap="none" hx-trigger="submit" x-data="{
+      hx-post="/doctors/register" hx-encoding="multipart/form-data" hx-swap="none" hx-trigger="submit" x-data="{
       name: '',
       location: '',
       email: '',
@@ -115,7 +115,7 @@
     }">
       <div class="w-full flex-col gap-1">
         <label for="name">Enter your fullname</label>
-        <input type="text" id="name" x-model="name"
+        <input type="text" id="name" name="name" x-model="name"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': name.length < 2 && name.length > 0 }">
         <p x-show="name.length < 2 && name.length > 0" class="text-red-600 text-xs font-medium">Name must be at least 2
@@ -123,7 +123,7 @@
       </div>
       <div class="w-full flex-col gap-1">
         <label for="location">Enter work location</label>
-        <input type="text" id="location" x-model="location"
+        <input type="text" id="location" name="location" x-model="location"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': location.length < 2 && location.length > 0 }">
         <p x-show="location.length < 2 && location.length > 0" class="text-red-600 text-xs font-medium">Location must be
@@ -132,14 +132,14 @@
       </div>
       <div class="w-full flex-col gap-1">
         <label for="email">Enter your email</label>
-        <input type="email" id="email" x-model="email"
+        <input type="email" id="email" name="email" x-model="email"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
         <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
       </div>
       <div class="w-full flex-col gap-1">
         <label for="password">Enter secure password</label>
-        <input type="password" id="password" x-model="password"
+        <input type="password" id="password" name="password" x-model="password"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': password.length >= 6 && !isValidPassword() }">
         <div class="flex-col text-sm text-red-600 font-medium mt-2">
@@ -154,7 +154,7 @@
       </div>
       <div class="w-full flex-col gap-1">
         <label for="repassword">Re-enter secure password</label>
-        <input type="password" id="repassword" x-model="repassword"
+        <input type="password" id="repassword" name="repassword" x-model="repassword"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none"
           x-bind:disabled="!isValidPassword()"
           x-bind:class="{ 'outline-red-600': repassword.length === password.length && !passwordsMatch() }">
@@ -167,17 +167,17 @@
       </div>
       <div class="w-full flex-col gap-1">
         <label for="skill">Enter your skill</label>
-        <input type="text" id="skill" required
+        <input type="text" id="skill" name="skill" required
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
       </div>
       <div class="w-full flex-col gap-1">
         <label for="title">Enter your title</label>
-        <input type="text" id="title" required
+        <input type="text" id="title" name="title" required
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
       </div>
       <div class="w-full flex-col gap-1">
         <label for="avatar">Upload your avatar</label>
-        <input type="file" id="avatar" accept="image/jpeg, image/jpg, image/png, image/webp, image/gif"
+        <input type="file" id="avatar" name="avatar" accept="image/jpeg, image/jpg, image/png, image/webp, image/gif"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
       </div>
       <input type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-blue-600"

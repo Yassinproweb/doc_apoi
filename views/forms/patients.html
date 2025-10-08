@@ -44,14 +44,14 @@
       ">
       <div class="w-full flex-col gap-1">
         <label for="email">Enter your email</label>
-        <input type="email" id="email" x-model="email"
+        <input type="email" id="email" name="email" x-model="email"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
         <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
       </div>
       <div class="w-full flex-col gap-1">
         <label for="contact">Enter your contact</label>
-        <input type="tel" id="contact" x-model="contact"
+        <input type="tel" id="contact" name="contact" x-model="contact"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': contact.length < 10 && contact.length > 0 }">
         <p x-show="contact.length < 10 && contact.length > 0" class="text-red-600 text-xs font-medium">Contact must be
@@ -59,7 +59,7 @@
       </div>
       <div class="w-full flex-col gap-1">
         <label for="district">Enter your district</label>
-        <input type="text" id="district" x-model="district"
+        <input type="text" id="district" name="district" x-model="district"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': district.length < 2 && district.length > 0 }">
         <p x-show="district.length < 2 && district.length > 0" class="text-red-600 text-xs font-medium">District must be
@@ -92,7 +92,7 @@
       }">
       <div class="w-full flex-col gap-1">
         <label for="name">Enter your fullname</label>
-        <input type="text" id="name" x-model="name"
+        <input type="text" id="name" name="name" x-model="name"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': name.length < 2 && name.length > 0 }">
         <p x-show="name.length < 2 && name.length > 0" class="text-red-600 text-xs font-medium">Name must be at least 2
@@ -100,21 +100,21 @@
       </div>
       <div class="w-full flex-col gap-1">
         <label for="email">Enter your email</label>
-        <input type="email" id="email" x-model="email"
+        <input type="email" id="email" name="email" x-model="email"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
         <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
       </div>
       <div class="w-full flex-col gap-1">
         <label for="age">Enter your age</label>
-        <input type="number" id="age" x-model="age"
+        <input type="number" id="age" name="age" x-model="age"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': age.length > 0 && age === 0 }">
         <p x-show="age.length > 0 && age === 0" class="text-red-600 text-xs font-medium">Age must be greater than 0</p>
       </div>
       <div class="w-full flex-col gap-1">
         <label for="contact">Enter your contact</label>
-        <input type="tel" id="contact" x-model="contact"
+        <input type="tel" id="contact" name="contact" x-model="contact"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': contact.length < 10 && contact.length > 0 }">
         <p x-show="contact.length < 10 && contact.length > 0" class="text-red-600 text-xs font-medium">Contact must be
@@ -122,7 +122,7 @@
       </div>
       <div class="w-full flex-col gap-1">
         <label for="district">Enter your district</label>
-        <input type="text" id="district" x-model="district"
+        <input type="text" id="district" name="district" x-model="district"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': district.length < 2 && district.length > 0 }">
         <p x-show="district.length < 2 && district.length > 0" class="text-red-600 text-xs font-medium">District must be
