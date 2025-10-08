@@ -2,11 +2,15 @@ package controllers
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/Yassinproweb/doc_apoi/models"
+	"github.com/Yassinproweb/doc_apoi/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
+	"github.com/google/uuid"
 )
 
 var Store *session.Store
@@ -36,7 +40,38 @@ func RegisterDoctorController(s *session.Store) fiber.Handler {
 		title := c.FormValue("title")
 		location := c.FormValue("location")
 
-		err := models.AddDoctor(name, email, password, skill, title, location)
+		file, err := c.FormFile("avatar")
+		avatar := "/static/imgs/pngs/doc_apoi.png"
+
+		allowedFiles := []string{"image/jpeg", "image/png", "image/webp", "image/gif"}
+
+		avatarsDir := "./static/avatars/"
+
+		os.Mkdir(avatarsDir, os.ModePerm)
+
+		if err == nil && file != nil {
+			contentType := file.Header.Get("Content-Type")
+
+			if !utils.IsAllowedFileType(contentType, allowedFiles) {
+				return c.Status(fiber.StatusBadRequest).SendString("Not valid image file! Only .jpg, .jpeg, .png, .webp and .gif files are allowed.")
+			}
+
+			const maxFileSize = 2 * 1024 * 1024
+			if file.Size > maxFileSize {
+				return c.Status(fiber.StatusBadRequest).SendString("File too large. Max size should be 2MBs.")
+			}
+
+			ext := filepath.Ext(file.Filename)
+			uniqueName := uuid.New().String() + ext
+
+			if err := c.SaveFile(file, avatarsDir+uniqueName); err != nil {
+				return c.Status(fiber.StatusInternalServerError).SendString("Failed to save image")
+			}
+
+			avatar = "/static/avatars/" + uniqueName
+		}
+
+		err = models.AddDoctor(name, email, password, skill, title, location, avatar)
 		if err != nil {
 			return c.Status(fiber.StatusBadRequest).SendString("Registration failed: " + err.Error())
 		}

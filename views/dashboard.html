@@ -25,8 +25,9 @@
           <img src="/imgs/jpgs/doc.jpg" alt="" id="pic-profile"
             class="w-11 aspect-square object-cover object-center rounded-lg">
           <div class="flex-col gap-0">
-            <p id="name" class="text-d text-lg font-medium">{{ if .Guest }}Hi Patient{{ else }}Hi {{ .Name }}{{end}}</p>
-            <span id="location" class="text-sm">{{ .Location }} - {{ .Contact }}</span>
+            <p id="name" class="text-d text-lg font-medium">{{ if .Guest }}Hi Patient{{ else }}Hi {{ .Patient.Name
+              }}{{end}}</p>
+            <span id="location" class="text-sm">{{ .Patient.Location }} - {{ .Patient.Contact }}</span>
           </div>
         </div>
 
@@ -209,7 +210,7 @@
         <div class="relative w-full h-full grid grid-cols-[28%_1fr] gap-5">
           <div id="doctors"
             class="relative w-full h-full flex-col gap-3.5  items-center justify-start p-3.5 rounded-2xl overflow-y-auto bg-w snap-y">
-            {{ range .doctors}}
+            {{ range .Doctors }}
             <div
               class="sticky top-0 w-full h-11 items-center justify-between gap-2.5 mb-1.5 p-0.5 rounded-3xl border-2 border-b/75 shadow-sm bg-w overflow-clip">
               <span class="w-9 aspect-square shrink-0 flex items-center justify-center rounded-3xl bg-b/25">

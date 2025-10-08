@@ -52,9 +52,15 @@ func PatientDashboardController(s *session.Store) fiber.Handler {
 			return c.Status(fiber.StatusInternalServerError).SendString("Failed to load dashboard")
 		}
 
+		doctors, err := models.GetAllDoctors()
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).SendString("Failed to load doctors")
+		}
+
 		return c.Render("dashboard", fiber.Map{
 			"Guest":   false,
 			"Patient": p,
+			"Doctors": doctors,
 		})
 	}
 }
@@ -160,4 +166,3 @@ func UpdatePatientController() fiber.Handler {
 		return c.SendStatus(fiber.StatusOK)
 	}
 }
-

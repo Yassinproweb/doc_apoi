@@ -14,6 +14,7 @@ type Doctor struct {
 	Skill    string `json:"skill"`
 	Title    string `json:"title"`
 	Location string `json:"location"`
+	Avatar   string `json:"avatar"`
 }
 
 // Fetch all doctors
@@ -27,9 +28,15 @@ func GetAllDoctors() ([]Doctor, error) {
 	var doctors []Doctor
 	for rows.Next() {
 		var d Doctor
-		if err := rows.Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title, &d.Location); err != nil {
+
+		if err := rows.Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title, &d.Location, &d.Avatar); err != nil {
 			return nil, err
 		}
+
+		if d.Avatar == "" {
+			d.Avatar = "/static/imgs/pngs/doc_apoi.png"
+		}
+
 		doctors = append(doctors, d)
 	}
 
@@ -37,7 +44,7 @@ func GetAllDoctors() ([]Doctor, error) {
 }
 
 // Add new doctor
-func AddDoctor(name, email, password, skill, title, location string) error {
+func AddDoctor(name, email, password, skill, title, location, avatar string) error {
 	// Check if doctor already exists
 	_, err := GetDoctor(email)
 	if err == nil {
@@ -52,8 +59,8 @@ func AddDoctor(name, email, password, skill, title, location string) error {
 
 	// Insert doctor into table
 	_, err = data.DB.Exec(
-		`INSERT INTO doctors (name, email, password, skill, title, location) VALUES (?, ?, ?, ?, ?, ?)`,
-		name, email, string(hashedPassword), skill, title, location,
+		`INSERT INTO doctors (name, email, password, skill, title, location, avatar) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+		name, email, string(hashedPassword), skill, title, location, avatar,
 	)
 	return err
 }
@@ -61,41 +68,48 @@ func AddDoctor(name, email, password, skill, title, location string) error {
 // Fetch doctor by email (for login)
 func GetDoctor(email string) (*Doctor, error) {
 	row := data.DB.QueryRow(
-		`SELECT name, email, password, skill, title, location FROM doctors WHERE email = ?`,
+		`SELECT name, email, password, skill, title, location, avatar FROM doctors WHERE email = ?`,
 		email,
 	)
 
 	var d Doctor
-	err := row.Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title, &d.Location)
+	err := row.Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title, &d.Location, &d.Avatar)
 	if err != nil {
 		return nil, err
 	}
 
-	return &d, nil
-}
+	if d.Avatar == "" {
+		d.Avatar = "/static/imgs/pngs/doc_apoi.png"
+	}
 
-// Fetch doctor by email into struct (for editing profile)
-func GetDoctorByEmail(email string, d *Doctor) error {
-	return data.DB.QueryRow(
-		`SELECT name, email, skill, title, location FROM doctors WHERE email=?`,
-		email,
-	).Scan(&d.Name, &d.Email, &d.Skill, &d.Title, &d.Location)
+	return &d, nil
 }
 
 // Fetch doctor by name
 func GetDoctorByName(name string) (*Doctor, error) {
 	row := data.DB.QueryRow(
-		`SELECT name, email, password, skill, title, location FROM doctors WHERE name = ?`,
+		`SELECT name, email, password, skill, title, location, avatar FROM doctors WHERE name = ?`,
 		name,
 	)
 
 	var d Doctor
-	err := row.Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title, &d.Location)
+	err := row.Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title, &d.Location, &d.Avatar)
 	if err != nil {
 		return nil, err
 	}
 
+	if d.Avatar == "" {
+		d.Avatar = "/static/imgs/pngs/doc_apoi.png"
+	}
+
 	return &d, nil
+}
+
+func GetDoctorByEmail(email string, d *Doctor) error {
+	return data.DB.QueryRow(
+		`SELECT name, email, password, skill, title, location, avatar FROM doctors WHERE email = ?`,
+		email,
+	).Scan(&d.Name, &d.Email, &d.Password, &d.Skill, &d.Title, &d.Location, &d.Avatar)
 }
 
 // Edit doctor profile
