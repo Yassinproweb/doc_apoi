@@ -12,8 +12,59 @@ import (
 // Guest view — no login required
 func GuestDashboardController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
+		email := c.Cookies("patient_email")
+
+		if email != "" {
+			p, err := models.GetPatient(email)
+			if err == nil {
+				nameUrl := strings.ReplaceAll(strings.ToLower(p.Name), " ", "_")
+				redirectURL := fmt.Sprintf("/dashboard/%s", nameUrl)
+				c.Set("HX-Redirect", redirectURL)
+			}
+		}
+
+		doctors, err := models.GetAllDoctors()
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).SendString("Failed to load doctors")
+		}
+
 		return c.Render("dashboard", fiber.Map{
-			"Guest": true,
+			"Guest":   true,
+			"Doctors": doctors,
+		})
+	}
+}
+
+// Guest view — no login required
+func PatientDashboardController() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		paramName := c.Params("name")
+		email := c.Cookies("patient_email")
+
+		if email == "" {
+			return c.Redirect("/dashboard")
+		}
+
+		p, err := models.GetPatient(email)
+		if err != nil {
+			return c.Status(fiber.StatusUnauthorized).SendString("Invalid user or not registered")
+		}
+
+		if p.Name != paramName {
+			nameUrl := strings.ReplaceAll(strings.ToLower(p.Name), " ", "_")
+			redirectURL := fmt.Sprintf("/dashboard/%s", nameUrl)
+			return c.Redirect(redirectURL)
+		}
+
+		doctors, err := models.GetAllDoctors()
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).SendString("Failed to load doctors")
+		}
+
+		return c.Render("dashboard", fiber.Map{
+			"Guest":   false,
+			"Patient": p,
+			"Doctors": doctors,
 		})
 	}
 }

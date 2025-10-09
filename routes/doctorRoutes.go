@@ -7,7 +7,7 @@ import (
 )
 
 func DocRoutes(app *fiber.App) {
-	app.Get("/doctors/:name", middlewares.DoctorAuth(), controllers.DoctorRedirect())
+	app.Get("/doctors/:name", middlewares.DoctorAuth(), controllers.DoctorDashboardController())
 
 	// Doctor form
 	app.Get("/doctors", func(c *fiber.Ctx) error {

@@ -13,16 +13,28 @@ import (
 	"github.com/google/uuid"
 )
 
-// Fetch all doctors and render homepage
-func GetDoctorsController() fiber.Handler {
+// Doctor dashboard controller
+func DoctorDashboardController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		doctors, err := models.GetAllDoctors()
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Failed to fetch doctors")
+		paramName := c.Params("name")
+		email := c.Cookies("doctor_email")
+
+		if email == "" {
+			return c.Redirect("/doctors?mode=login")
 		}
 
-		return c.Render("dashboard", fiber.Map{
-			"Doctors": doctors,
+		d, err := models.GetDoctor(email)
+		if err != nil {
+			return c.Status(fiber.StatusUnauthorized).SendString("Invalid user or not registered")
+		}
+
+		if d.Name != paramName {
+			nameUrl := strings.ReplaceAll(strings.ToLower(d.Name), " ", "_")
+			redirectURL := fmt.Sprintf("/doctors/%s", nameUrl)
+			return c.Redirect(redirectURL)
+		}
+		return c.Render("doctors", fiber.Map{
+			"Doctor": d,
 		})
 	}
 }
@@ -118,22 +130,6 @@ func LoginDoctorController() fiber.Handler {
 
 		c.Set("HX-Redirect", redirectURL)
 		return c.SendStatus(fiber.StatusOK)
-	}
-}
-
-// Doctor profile redirect
-func DoctorRedirect() fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		name := c.Params("name")
-
-		d, err := models.GetDoctorByName(name)
-		if err != nil {
-			return c.Status(fiber.StatusNotFound).SendString("Doctor not found")
-		}
-
-		return c.Render("dr-profile", fiber.Map{
-			"Doctor": d,
-		})
 	}
 }
 

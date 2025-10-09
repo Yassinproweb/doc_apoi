@@ -7,7 +7,7 @@ import (
 
 func PatRoutes(app *fiber.App) {
 	app.Get("/dashboard", controllers.GuestDashboardController())
-	app.Get("/dashboard", controllers.GetDoctorsController())
+	app.Get("/dashboard/:name", controllers.PatientDashboardController())
 
 	// Patient form route
 	app.Get("/patients", func(c *fiber.Ctx) error {
