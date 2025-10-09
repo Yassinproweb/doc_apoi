@@ -12,47 +12,8 @@ import (
 // Guest view — no login required
 func GuestDashboardController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		name := c.Cookies("patient_name")
-		if name != "" {
-			c.Set("HX-Redirect", "/dashboard/"+name)
-			return c.SendStatus(fiber.StatusOK)
-		}
-
 		return c.Render("dashboard", fiber.Map{
 			"Guest": true,
-		})
-	}
-}
-
-// Authenticated patient view
-func PatientDashboardController() fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		email := c.Cookies("patient_email")
-		name := c.Cookies("patient_name")
-
-		if email == "" || name == "" {
-			return c.Redirect("/dashboard")
-		}
-
-		paramName := c.Params("name")
-		if paramName != name {
-			return c.Redirect("/dashboard/" + name)
-		}
-
-		p, err := models.GetPatientByName(name)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Failed to load dashboard")
-		}
-
-		doctors, err := models.GetAllDoctors()
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Failed to load doctors")
-		}
-
-		return c.Render("dashboard", fiber.Map{
-			"Guest":   false,
-			"Patient": p,
-			"Doctors": doctors,
 		})
 	}
 }
