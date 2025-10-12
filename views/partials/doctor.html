@@ -1,15 +1,15 @@
 {{ define "doctor" }}
 <div
-  class="otolaryngologist mix w-full aspect-[4/2.5] flex-col items-center justify-between gap-1.5 p-3 rounded-xl border-2 border-b hover:border-b/70 snap-end">
+  class="{{ .Skill }} mix w-full aspect-[4/2.5] flex-col items-center justify-between gap-1.5 p-3 rounded-xl border-2 border-b hover:border-b/70 snap-end">
   <div class="w-full items-center justify-start gap-2.5">
     <img src={{ .Avatar }} alt="doctor's profile pic"
       class="pic-profile w-12 aspect-square shrink-0 object-cover object-center rounded-lg">
     <div class="w-full flex-col items-start justify-between py-1.5">
       <p class="doc-name text-base text-d font-medium">{{ .Name }}</p>
-      <snap class="doc-speciality text-t/75 text-xs flex items-center justify-start gap-x-1.5">
+      <snap class="doc-speciality text-t/75 text-xs flex items-center justify-start gap-x-1.5 capitalize">
         {{ .Title }}
         <snap class="inline-block w-1.5 aspect-square rounded-3xl bg-t/65"></snap> <span class="doc-experience">5</span>
-        years experience
+        <span class="lowercase">years experience</span>
       </snap>
     </div>
   </div>

@@ -60,7 +60,7 @@ func RegisterDoctorController() fiber.Handler {
 				return c.Status(fiber.StatusBadRequest).SendString("Invalid image file! Only .jpg, .jpeg, .png, .webp and .gif are allowed.")
 			}
 
-			const maxFileSize = 2 * 1024 * 1024 // 2MB
+			const maxFileSize = 2_097_152 // 2MB
 			if file.Size > maxFileSize {
 				return c.Status(fiber.StatusBadRequest).SendString("File too large. Max size is 2MB.")
 			}
@@ -90,7 +90,7 @@ func RegisterDoctorController() fiber.Handler {
 			HTTPOnly: true,  // prevent JS access
 			SameSite: "Lax", // protect against CSRF
 			Secure:   false, // only send over HTTPS (use false in localhost)
-			MaxAge:   60 * 60 * 24 * 7,
+			MaxAge:   604800,
 		})
 
 		c.Set("HX-Redirect", utils.URLer("doctors", utils.NormalizeName(name)))
@@ -117,7 +117,7 @@ func LoginDoctorController() fiber.Handler {
 			HTTPOnly: true,  // prevent JS access
 			SameSite: "Lax", // protect against CSRF
 			Secure:   false, // only send over HTTPS (use false in localhost)
-			MaxAge:   60 * 60 * 24 * 7,
+			MaxAge:   604800,
 		})
 
 		c.Set("HX-Redirect", utils.URLer("doctors", utils.NormalizeName(d.Name)))
@@ -149,7 +149,7 @@ func UpdateDoctorController() fiber.Handler {
 				return c.Status(fiber.StatusBadRequest).SendString("Invalid image file!")
 			}
 
-			const maxFileSize = 2 * 1024 * 1024 // 2MB
+			const maxFileSize = 2_097_152 // 2MB
 			if file.Size > maxFileSize {
 				return c.Status(fiber.StatusBadRequest).SendString("File too large. Max 2MB.")
 			}

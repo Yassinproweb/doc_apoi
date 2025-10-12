@@ -2,12 +2,13 @@ package routes
 
 import (
 	"github.com/Yassinproweb/doc_apoi/controllers"
+	"github.com/Yassinproweb/doc_apoi/middlewares"
 	"github.com/gofiber/fiber/v2"
 )
 
 func PatRoutes(app *fiber.App) {
 	app.Get("/dashboard", controllers.GuestDashboardController())
-	app.Get("/dashboard/:name", controllers.PatientDashboardController())
+	app.Get("/dashboard/:name", middlewares.PatientAuth(), controllers.PatientDashboardController())
 
 	// Patient form route
 	app.Get("/patients", func(c *fiber.Ctx) error {

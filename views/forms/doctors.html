@@ -167,20 +167,74 @@
       </div>
       <div class="w-full flex-col gap-1">
         <label for="skill">Enter your skill</label>
-        <input type="text" id="skill" name="skill" required
-          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
+        <select id="skill" name="skill" required
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none max-w-[360px]">
+          <option value="" selected>--select your skill</option>
+          <option value="allergy">Allergy</option>
+          <option value="anaesthesiology">Anaesthesiology</option>
+          <option value="audiology">Audiology</option>
+          <option value="cardiology">Cardiology</option>
+          <option value="dentistry">Dentistry</option>
+          <option value="dermatology">Dermatology</option>
+          <option value="gastroenterology">Gastroenterology</option>
+          <option value="geriatrics">Geriatrics</option>
+          <option value="gynaecology">Gynaecology</option>
+          <option value="nephrology">Nephrology</option>
+          <option value="neurology">Neurology</option>
+          <option value="nutrition">Nutrition</option>
+          <option value="oncology">Oncology</option>
+          <option value="opthalmology">Opthalmology</option>
+          <option value="orthodontics">Orthodontics</option>
+          <option value="othopaedics">Othopaedics</option>
+          <option value="otolaryngology">Otolaryngology</option>
+          <option value="pathology">Pathology</option>
+          <option value="pediatrics">Pediatrics</option>
+          <option value="pharmacy">Pharmacy</option>
+          <option value="psychiatry">Psychiatry</option>
+          <option value="pulmonology">Pulmonology</option>
+          <option value="radiology">Radiology</option>
+          <option value="rheumatology">Rheumatology</option>
+          <option value="urology">Urology</option>
+        </select>
       </div>
       <div class="w-full flex-col gap-1">
         <label for="title">Enter your title</label>
-        <input type="text" id="title" name="title" required
-          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
+        <select id="title" name="title" required
+          class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none max-w-[360px]">
+          <option value="" selected>--select your title</option>
+          <option value="allergist">Allergist</option>
+          <option value="anaesthesiologist">Anaesthesiologist</option>
+          <option value="audiologist">Audiologist</option>
+          <option value="cardiologist">Cardiologist</option>
+          <option value="dentistist">Dentistist</option>
+          <option value="dermatologist">Dermatologist</option>
+          <option value="gastroenterologist">Gastroenterologist</option>
+          <option value="geriatrician">Geriatrician</option>
+          <option value="gynaecologist">Gistnaecology</option>
+          <option value="nephrologist">Nephrologist</option>
+          <option value="neurologist">Neurologist</option>
+          <option value="nutrition">Nutrition</option>
+          <option value="oncologist">Oncologist</option>
+          <option value="opthalmologist">Opthalmologist</option>
+          <option value="orthodontist">Orthodontist</option>
+          <option value="othopaedist">Othopaedist</option>
+          <option value="otolaryngologist">Otolaryngologist</option>
+          <option value="pathologist">Pathologist</option>
+          <option value="pediatrician">Pediatrician</option>
+          <option value="pharmacist">Pharmacist</option>
+          <option value="psychiatrist">Psychiatrist</option>
+          <option value="pulmonologist">Pulmonologist</option>
+          <option value="radiologist">Radiologist</option>
+          <option value="rheumatologist">Rheumatologist</option>
+          <option value="urologist">Urologist</option>
+        </select>
       </div>
       <div class="w-full flex-col gap-1">
         <label for="avatar">Upload your avatar</label>
         <input type="file" id="avatar" name="avatar" accept="image/jpeg, image/jpg, image/png, image/webp, image/gif"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
       </div>
-      <input type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-blue-600"
+      <input type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-blue-600"
         x-bind:disabled="!isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch()"
         x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch() }"
         value="Register Doctor">

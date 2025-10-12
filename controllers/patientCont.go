@@ -84,7 +84,7 @@ func RegisterPatientController() fiber.Handler {
 			HTTPOnly: true,
 			SameSite: "Lax", // protect against CSRF
 			Secure:   false, // only send over HTTPS (use false in localhost)
-			MaxAge:   60 * 60 * 24 * 7,
+			MaxAge:   604800,
 		})
 
 		c.Set("HX-Redirect", utils.URLer("dashboard", utils.NormalizeName(name)))
@@ -96,25 +96,23 @@ func RegisterPatientController() fiber.Handler {
 func LoginPatientController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		email := c.FormValue("email")
-		contact := c.FormValue("contact")
-		district := c.FormValue("district")
 
 		p, err := models.GetPatient(email)
-		if err != nil || contact != p.Contact || district != p.District {
+		if err != nil {
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 
 		c.Cookie(&fiber.Cookie{
 			Name:     "patient_email",
 			Value:    p.Email,
+			Path:     "/",
 			HTTPOnly: true,
 			SameSite: "Lax", // protect against CSRF
 			Secure:   false, // only send over HTTPS (use false in localhost)
-			MaxAge:   60 * 60 * 24 * 7,
+			MaxAge:   604800,
 		})
 
-		n := utils.NormalizeName(p.Name)
-		c.Set("HX-Redirect", utils.URLer("dashboard", n))
+		c.Set("HX-Redirect", utils.URLer("dashboard", utils.NormalizeName(p.Name)))
 		return c.SendStatus(fiber.StatusOK)
 	}
 }
@@ -145,7 +143,18 @@ func UpdatePatientController() fiber.Handler {
 // Logout
 func LogoutPatientController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		c.ClearCookie("patient_email")
-		return c.Redirect("/patients?mode=login")
+		c.Cookie(&fiber.Cookie{
+			Name:     "patient_email",
+			Value:    "",
+			Path:     "/",
+			HTTPOnly: true,  // prevent JS access
+			SameSite: "Lax", // protect against CSRF
+			Secure:   false, // only send over HTTPS (use false in localhost)
+			MaxAge:   -1,
+		})
+
+		// Redirect for HTMX
+		c.Set("HX-Redirect", "/patients?mode=login")
+		return c.SendStatus(fiber.StatusOK)
 	}
 }
