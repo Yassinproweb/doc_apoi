@@ -1,11 +1,9 @@
 package controllers
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/Yassinproweb/doc_apoi/models"
 	"github.com/Yassinproweb/doc_apoi/utils"
@@ -28,10 +26,10 @@ func DoctorDashboardController() fiber.Handler {
 			return c.Status(fiber.StatusUnauthorized).SendString("Invalid user or not registered")
 		}
 
-		if d.Name != paramName {
-			nameUrl := strings.ReplaceAll(strings.ToLower(d.Name), " ", "_")
-			redirectURL := fmt.Sprintf("/doctors/%s", nameUrl)
-			return c.Redirect(redirectURL)
+		eslug := utils.NormalizeName(d.Name)
+		if eslug != paramName {
+			c.Set("HX-Redirect", utils.URLer("doctors", eslug))
+			return c.SendStatus(fiber.StatusOK)
 		}
 		return c.Render("doctors", fiber.Map{
 			"Doctor": d,
@@ -95,10 +93,7 @@ func RegisterDoctorController() fiber.Handler {
 			MaxAge:   60 * 60 * 24 * 7,
 		})
 
-		nameURL := strings.ReplaceAll(strings.ToLower(name), " ", "_")
-		redirectURL := fmt.Sprintf("/doctors/%s", nameURL)
-
-		c.Set("HX-Redirect", redirectURL)
+		c.Set("HX-Redirect", utils.URLer("doctors", utils.NormalizeName(name)))
 		return c.SendStatus(fiber.StatusCreated)
 	}
 }
@@ -125,10 +120,7 @@ func LoginDoctorController() fiber.Handler {
 			MaxAge:   60 * 60 * 24 * 7,
 		})
 
-		nameURL := strings.ReplaceAll(strings.ToLower(d.Name), " ", "_")
-		redirectURL := fmt.Sprintf("/doctors/%s", nameURL)
-
-		c.Set("HX-Redirect", redirectURL)
+		c.Set("HX-Redirect", utils.URLer("doctors", utils.NormalizeName(d.Name)))
 		return c.SendStatus(fiber.StatusOK)
 	}
 }
@@ -183,7 +175,7 @@ func UpdateDoctorController() fiber.Handler {
 		}
 
 		// Redirect for HTMX
-		c.Set("HX-Redirect", "/dashboard")
+		c.Set("HX-Redirect", utils.URLer("doctors", utils.NormalizeName(name)))
 		return c.SendStatus(fiber.StatusOK)
 	}
 }
@@ -220,7 +212,7 @@ func LogoutDoctorController() fiber.Handler {
 		})
 
 		// Redirect for HTMX
-		c.Set("HX-Redirect", "/dashboard")
+		c.Set("HX-Redirect", "/doctors")
 		return c.SendStatus(fiber.StatusOK)
 	}
 }

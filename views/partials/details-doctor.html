@@ -1,63 +1,65 @@
 {{ define "details" }}
-<div id="doctor-info" class="relative w-full h-full gap-5 grid grid-cols-3 p-3.5 rounded-2xl bg-w">
-  <div class="w-full col-span-2 flex-col items-start justify-start gap-4">
+<div id="doctor-info" class="relative w-full h-full gap-5 grid grid-cols-7 p-3.5 rounded-2xl bg-w">
+  <div class="w-full col-span-5 flex-col items-start justify-start gap-4">
     <div class="w-full items-start justify-start gap-5">
-      <img src="/imgs/jpgs/hero.jpg" alt=""
-        class="pic-profile w-20 aspect-square object-cover object-center rounded-lg">
+      <img src={{ .Avatar }} alt="" class="pic-profile w-20 aspect-square object-cover object-center rounded-lg">
       <div class="w-full flex-col items-start justify-between gap-2.5 py-1.5">
-        <p class="doc-name text-2xl text-d font-medium">Katungi Yassin</p>
-        <snap class="doc-speciality text-t/75 text-base flex items-center justify-start gap-x-1.5">
-          Otolaryngologist
-          <snap class="inline-block w-1.5 aspect-square rounded-3xl bg-t/65"></snap> <span
+        <p class="doc-name text-2xl text-d font-medium">{{ .Name }}</p>
+        <snap class="doc-speciality text-d/75 text-base flex items-center justify-start gap-x-1.5">
+          {{ .Title }}
+          <snap class="inline-block w-1.5 aspect-square rounded-3xl bg-t/85"></snap> <span
             class="doc-experience">5</span> years experience
         </snap>
       </div>
     </div>
     <div class="w-full items-end justify-start gap-5">
       <div class="w-fit flex-col items-start justify-end gap-0.5 capitalize">
-        <p class="text-d/65 text-sm">Education</p>
-        <p class="text-d font-medium">M.Sc in ENT & Surgery, MUK</p>
+        <p class="text-d font-medium">Education</p>
+        <p class="text-d/65 text-sm">M.Sc in ENT & Surgery, MUK</p>
       </div>
       <div class="w-fit flex-col items-start justify-end gap-0.5 capitalize">
-        <p class="text-d/65 text-sm">Certificate</p>
-        <p class="text-d font-medium">Certified ENT Surgeon, KMHL</p>
+        <p class="text-d font-medium">Certificate</p>
+        <p class="text-d/65 text-sm">Certified ENT Surgeon, KMHL</p>
       </div>
     </div>
     <div class="w-full flex-col items-start justify-start gap-0.5 capitalize">
-      <p class="text-d/65 text-sm">Available Today</p>
-      <div class="w-full items-end justify-start gap-5 text-base text-t">
+      <p class="text-d text-base">Available Today</p>
+      <div class="w-full items-end justify-start gap-5 text-sm text-d/65">
         <p class="py-1.5 px-2 flex items-center justify-start gap-1.5 rounded-md bg-t/10"><span
-            class="w-2 aspect-square rounded-full bg-d/65"></span> Online Consultations</p>
+            class="w-2 aspect-square rounded-full bg-d/65"></span> Online at <span class="lowercase underline">{{ .Email
+            }}</span>
+        </p>
         <p class="py-1.5 px-2 flex items-center justify-start gap-1.5 rounded-md bg-t/10"><span
-            class="w-2 aspect-square rounded-full bg-d/65"></span> Offline at Poimedics Hospital, Kampala.</p>
+            class="w-2 aspect-square rounded-full bg-d/65"></span> Offline at <span class="underline">{{ .Location
+            }}</span></p>
       </div>
     </div>
     <div class="w-full flex-col items-start justify-start gap-0.5 capitalize">
-      <p class="text-d/65 text-sm">Schedule</p>
+      <p class="text-d text-base">Schedule</p>
       <div class="w-full items-start justify-start gap-5">
-        <p class="text-lg text-d font-medium">Monday - Saturday</p>
-        <p class="text-lg text-d/75 font-medium flex flex-col items-start justify-start gap-0.5">
-          <span>09:00 - 12:00</span>
-          <span>14:00 - 18:00</span>
+        <p class="text-sm text-d/65 font-medium">Monday - Friday</p>
+        <p class="text-sm text-d/65 font-medium flex flex-col items-start justify-start gap-0.5">
+          <span class="underline">09:00 - 12:00</span>
+          <span class="underline">14:00 - 18:00</span>
         </p>
       </div>
     </div>
     <div class="w-fit flex-col items-start justify-end gap-0.5 capitalize">
-      <p class="text-d/65 text-sm">Symptoms</p>
-      <p class="text-d text-base font-medium">HL, Tinnitus, Otalgia, Vertigo, Nasal congestion, Rhinorrhea,
+      <p class="text-d text-base font-medium">Symptoms</p>
+      <p class="text-d/65 text-sm">HL, Tinnitus, Otalgia, Vertigo, Nasal congestion, Rhinorrhea,
         Epistaxis, PND, Facial pain/pressure, Anosmia, Sore throat, Dysphagia, Hoarseness, Recurrent
         tonsillitis, Tonsillar hypertrophy, Halitosis, Snoring, Apnea, Neck mass, Cervical LAD.</p>
     </div>
     <div class="w-fit flex-col items-start justify-end gap-0.5 capitalize">
-      <p class="text-d/65 text-sm">Specialty Procedures</p>
-      <p class="text-d text-base font-medium">Cerumen removal, Abx for AOM/OE, Hearing aids, PE tubes, INCS
+      <p class="text-d text-base font-medium">Specialty Procedures</p>
+      <p class="text-d/65 text-sm">Cerumen removal, Abx for AOM/OE, Hearing aids, PE tubes, INCS
         for AR/CRS, Saline irrigation, Antihistamines/Decongestants, FESS, Septoplasty, Abx for
         tonsillitis/pharyngitis, Tonsillectomy, T&A, Voice therapy, CPAP for OSA, UPPP, Thyroidectomy, LN
         biopsy.</p>
     </div>
   </div>
 
-  <div class="w-full shrink-0 items-start justify-start py-2.5">
+  <div class="w-full shrink-0 col-span-2 items-start justify-start py-2.5">
     <button class="w-fit py-3 px-9 text-base text-w capitalize rounded-3xl bg-b">Book Appointment</button>
   </div>
 </div>

@@ -25,9 +25,9 @@
           <img src="/static/imgs/jpgs/doc.jpg" alt="" id="pic-profile"
             class="w-11 aspect-square object-cover object-center rounded-lg">
           <div class="flex-col gap-0">
-            <p id="name" class="text-d text-lg font-medium">{{ if .Guest }}Hi Patient{{ else }}Hi {{ .Patient.Name
+            <p id="name" class="text-d text-lg font-medium">{{ if .Guest }}Hi Patient{{ else }}Hi {{ .Name
               }}{{end}}</p>
-            <span id="location" class="text-sm">{{ .Patient.Location }} - {{ .Patient.Contact }}</span>
+            <span id="location" class="text-sm">{{ .District }} - {{ .Contact }}</span>
           </div>
         </div>
 
@@ -222,7 +222,9 @@
             {{ end }}
           </div>
 
+          {{ range .Doctors }}
           {{ template "details" . }}
+          {{ end }}
         </div>
       </div>
     </div>

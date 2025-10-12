@@ -47,7 +47,8 @@
         <input type="email" id="email" name="email" x-model="email"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
-        <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
+        <p x-show="!email.includes('@') && email.length >= 13" class="text-red-600 text-xs font-medium">Invalid email
+        </p>
       </div>
       <div class="w-full flex-col gap-1">
         <label for="contact">Enter your contact</label>
@@ -73,7 +74,7 @@
 
     <p class="mt-9 text-lg text-center font-medium w-full flex items-center justify-center gap-2">
       <span class="text-t/70">Don't have an account</span>
-      <a href="/doctors?mode=register" hx-boost="true" class="text-b underline">Register here</a>
+      <a href="/patients?mode=register" hx-boost="true" class="text-b underline">Register here</a>
     </p>
   </div>
 
@@ -136,7 +137,7 @@
 
     <p class="mt-9 text-lg text-center font-medium w-full flex items-center justify-center gap-2">
       <span class="text-t/70">Already have an account</span>
-      <a href="/doctors?mode=login" hx-boost="true" class="text-b underline">Login here</a>
+      <a href="/patients?mode=login" hx-boost="true" class="text-b underline">Login here</a>
     </p>
   </div>
   {{end}}

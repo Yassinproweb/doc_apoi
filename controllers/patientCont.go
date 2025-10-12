@@ -1,11 +1,8 @@
 package controllers
 
 import (
-	"fmt"
-	"strings"
-	"time"
-
 	"github.com/Yassinproweb/doc_apoi/models"
+	"github.com/Yassinproweb/doc_apoi/utils"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -13,21 +10,16 @@ import (
 func GuestDashboardController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		email := c.Cookies("patient_email")
-
 		if email != "" {
 			p, err := models.GetPatient(email)
-			if err == nil {
-				nameUrl := strings.ReplaceAll(strings.ToLower(p.Name), " ", "_")
-				redirectURL := fmt.Sprintf("/dashboard/%s", nameUrl)
-				c.Set("HX-Redirect", redirectURL)
+			if err == nil && p.Name != "" {
+				c.Set("HX-Redirect", utils.URLer("dashboard", utils.NormalizeName(p.Name)))
+				return c.SendStatus(fiber.StatusOK)
 			}
 		}
 
-		doctors, err := models.GetAllDoctors()
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).SendString("Failed to load doctors")
-		}
-
+		// Render guest dashboard
+		doctors, _ := models.GetAllDoctors()
 		return c.Render("dashboard", fiber.Map{
 			"Guest":   true,
 			"Doctors": doctors,
@@ -35,25 +27,27 @@ func GuestDashboardController() fiber.Handler {
 	}
 }
 
-// Guest view — no login required
+// Patient view — login required
 func PatientDashboardController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		paramName := c.Params("name")
 		email := c.Cookies("patient_email")
 
 		if email == "" {
-			return c.Redirect("/dashboard")
+			c.Set("HX-Redirect", "/dashboard")
+			return c.SendStatus(fiber.StatusOK)
 		}
 
 		p, err := models.GetPatient(email)
 		if err != nil {
-			return c.Status(fiber.StatusUnauthorized).SendString("Invalid user or not registered")
+			c.Set("HX-Redirect", "/dashboard")
+			return c.SendStatus(fiber.StatusOK)
 		}
 
-		if p.Name != paramName {
-			nameUrl := strings.ReplaceAll(strings.ToLower(p.Name), " ", "_")
-			redirectURL := fmt.Sprintf("/dashboard/%s", nameUrl)
-			return c.Redirect(redirectURL)
+		eSlug := utils.NormalizeName(p.Name)
+		if eSlug != paramName {
+			c.Set("HX-Redirect", utils.URLer("dashboard", eSlug))
+			return c.SendStatus(fiber.StatusOK)
 		}
 
 		doctors, err := models.GetAllDoctors()
@@ -62,9 +56,11 @@ func PatientDashboardController() fiber.Handler {
 		}
 
 		return c.Render("dashboard", fiber.Map{
-			"Guest":   false,
-			"Patient": p,
-			"Doctors": doctors,
+			"Guest":    false,
+			"Name":     p.Name,
+			"District": p.District,
+			"Contact":  p.Contact,
+			"Doctors":  doctors,
 		})
 	}
 }
@@ -86,13 +82,12 @@ func RegisterPatientController() fiber.Handler {
 			Name:     "patient_email",
 			Value:    email,
 			HTTPOnly: true,
-			Expires:  time.Now().Add(24 * time.Hour),
+			SameSite: "Lax", // protect against CSRF
+			Secure:   false, // only send over HTTPS (use false in localhost)
+			MaxAge:   60 * 60 * 24 * 7,
 		})
 
-		nameUrl := strings.ReplaceAll(strings.ToLower(name), " ", "_")
-		redirectURL := fmt.Sprintf("/dashboard/%s", nameUrl)
-
-		c.Set("HX-Redirect", redirectURL)
+		c.Set("HX-Redirect", utils.URLer("dashboard", utils.NormalizeName(name)))
 		return c.SendStatus(fiber.StatusCreated)
 	}
 }
@@ -113,13 +108,13 @@ func LoginPatientController() fiber.Handler {
 			Name:     "patient_email",
 			Value:    p.Email,
 			HTTPOnly: true,
-			Expires:  time.Now().Add(24 * time.Hour),
+			SameSite: "Lax", // protect against CSRF
+			Secure:   false, // only send over HTTPS (use false in localhost)
+			MaxAge:   60 * 60 * 24 * 7,
 		})
 
-		nameUrl := strings.ReplaceAll(strings.ToLower(p.Name), " ", "_")
-		redirectURL := fmt.Sprintf("/dashboard/%s", nameUrl)
-
-		c.Set("HX-Redirect", redirectURL)
+		n := utils.NormalizeName(p.Name)
+		c.Set("HX-Redirect", utils.URLer("dashboard", n))
 		return c.SendStatus(fiber.StatusOK)
 	}
 }
@@ -142,7 +137,7 @@ func UpdatePatientController() fiber.Handler {
 			return c.Status(fiber.StatusInternalServerError).SendString("Failed to update profile")
 		}
 
-		c.Set("HX-Redirect", "/dashboard/"+name)
+		c.Set("HX-Redirect", utils.URLer("dashboard", utils.NormalizeName(name)))
 		return c.SendStatus(fiber.StatusOK)
 	}
 }
@@ -151,7 +146,6 @@ func UpdatePatientController() fiber.Handler {
 func LogoutPatientController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		c.ClearCookie("patient_email")
-		c.ClearCookie("patient_name")
 		return c.Redirect("/patients?mode=login")
 	}
 }
