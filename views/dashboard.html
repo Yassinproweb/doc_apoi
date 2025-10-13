@@ -218,11 +218,14 @@
               <input id="search" type="search" class="w-full pl-2 px-5 py-1.5 text-start outline-none">
             </div>
             {{ range .Doctors }}
-            {{ template "doctor" . }}
+            {{ template "partials/doctor" . }}
             {{ end }}
           </div>
 
-          {{ template "details" . }}
+
+          <div id="doctor-info" class="relative w-full h-full gap-5 grid grid-cols-7 p-3.5 rounded-2xl bg-w">
+            <p class="text-xl text-d">Add a doctor to view details here</p>
+          </div>
         </div>
       </div>
     </div>

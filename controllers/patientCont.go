@@ -6,6 +6,22 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+func DoctorDetailsController() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		s := c.Params("name")
+		pn := utils.Capitalize(s)
+
+		d, err := models.GetDoctorByName(pn)
+		if err != nil {
+			return c.Status(fiber.StatusNotFound).SendString("Doctor not found")
+		}
+
+		return c.Render("partials/details", fiber.Map{
+			"Doctor": d,
+		})
+	}
+}
+
 // Guest view — no login required
 func GuestDashboardController() fiber.Handler {
 	return func(c *fiber.Ctx) error {

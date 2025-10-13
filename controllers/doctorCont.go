@@ -11,22 +11,6 @@ import (
 	"github.com/google/uuid"
 )
 
-func DoctorDetailsController() fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		s := c.Params("name")
-		pn := utils.Capitalize(s)
-
-		d, err := models.GetDoctorByName(pn)
-		if err != nil {
-			return c.Status(fiber.StatusNotFound).SendString("Doctor not found")
-		}
-
-		return c.Render("details", fiber.Map{
-			"Doctor": d,
-		})
-	}
-}
-
 // Doctor dashboard controller
 func DoctorDashboardController() fiber.Handler {
 	return func(c *fiber.Ctx) error {
