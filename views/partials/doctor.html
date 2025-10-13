@@ -1,4 +1,4 @@
-<div hx-get="/doctors/{{normalize .Name}}" hx-target="#doctor-info" hx-swap="innerHTML"
+<div hx-get="/doctors/{{normalize .Name}}" hx-target="#doctor-info" hx-swap="innerHTML" hx-push-url="false"
   class="{{ .Skill }} mix w-full aspect-[4/2.5] flex-col items-center justify-between gap-1.5 p-3 rounded-xl border-2 border-b hover:border-b/70 snap-end">
   <div class="w-full items-center justify-start gap-2.5">
     <img src={{ .Avatar }} alt="doctor's profile pic"
