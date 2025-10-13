@@ -22,6 +22,9 @@ func PatRoutes(app *fiber.App) {
 	app.Post("/patients/register", controllers.RegisterPatientController())
 	app.Post("/patients/login", controllers.LoginPatientController())
 
+	// doctor details route
+	app.Get("/doctors/:name", controllers.DoctorDetailsController())
+
 	// Profile update
 	app.Post("/dashboard/:name/update", controllers.UpdatePatientController())
 
