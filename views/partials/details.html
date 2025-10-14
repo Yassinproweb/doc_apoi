@@ -1,10 +1,11 @@
+{{ define "details" }}
 <div class="w-full col-span-5 flex-col items-start justify-start gap-4">
   <div class="w-full items-start justify-start gap-5">
-    <img src={{ .Avatar }} alt="" class="pic-profile w-20 aspect-square object-cover object-center rounded-lg">
+    <img src="{{ .Doctor.Avatar }}" alt="" class="pic-profile w-20 aspect-square object-cover object-center rounded-lg">
     <div class="w-full flex-col items-start justify-between gap-2.5 py-1.5">
-      <p class="doc-name text-2xl text-d font-medium">{{ .Name }}</p>
-      <snap class="doc-speciality text-d/75 text-base flex items-center justify-start gap-x-1.5">
-        {{ .Title }}
+      <p class="doc-name text-2xl text-d font-medium">{{ .Doctor.Name }}</p>
+      <snap class="doc-speciality text-d/75 text-base flex items-center justify-start gap-x-1.5 capitalize">
+        {{ .Doctor.Title }}
         <snap class="inline-block w-1.5 aspect-square rounded-3xl bg-t/85"></snap> <span class="doc-experience">5</span>
         years experience
       </snap>
@@ -13,22 +14,23 @@
   <div class="w-full items-end justify-start gap-5">
     <div class="w-fit flex-col items-start justify-end gap-0.5 capitalize">
       <p class="text-d font-medium">Education</p>
-      <p class="text-d/65 text-sm">M.Sc in ENT & Surgery, MUK</p>
+      <p class="text-d/65 text-sm">M.Sc in {{ .Doctor.Skill }}</p>
     </div>
     <div class="w-fit flex-col items-start justify-end gap-0.5 capitalize">
       <p class="text-d font-medium">Certificate</p>
-      <p class="text-d/65 text-sm">Certified ENT Surgeon, KMHL</p>
+      <p class="text-d/65 text-sm">Certified {{ .Doctor.Title }}</p>
     </div>
   </div>
   <div class="w-full flex-col items-start justify-start gap-0.5 capitalize">
     <p class="text-d text-base">Available Today</p>
     <div class="w-full items-end justify-start gap-5 text-sm text-d/65">
       <p class="py-1.5 px-2 flex items-center justify-start gap-1.5 rounded-md bg-t/10"><span
-          class="w-2 aspect-square rounded-full bg-d/65"></span> Online at <span class="lowercase underline">{{ .Email
+          class="w-2 aspect-square rounded-full bg-d/65"></span> Online at <span class="lowercase underline">{{
+          .Doctor.Email
           }}</span>
       </p>
       <p class="py-1.5 px-2 flex items-center justify-start gap-1.5 rounded-md bg-t/10"><span
-          class="w-2 aspect-square rounded-full bg-d/65"></span> Offline at <span class="underline">{{ .Location
+          class="w-2 aspect-square rounded-full bg-d/65"></span> Offline at <span class="underline">{{ .Doctor.Location
           }}</span></p>
     </div>
   </div>
@@ -60,3 +62,4 @@
 <div class="w-full shrink-0 col-span-2 items-start justify-start py-2.5">
   <button class="w-fit py-3 px-9 text-base text-w capitalize rounded-3xl bg-b">Book Appointment</button>
 </div>
+{{ end }}

@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/Yassinproweb/doc_apoi/models"
 	"github.com/Yassinproweb/doc_apoi/utils"
 	"github.com/gofiber/fiber/v2"
@@ -16,7 +18,8 @@ func DoctorDetailsController() fiber.Handler {
 			return c.Status(fiber.StatusNotFound).SendString("Doctor not found")
 		}
 
-		return c.Render("partials/details", fiber.Map{
+		fmt.Println("HTMx Request:", c.Get("HX-Request"), "Doctor:", s)
+		return c.Render("details", fiber.Map{
 			"Doctor": d,
 		})
 	}
