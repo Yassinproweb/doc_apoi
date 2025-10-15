@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!docSkill || !symptoms || !procedures) return;
 
-  const skill = docSkill.textContent.trim();
+  const skill = docSkill.textContent.trim().toLowerCase();
   if (specialities[skill]) {
     symptoms.textContent = specialities[skill].symptoms;
     procedures.textContent = specialities[skill].procedures;
