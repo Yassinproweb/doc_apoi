@@ -215,7 +215,8 @@
               <span class="w-9 aspect-square shrink-0 flex items-center justify-center rounded-3xl bg-b/25">
                 <i class="hgi hgi-stroke hgi-user-search-01 text-b text-3xl"></i>
               </span>
-              <input id="search" type="search" class="w-full pl-2 px-5 py-1.5 text-start outline-none">
+              <input id="search" type="search" class="w-full pl-2 px-5 py-1.5 text-start outline-none"
+                placeholder="Search doctor here">
             </div>
             {{ range .Doctors }}
             {{ template "doctor" . }}
@@ -224,7 +225,8 @@
 
 
           <div id="doctor-info" class="relative w-full h-full gap-5 grid grid-cols-7 p-3.5 rounded-2xl bg-w">
-            <p class="text-xl text-d">Add a doctor to view details here</p>
+            <p class="text-lg text-d w-full">
+              Click&nbsp;on&nbsp;doctor&nbsp;card&nbsp;to&nbsp;view&nbsp;details&nbsp;here</p>
           </div>
         </div>
       </div>
