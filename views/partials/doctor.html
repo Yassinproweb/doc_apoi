@@ -1,6 +1,7 @@
 {{ define "doctor" }}
 <div hx-get="/details/doctors/{{normalize .Name}}" hx-target="#doctor-info" hx-swap="innerHTML"
-  class="{{ .Skill }} mix w-full aspect-[4/2.5] flex-col items-center justify-between gap-1.5 p-3 rounded-xl border-2 border-b hover:border-b/70 snap-end">
+  data-skill="{{ .Skill }}"
+  class="mix w-full aspect-[4/2.5] flex-col items-center justify-between gap-1.5 p-3 rounded-xl border-2 border-b hover:border-b/70 snap-end">
   <div class="w-full items-center justify-start gap-2.5">
     <img src={{ .Avatar }} alt="doctor's profile pic"
       class="pic-profile w-12 aspect-square shrink-0 object-cover object-center rounded-lg">
@@ -21,9 +22,9 @@
     </ul>
   </div>
   <div class="w-full items-end justify-between border-t-2 border-t/25 pt-1.5">
-    <p class="text-t text-xs capitalize">Consultation Fee</p>
-    <p class="text-d text-sm font-bold capitalize"><span class="font-medium opacity-45">Ugx</span>35,000 -
-      150,000</p>
+    <p class="text-t text-xs capitalize"><span id="skill-doc">{{ .Skill }}</span>:
+      Consultation Fee</p>
+    <p class="text-d text-sm font-semibold capitalize">From <span class="font-medium opacity-45">Ugx</span>15,000</p>
   </div>
 </div>
 {{ end }}

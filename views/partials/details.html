@@ -1,10 +1,10 @@
 {{ define "details" }}
 <div class="w-full col-span-5 flex-col items-start justify-start gap-4">
   <div class="w-full items-start justify-start gap-5">
-    <img src="{{ .Doctor.Avatar }}" alt="" class="pic-profile w-20 aspect-square object-cover object-center rounded-lg">
+    <img src="{{ .Doctor.Avatar }}" alt="" class="w-20 aspect-square object-cover object-center rounded-lg">
     <div class="w-full flex-col items-start justify-between gap-2.5 py-1.5">
-      <p class="doc-name text-2xl text-d font-medium">{{ .Doctor.Name }}</p>
-      <snap class="doc-speciality text-d/75 text-base flex items-center justify-start gap-x-1.5 capitalize">
+      <p class="text-2xl text-d font-medium">{{ .Doctor.Name }}</p>
+      <snap class="text-d/75 text-base flex items-center justify-start gap-x-1.5 capitalize">
         {{ .Doctor.Title }}
         <snap class="inline-block w-1.5 aspect-square rounded-3xl bg-t/85"></snap> <span class="doc-experience">5</span>
         years experience
@@ -14,7 +14,7 @@
   <div class="w-full items-end justify-start gap-5">
     <div class="w-fit flex-col items-start justify-end gap-0.5 capitalize">
       <p class="text-d font-medium">Education</p>
-      <p id="skill-doc" class="text-d/65 text-sm">M.Sc in {{ .Doctor.Skill }}</p>
+      <p class="text-d/65 text-sm">M.Sc in {{ .Doctor.Skill }}</p>
     </div>
     <div class="w-fit flex-col items-start justify-end gap-0.5 capitalize">
       <p class="text-d font-medium">Certificate</p>
@@ -46,11 +46,11 @@
   </div>
   <div class="w-fit flex-col items-start justify-end gap-0.5 capitalize">
     <p class="text-d text-base font-medium">Symptoms & Signs</p>
-    <p id="symptoms" class="text-d/65 text-sm"></p>
+    <p id="symptoms" class="text-d/65 text-sm">Symptoms data not available!</p>
   </div>
   <div class="w-fit flex-col items-start justify-end gap-0.5 capitalize">
     <p class="text-d text-base font-medium">Specialty Procedures</p>
-    <p id="procedures" class="text-d/65 text-sm"></p>
+    <p id="procedures" class="text-d/65 text-sm">Procedures data not available!</p>
   </div>
 </div>
 
