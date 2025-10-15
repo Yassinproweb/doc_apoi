@@ -32,6 +32,22 @@ body {
   font-family: "Encode Sans";
 }
 
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--b);
+  border: 1px solid var(--b);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--w);
+  border-radius: 5px;
+  border: 2px solid var(--b);
+}
+
 h1,
 h2,
 h3,
