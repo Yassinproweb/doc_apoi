@@ -688,6 +688,10 @@ video {
   display: none;
 }
 
+.aspect-\[16\/10\] {
+  aspect-ratio: 16/10;
+}
+
 .aspect-\[16\/9\] {
   aspect-ratio: 16/9;
 }
