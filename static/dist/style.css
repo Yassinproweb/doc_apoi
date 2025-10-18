@@ -1616,7 +1616,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 9px;
+  width: 11px;
   height: 15px;
 }
 
@@ -1628,7 +1628,7 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: var(--w);
   border-radius: 55px;
-  border: 4px solid var(--b);
+  border: 1px solid var(--b);
 }
 
 h1,
