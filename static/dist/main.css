@@ -1134,19 +1134,19 @@ video {
 
 .border-b {
   --tw-border-opacity: 1;
-  border-color: rgb(120 188 255 / var(--tw-border-opacity, 1));
+  border-color: rgb(56 156 223 / var(--tw-border-opacity, 1));
 }
 
 .border-b\/25 {
-  border-color: rgb(120 188 255 / 0.25);
+  border-color: rgb(56 156 223 / 0.25);
 }
 
 .border-b\/65 {
-  border-color: rgb(120 188 255 / 0.65);
+  border-color: rgb(56 156 223 / 0.65);
 }
 
 .border-b\/75 {
-  border-color: rgb(120 188 255 / 0.75);
+  border-color: rgb(56 156 223 / 0.75);
 }
 
 .border-t\/25 {
@@ -1155,11 +1155,11 @@ video {
 
 .bg-b {
   --tw-bg-opacity: 1;
-  background-color: rgb(120 188 255 / var(--tw-bg-opacity, 1));
+  background-color: rgb(56 156 223 / var(--tw-bg-opacity, 1));
 }
 
 .bg-b\/25 {
-  background-color: rgb(120 188 255 / 0.25);
+  background-color: rgb(56 156 223 / 0.25);
 }
 
 .bg-d {
@@ -1207,8 +1207,8 @@ video {
 }
 
 .from-b {
-  --tw-gradient-from: #78BCFF var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(120 188 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-from: #389CDF var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(56 156 223 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
@@ -1218,7 +1218,7 @@ video {
 }
 
 .to-b {
-  --tw-gradient-to: #78BCFF var(--tw-gradient-to-position);
+  --tw-gradient-to: #389CDF var(--tw-gradient-to-position);
 }
 
 .object-cover {
@@ -1480,11 +1480,11 @@ video {
 
 .text-b {
   --tw-text-opacity: 1;
-  color: rgb(120 188 255 / var(--tw-text-opacity, 1));
+  color: rgb(56 156 223 / var(--tw-text-opacity, 1));
 }
 
 .text-b\/65 {
-  color: rgb(120 188 255 / 0.65);
+  color: rgb(56 156 223 / 0.65);
 }
 
 .text-d {
@@ -1561,7 +1561,7 @@ video {
 }
 
 .shadow-b\/15 {
-  --tw-shadow-color: rgb(120 188 255 / 0.15);
+  --tw-shadow-color: rgb(56 156 223 / 0.15);
   --tw-shadow: var(--tw-shadow-colored);
 }
 
@@ -1592,7 +1592,7 @@ video {
   --f: #EDEDF0;
   --d: #1A1B23;
   --t: #49433D;
-  --b: #78BCFF;
+  --b: #387CBF;
   /* padding values */
   --x: 5vw;
   --y: 3.5rem;
@@ -1692,16 +1692,16 @@ img {
 }
 
 .hover\:border-b\/70:hover {
-  border-color: rgb(120 188 255 / 0.7);
+  border-color: rgb(56 156 223 / 0.7);
 }
 
 .hover\:bg-b:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(120 188 255 / var(--tw-bg-opacity, 1));
+  background-color: rgb(56 156 223 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-b\/20:hover {
-  background-color: rgb(120 188 255 / 0.2);
+  background-color: rgb(56 156 223 / 0.2);
 }
 
 .hover\:bg-blue-600:hover {
@@ -1711,7 +1711,7 @@ img {
 
 .hover\:text-b:hover {
   --tw-text-opacity: 1;
-  color: rgb(120 188 255 / var(--tw-text-opacity, 1));
+  color: rgb(56 156 223 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-w:hover {

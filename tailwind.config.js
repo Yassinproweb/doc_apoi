@@ -11,7 +11,7 @@ module.exports = {
         f: '#EDEDF0', //-- off-white
         d: '#1A1B23', //-- black
         t: '#49433D', //-- text
-        b: '#78BCFF', //-- blue
+        b: '#389CDF', //-- blue
       },
       padding: {
         x: '5vw',
