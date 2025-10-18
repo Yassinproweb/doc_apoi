@@ -4,8 +4,10 @@
   "description": "A telemedicine company website",
   "main": "./static/main.js",
   "scripts": {
-    "w": "tailwindcss -i ./static/style.css -o ./static/dist/style.css --watch",
-    "b": "tailwindcss -i ./static/style.css -o ./static/dist/style.css --build"
+    "w": "tailwindcss -i ./static/css/style.css -o ./static/dist/style.css --watch",
+    "b": "tailwindcss -i ./static/css/style.css -o ./static/dist/style.css --build",
+    "watch": "tailwindcss -i ./static/css/main.css -o ./static/dist/main.css --watch",
+    "build": "tailwindcss -i ./static/css/main.css -o ./static/dist/main.css --build"
   },
   "keywords": [
     "Doc_Apoi",

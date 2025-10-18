@@ -1,19 +1,86 @@
-{{ template "head" }}
+<!doctype html>
+<html lang="en">
 
-<body class="relative flex items-center justify-center bg-d">
-  <main class="w-full h-rull aspect-[16/10] flex items-center justify-between gap-5 p-5 bg-w overflow-hidden">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <div id="dashboard" class="relative w-full h-full flex-col items-center justify-start gap-5 p-0">
-      <nav class="relative w-full flex items-center justify-between">
-        <div class="w-fit items-center gap-2.5">
-          <img src="/static/imgs/pngs/doc_apoi.png" alt="" class="w-9 object-cover object-center rounded-lg">
-          <h1 class="text-3xl text-start text-b font-bold">Doc_Apoi</h1>
+  <!-- link to favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/static/imgs/pngs/doc_apoi.png">
+
+  <!-- link to google fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100..900&family=Mozilla+Headline:wght@200..700&display=swap"
+    rel="stylesheet">
+
+  <!-- linkto tailwindcss -->
+  <link rel="stylesheet" href="/static/dist/main.css">
+
+  <!-- link to huge-icons -->
+  <link rel="stylesheet" href="/static/icons/icons.css">
+
+  <!-- htmx & alpine js -->
+  <script src="/static/js/htmx.min.js" defer></script>
+  <script src="/static/js/alpine.min.js" defer></script>
+
+  <!-- title of the page -->
+  <title>Doc_Apoi</title>
+</head>
+
+<body class="flex items-center justify-center bg-w">
+  <div id="docdash" class="w-full h-screen grid gap-3.5 p-3.5 bg-w">
+    <header id="dochead"
+      class="w-full col-span-2 col-start-2 flex items-center justify-between gap-9 p-3 rounded-xl bg-f">
+      <div class="w-fit items-center justify-between gap-5">
+        <a href="/doctors/{{normalize .Doctor.Name}}" hx-boost="true"
+          class="text-base text-start text-w py-2.5 px-7 rounded-3xl bg-t hover:text-w hover:bg-b">Overview</a>
+        <a href="/doctors/{{normalize .Doctor.Name}}/patients" hx-boost="true"
+          class="text-base text-start text-w py-2.5 px-7 rounded-3xl bg-t hover:text-w hover:bg-b">Patients</a>
+        <a href="/doctors/{{normalize .Doctor.Name}}/records" hx-boost="true"
+          class="text-base text-start text-w py-2.5 px-7 rounded-3xl bg-t hover:text-w hover:bg-b">Records</a>
+      </div>
+
+      <div class="w-fit items-center gap-2.5">
+        <img src="{{ .Doctor.Avatar }}" alt="profile pic or avatar of Dr. {{ .Doctor.Name }}"
+          class="w-9 object-cover object-center rounded-lg">
+        <h1 class="text-lg text-start text-d font-semibold">{{ .Doctor.Name }}</h1>
+      </div>
+    </header>
+
+    <aside id="docside" class="h-full col-span-1 col-start-1 grid gap-5 p-3.5 rounded-xl bg-f">
+      <div class="w-full flex-col items-center justify-center gap-1">
+        <img src="{{ .Doctor.Avatar }}" alt="profile pic or avatar of Dr. {{ .Doctor.Name }}"
+          class="w-24 aspect-square rounded-3xl object-cover object-center">
+        <h3 class="mt-2.5 text-lg text-start text-d font-medium leading-none">{{ .Doctor.Name }}</h3>
+        <p class="text-base text-start text-t font-normal capitalize">{{ .Doctor.Title }}</p>
+      </div>
+
+      <div class="w-full h-full flex-col items-center justify-center gap-5">
+        <div class="w-full grid grid-cols-2 gap-3.5">
+          <div class="w-full aspect-square flex-col items-center justify-start gap-1.5 p-2.5 rounded-xl bg-w">
+            <div
+              class="w-11 aspect-square flex-col items-center justify-center rounded-xl bg-gradient-to-tr from-b via-f to-b">
+              <i class="text-3xl text-w hgi hgi-stroke hgi-"></i>
+            </div>
+            <div class="w-full items-end justify-between gap-1">
+              <div class="w-full flex-col items-start justisy-end gap-1">
+                <p class="text-lg text-b font-semibold">1237</p>
+                <p class="text-sm text-t">All&nbsp;Patients</p>
+              </div>
+              <p class="text-sm text-b">+11%</p>
+            </div>
+          </div>
+          <div class="w-full aspect-square flex-col items-center justify-center gap-1.5 rounded-xl bg-w">
+          </div>
         </div>
+      </div>
+    </aside>
 
-        <div id="menu-show" role="button" class="w-12 aspect-square items-center justify-center rounded-full bg-w">
-          <i class="hgi hgi-stroke hgi-menu-circle text-3xl text-b"></i>
-        </div>
-      </nav>
-    </div>
-  </main>
+    <main id="docmain" class="h-full col-span-2 col-start-2 p-3.5 rounded-xl bg-f"></main>
+  </div>
 </body>
+
+</html>

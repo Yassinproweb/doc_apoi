@@ -1,7 +1,8 @@
 {{ define "details" }}
 <div class="w-full col-span-5 flex-col items-start justify-start gap-4">
   <div class="w-full items-start justify-start gap-5">
-    <img src="{{ .Doctor.Avatar }}" alt="" class="w-20 aspect-square object-cover object-center rounded-lg">
+    <img src="{{ .Doctor.Avatar }}" alt="profile pic or avatar of Dr. {{ .Doctor.Name }}"
+      class="w-20 aspect-square object-cover object-center rounded-lg">
     <div class="w-full flex-col items-start justify-between gap-2.5 py-1.5">
       <p class="text-2xl text-d font-medium">{{ .Doctor.Name }}</p>
       <snap class="text-d/75 text-base flex items-center justify-start gap-x-1.5 capitalize">

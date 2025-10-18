@@ -6,9 +6,10 @@
   /* colors for text and backgrounds */
   --w: #FEFEFF;
   --f: #EDEDF0;
+  --g: #E1E1E5;
   --d: #1A1B23;
   --t: #49433D;
-  --b: #387CFF;
+  --b: #78BCFF;
   ;
 
   /* padding values */
@@ -222,7 +223,7 @@ menu.show {
 }
 
 
-/* */
+/* filters mixitup */
 .filters::-webkit-scrollbar-track {
   background: var(--w);
   outline: 2px solid var(--b);

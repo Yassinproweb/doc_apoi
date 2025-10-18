@@ -1590,7 +1590,6 @@ video {
   /* colors for text and backgrounds */
   --w: #FEFEFF;
   --f: #EDEDF0;
-  --g: #E1E1E5;
   --d: #1A1B23;
   --t: #49433D;
   --b: #78BCFF;
@@ -1616,7 +1615,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 9px;
+  width: 15px;
   height: 15px;
 }
 
@@ -1626,9 +1625,9 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--w);
+  background-color: var(--b);
   border-radius: 55px;
-  border: 4px solid var(--b);
+  border: 1px solid var(--w);
 }
 
 h1,
@@ -1638,15 +1637,6 @@ h4,
 h5,
 h6 label {
   font-family: "Mozilla Headline";
-}
-
-label {
-  font-weight: bold;
-  max-width: 360px;
-}
-
-input {
-  max-width: 360px;
 }
 
 div,
@@ -1667,162 +1657,38 @@ footer {
   padding: var(--x);
 }
 
-section {
-  padding-block: var(--y);
-  padding-top: 85px;
-  background-color: var(--w);
-}
-
 img {
   pointer-events: none;
 }
 
-input,
-select,
-button {
-  outline: none;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+/* Doctors' dashboard grid areas */
+
+#docdash {
+  grid-template-rows: 65px 1fr;
+  grid-template-columns: 21% 1fr;
+  grid-template-areas:
+    "aside header header"
+    "aside main main"
+    "aside main main";
 }
 
-li {
-  list-style: none;
-}
-
-/* header and navbar */
-
-.scroll {
-  background: var(--w);
-  box-shadow: 2px 3px 9px -3px #1a1b2337;
-}
-
-.title img {
-  filter: brightness(0) invert(1);
-}
-
-.scroll h3 {
-  color: var(--b);
-}
-
-.scroll .title img {
-  filter: none;
-}
-
-.scroll #titles {
-  color: var(--b);
-}
-
-/* service */
-
-.service:hover {
-  background-color: var(--b);
-  scale: 1.05;
-}
-
-.service:hover h4 {
-  color: var(--w);
-}
-
-.service:hover p {
-  color: var(--f);
-}
-
-.service:hover h4,
-.service:hover p,
-.service:hover img {
-  scale: 1.05;
-}
-
-/* treatment section*/
-
-input[type="radio"]:checked+.label+.arcontent {
-  max-height: 300px;
-  display: block;
-}
-
-/* choice section */
-
-.container {
-  position: relative;
+#dochead {
   width: 100%;
   height: 100%;
+  grid-area: header;
 }
 
-.center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 75px;
-  height: 75px;
-  color: var(--w);
-  font-size: 50px;
-  border: 3px solid var(--w);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#docside {
+  width: 100%;
+  height: 100%;
+  grid-area: aside;
+  grid-template-rows: 25% 1fr 25%;
 }
 
-.circle {
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-  width: 55px;
-  height: 55px;
-  border: 3px solid var(--w);
-  border-radius: 50%;
-  color: var(--w);
-  font-size: 30px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(calc(var(--i) * 30deg)) translate(135px);
-  transform-origin: center;
-}
-
-.circle i {
-  display: block;
-  transform: rotate(calc(var(--i) * -30deg));
-  transform-origin: center;
-}
-
-/* menu toggle */
-
-menu {
-  transform: translateX(386px);
-  transform-origin: right;
-}
-
-menu.show {
-  transform: translateX(0);
-}
-
-[data-filter].mixitup-control-active {
-  background: var(--b);
-  color: var(--w);
-}
-
-[data-filter].mixitup-control-active img {
-  filter: brightness(0) invert(1);
-}
-
-/* filters mixitup */
-
-.filters::-webkit-scrollbar-track {
-  background: var(--w);
-  outline: 2px solid var(--b);
-  border-radius: 10px;
-}
-
-.filters::-webkit-scrollbar-thumb {
-  border-color: var(--w);
-  background: var(--b);
-  border-radius: 10px;
-}
-
-#by-skill::-webkit-scrollbar-button {
-  width: calc(25% - 40px);
+#docmain {
+  width: 100%;
+  height: 100%;
+  grid-area: main;
 }
 
 .hover\:border-b\/70:hover {
