@@ -732,8 +732,8 @@ video {
   aspect-ratio: 4/3;
 }
 
-.aspect-\[5\/4\.5\] {
-  aspect-ratio: 5/4.5;
+.aspect-\[5\/4\] {
+  aspect-ratio: 5/4;
 }
 
 .aspect-\[8\/5\] {
@@ -821,8 +821,16 @@ video {
   width: 6rem;
 }
 
+.w-3 {
+  width: 0.75rem;
+}
+
 .w-3\/5 {
   width: 60%;
+}
+
+.w-44 {
+  width: 11rem;
 }
 
 .w-6 {
@@ -929,6 +937,10 @@ video {
 
 .snap-y {
   scroll-snap-type: y var(--tw-scroll-snap-strictness);
+}
+
+.snap-mandatory {
+  --tw-scroll-snap-strictness: mandatory;
 }
 
 .snap-end {
@@ -1088,6 +1100,10 @@ video {
   overflow-y: auto;
 }
 
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
 .rounded-2xl {
   border-radius: 1rem;
 }
@@ -1166,6 +1182,14 @@ video {
   background-color: rgb(56 156 223 / 0.25);
 }
 
+.bg-b\/45 {
+  background-color: rgb(56 156 223 / 0.45);
+}
+
+.bg-b\/85 {
+  background-color: rgb(56 156 223 / 0.85);
+}
+
 .bg-d {
   --tw-bg-opacity: 1;
   background-color: rgb(26 27 35 / var(--tw-bg-opacity, 1));
@@ -1199,6 +1223,10 @@ video {
 .bg-w {
   --tw-bg-opacity: 1;
   background-color: rgb(254 254 255 / var(--tw-bg-opacity, 1));
+}
+
+.bg-b\/65 {
+  background-color: rgb(56 156 223 / 0.65);
 }
 
 .object-cover {
@@ -1658,7 +1686,7 @@ img {
   width: 100%;
   height: 100%;
   grid-area: aside;
-  grid-template-rows: 25% 1fr 25%;
+  grid-template-rows: 21% 1fr 21%;
 }
 
 #docmain {
