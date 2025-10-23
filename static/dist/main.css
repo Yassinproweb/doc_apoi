@@ -793,6 +793,10 @@ video {
   width: 0.375rem;
 }
 
+.w-10 {
+  width: 2.5rem;
+}
+
 .w-11 {
   width: 2.75rem;
 }
@@ -860,14 +864,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-screen {
-  width: 100vw;
-}
-
-.w-10 {
-  width: 2.5rem;
 }
 
 .min-w-\[65\%\] {
@@ -1232,10 +1228,6 @@ video {
 .object-center {
   -o-object-position: center;
      object-position: center;
-}
-
-.p-0 {
-  padding: 0px;
 }
 
 .p-0\.5 {
@@ -1668,7 +1660,7 @@ img {
 
 #docdash {
   grid-template-rows: 65px 1fr;
-  grid-template-columns: 21% 1fr;
+  grid-template-columns: 23% 1fr;
   grid-template-areas:
     "aside header header"
     "aside main main"
@@ -1707,11 +1699,6 @@ img {
   background-color: rgb(56 156 223 / 0.2);
 }
 
-.hover\:bg-blue-600:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
-}
-
 .hover\:text-b:hover {
   --tw-text-opacity: 1;
   color: rgb(56 156 223 / var(--tw-text-opacity, 1));
@@ -1720,4 +1707,9 @@ img {
 .hover\:text-w:hover {
   --tw-text-opacity: 1;
   color: rgb(254 254 255 / var(--tw-text-opacity, 1));
+}
+
+.hover\:brightness-75:hover {
+  --tw-brightness: brightness(.75);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }

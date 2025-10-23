@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100..900&family=Mozilla+Headline:wght@200..700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=Mozilla+Headline:wght@200..700&display=swap"
     rel="stylesheet">
 
   <!-- linkto tailwindcss -->
@@ -52,14 +52,14 @@
       hasNumber() { return /[0-9]/.test(this.password); },
       hasSymbol() { return /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(this.password); },
     }">
-      <div class="w-full flex-col gap-1">
+      <div class="w-fit flex-col items-start justify-center gap-1">
         <label for="email">Enter your email</label>
         <input type="email" id="email" name="email" x-model="email"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
         <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
       </div>
-      <div class="w-full flex-col gap-1">
+      <div class="w-fit flex-col items-start justify-center gap-1">
         <label for="password">Enter secure password</label>
         <input type="password" id="password" name="password" x-model="password"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
@@ -74,7 +74,7 @@
           <p x-show="isValidPassword()" class="text-green-500">Password is secure</p>
         </div>
       </div>
-      <input type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:bg-blue-600"
+      <input type="submit" class="w-full bg-b text-w py-3.5 rounded-lg max-w-[360px] hover:brightness-75"
         x-bind:disabled="!isValidPassword() || !email.includes('@')"
         x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || !email.includes('@')}"
         value="Login Doctor">
@@ -113,7 +113,7 @@
         return this.password === this.repassword && this.repassword.length > 0;
       }
     }">
-      <div class="w-full flex-col gap-1">
+      <div class="w-fit flex-col items-start justify-center gap-1">
         <label for="name">Enter your fullname</label>
         <input type="text" id="name" name="name" x-model="name"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
@@ -121,7 +121,7 @@
         <p x-show="name.length < 2 && name.length > 0" class="text-red-600 text-xs font-medium">Name must be at least 2
           characters</p>
       </div>
-      <div class="w-full flex-col gap-1">
+      <div class="w-fit flex-col items-start justify-center gap-1">
         <label for="location">Enter work location</label>
         <input type="text" id="location" name="location" x-model="location"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
@@ -130,14 +130,14 @@
           at least 2
           characters</p>
       </div>
-      <div class="w-full flex-col gap-1">
+      <div class="w-fit flex-col items-start justify-center gap-1">
         <label for="email">Enter your email</label>
         <input type="email" id="email" name="email" x-model="email"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
           x-bind:class="{ 'outline-red-600': !email.includes('@') && email.length > 13 }">
         <p x-show="!email.includes('@') && email.length > 13" class="text-red-600 text-xs font-medium">Invalid email</p>
       </div>
-      <div class="w-full flex-col gap-1">
+      <div class="w-fit flex-col items-start justify-center gap-1">
         <label for="password">Enter secure password</label>
         <input type="password" id="password" name="password" x-model="password"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none" required
@@ -152,7 +152,7 @@
           <p x-show="isValidPassword()" class="text-green-500">Password is secure</p>
         </div>
       </div>
-      <div class="w-full flex-col gap-1">
+      <div class="w-fit flex-col items-start justify-center gap-1">
         <label for="repassword">Re-enter secure password</label>
         <input type="password" id="repassword" name="repassword" x-model="repassword"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none"
@@ -165,7 +165,7 @@
           <p x-show="passwordsMatch()" class="text-green-500 font-medium">Passwords match</p>
         </div>
       </div>
-      <div class="w-full flex-col gap-1">
+      <div class="w-fit flex-col items-start justify-center gap-1">
         <label for="skill">Enter your skill</label>
         <select id="skill" name="skill" required
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none max-w-[360px]">
@@ -197,7 +197,7 @@
           <option value="urology">Urology</option>
         </select>
       </div>
-      <div class="w-full flex-col gap-1">
+      <div class="w-fit flex-col items-start justify-center gap-1">
         <label for="title">Enter your title</label>
         <select id="title" name="title" required
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none max-w-[360px]">
@@ -213,7 +213,7 @@
           <option value="gynaecologist">Gynaecologist</option>
           <option value="nephrologist">Nephrologist</option>
           <option value="neurologist">Neurologist</option>
-          <option value="nutrition">Nutrition</option>
+          <option value="nutritionist">Nutritionist</option>
           <option value="oncologist">Oncologist</option>
           <option value="opthalmologist">Opthalmologist</option>
           <option value="orthodontist">Orthodontist</option>
@@ -229,12 +229,12 @@
           <option value="urologist">Urologist</option>
         </select>
       </div>
-      <div class="w-full flex-col gap-1">
+      <div class="w-fit flex-col items-start justify-center gap-1">
         <label for="avatar">Upload your avatar</label>
         <input type="file" id="avatar" name="avatar" accept="image/jpeg, image/jpg, image/png, image/webp, image/gif"
           class="text-d text-base px-5 py-2.5 rounded-lg outline outline-2 outline-d border-none">
       </div>
-      <input type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:bg-blue-600"
+      <input type="submit" class="w-full bg-b text-w py-3.5 rounded-lg hover:brightness-75"
         x-bind:disabled="!isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch()"
         x-bind:class="{ 'opacity-50 cursor-not-allowed': !isValidPassword() || name.length < 2 || !email.includes('@') || !passwordsMatch() }"
         value="Register Doctor">

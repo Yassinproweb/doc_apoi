@@ -1639,7 +1639,9 @@ label {
   max-width: 360px;
 }
 
-input {
+input,
+select {
+  min-width: 360px;
   max-width: 360px;
 }
 
@@ -1832,11 +1834,6 @@ menu.show {
   background-color: rgb(56 156 223 / 0.2);
 }
 
-.hover\:bg-blue-600:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
-}
-
 .hover\:text-b:hover {
   --tw-text-opacity: 1;
   color: rgb(56 156 223 / var(--tw-text-opacity, 1));
@@ -1845,4 +1842,9 @@ menu.show {
 .hover\:text-w:hover {
   --tw-text-opacity: 1;
   color: rgb(254 254 255 / var(--tw-text-opacity, 1));
+}
+
+.hover\:brightness-75:hover {
+  --tw-brightness: brightness(.75);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
