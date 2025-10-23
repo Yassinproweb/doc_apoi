@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100..900&family=Mozilla+Headline:wght@200..700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=Mozilla+Headline:wght@200..700&display=swap"
     rel="stylesheet">
 
   <!-- linkto tailwindcss -->
@@ -36,11 +36,11 @@
       class="w-full col-span-2 col-start-2 flex items-center justify-between gap-9 p-3 rounded-xl bg-f">
       <div class="w-fit items-center justify-between gap-5">
         <a href="/doctors/{{normalize .Doctor.Name}}" hx-boost="true"
-          class="text-base text-start text-w py-2.5 px-7 rounded-3xl bg-b hover:text-w hover:bg-b">Overview</a>
+          class="text-base text-start text-w py-2.5 px-7 rounded-2xl bg-b hover:text-w hover:bg-b">Overview</a>
         <a href="/doctors/{{normalize .Doctor.Name}}/patients" hx-boost="true"
-          class="text-base text-start text-w py-2.5 px-7 rounded-3xl bg-b hover:text-w hover:bg-b">Patients</a>
+          class="text-base text-start text-w py-2.5 px-7 rounded-2xl bg-b hover:text-w hover:bg-b">Patients</a>
         <a href="/doctors/{{normalize .Doctor.Name}}/records" hx-boost="true"
-          class="text-base text-start text-w py-2.5 px-7 rounded-3xl bg-b hover:text-w hover:bg-b">Records</a>
+          class="text-base text-start text-w py-2.5 px-7 rounded-2xl bg-b hover:text-w hover:bg-b">Records</a>
       </div>
 
       <div class="w-fit items-center gap-2.5">
@@ -60,9 +60,9 @@
 
       <div class="w-full h-full flex-col items-center justify-center gap-5">
         <div class="w-full grid grid-cols-2 gap-3.5">
-          <div class="w-full aspect-square flex-col items-center justify-start gap-1.5 p-2.5 rounded-xl bg-w">
+          <div class="w-full aspect-[5/4.5] flex-col items-start justify-start gap-1.5 p-2.5 rounded-xl bg-w">
             <div
-              class="w-11 aspect-square flex-col items-start justify-center rounded-xl bg-gradient-to-tr from-b via-f to-b">
+              class="w-11 aspect-square flex-col items-center justify-center rounded-xl bg-gradient-to-tr from-b via-f to-b">
               <i class="text-3xl text-w hgi hgi-stroke hgi-"></i>
             </div>
             <div class="w-full items-end justify-between gap-1">
@@ -73,9 +73,9 @@
               <p class="text-sm text-b font-medium">+11%</p>
             </div>
           </div>
-          <div class="w-full aspect-square flex-col items-center justify-start gap-1.5 p-2.5 rounded-xl bg-w">
+          <div class="w-full aspect-[5/4.5] flex-col items-start justify-start gap-1.5 p-2.5 rounded-xl bg-w">
             <div
-              class="w-11 aspect-square flex-col items-start justify-center rounded-xl bg-gradient-to-tr from-b via-f to-b">
+              class="w-11 aspect-square flex-col items-center justify-center rounded-xl bg-gradient-to-tr from-b via-f to-b">
               <i class="text-3xl text-w hgi hgi-stroke hgi-"></i>
             </div>
             <div class="w-full items-end justify-between gap-1">

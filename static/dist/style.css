@@ -732,6 +732,10 @@ video {
   aspect-ratio: 4/3;
 }
 
+.aspect-\[5\/4\.5\] {
+  aspect-ratio: 5/4.5;
+}
+
 .aspect-\[8\/5\] {
   aspect-ratio: 8/5;
 }
@@ -1176,11 +1180,6 @@ video {
   background-color: rgb(237 237 240 / var(--tw-bg-opacity, 1));
 }
 
-.bg-t {
-  --tw-bg-opacity: 1;
-  background-color: rgb(73 67 61 / var(--tw-bg-opacity, 1));
-}
-
 .bg-t\/10 {
   background-color: rgb(73 67 61 / 0.1);
 }
@@ -1611,7 +1610,7 @@ html {
 
 body {
   width: 100%;
-  font-family: "Encode Sans";
+  font-family: "Familjen Grotesk";
 }
 
 ::-webkit-scrollbar {
