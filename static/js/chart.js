@@ -1,5 +1,7 @@
 import { Chart } from "chart.js/auto";
 
+Chart.defaults.font.family = 'Familjen Grotesk';
+
 const ctx = document.getElementById("graph").getContext('2d');
 new Chart(ctx, {
   type: 'doughnut',

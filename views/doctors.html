@@ -87,29 +87,8 @@
           </div>
         </div>
 
-        <div
-          class="relative w-full aspect-square flex flex-col items-start justify-between gap-3.5 p-2.5 rounded-xl bg-w">
-          <h3 class="text-lg text-d font-bold">Appointments</h3>
-
-          <div class="relative w-full flex-col items-center justify-center gap-2.5">
-            <canvas id="graph"
-              class="w-48 aspect-square flex self-center justify-self-center items-center justify-center"></canvas>
-            <span
-              class="absolute w-16 aspect-square flex flex-col self-center justify-self-center items-center justify-center rounded-full bg-f z-50">
-              <span class="text-xl text-b/75 text-center font-bold font-['Mozilla_Headline'] leading-none">231</span>
-              <span class="text-sm text-b/75 text-center font-normal">Total</span>
-            </span>
-            <div class="w-full flex items-center justify-center gap-9">
-              <div class="w-fit items-center justify-start gap-1.5">
-                <span class="w-3 aspect-square rounded-full bg-b/65"></span>
-                <p class="text-d">Online</p>
-              </div>
-              <div class="w-fit items-center justify-start gap-1.5">
-                <span class="w-3 aspect-square rounded-full bg-b/25"></span>
-                <p class="text-d">Offline</p>
-              </div>
-            </div>
-          </div>
+        <div class="relative w-full flex-col items-center justify-center p-2.5 rounded-xl bg-w">
+          <canvas id="graph" class="w-full aspect-square flex items-center justify-center"></canvas>
         </div>
       </div>
 
@@ -128,6 +107,8 @@
 
   <!-- <script type="module" src="/static/js/chart.js"></script> -->
   <script>
+    Chart.defaults.font.family = 'Familjen Grotesk';
+
     const ctx = document.getElementById("graph").getContext('2d');
     new Chart(ctx, {
       type: 'doughnut',
@@ -138,21 +119,30 @@
         ],
         datasets: [{
           data: [85, 146],
-          backgroundColor: ['rgb(116, 216, 253)', 'rgb(76, 176, 243)'],
+          backgroundColor: ['rgb(56, 156, 223, 0.65)', 'rgb(56, 156, 223, 0.45)'],
           borderWidth: 2,
           borderColor: '#fefeff'
         }]
       },
       options: {
         responsive: true,
-        cutout: '55%',
+        cutout: '45%',
         plugins: {
           legend: {
-            position: 'bottom'
+            position: 'bottom',
+            font: {
+              size: 14
+            }
           },
           title: {
             display: true,
-            text: 'Monthly Appointments'
+            text: 'Monthly Appointments',
+            color: '#1A1B23',
+            font: {
+              family: 'Mozilla Headline',
+              size: 18,
+              bold: 700
+            }
           }
         }
       }
