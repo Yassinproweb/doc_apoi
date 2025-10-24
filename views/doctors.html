@@ -25,6 +25,7 @@
   <!-- htmx & alpine js -->
   <script src="/static/js/htmx.min.js" defer></script>
   <script src="/static/js/alpine.min.js" defer></script>
+  <!-- <script src="/static/js/chart.js" defer type="module"></script> -->
 
   <!-- title of the page -->
   <title>Doc_Apoi</title>
@@ -123,38 +124,7 @@
     <main id="docmain" class="h-full col-span-2 col-start-2 p-3.5 rounded-xl bg-f"></main>
   </div>
 
-  <script>
-    const ctx = document.getElementById("graph").getContext('2d');
-    new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: [
-          'Offline',
-          'Online'
-        ],
-        datasets: [{
-          data: [85, 146],
-          backgroundColor: ['rgb(56, 156, 223 / 0.65)', 'rgb(56, 156, 223 / 0.25)'],
-          borderWidth: 2,
-          borderColor: '#fefeff'
-        }]
-      },
-      options: {
-        responsive: true,
-        cutout: '65%',
-        plugins: {
-          legend: {
-            position: 'bottom'
-          },
-          title: {
-            display: true,
-            text: 'Monthly Appointments'
-          }
-        }
-      }
-    });
-  </script>
-  <!-- <script type="module" src="/static/js/chart.js"></script> -->
+  <script type="module" src="/static/js/chart.js"></script>
 </body>
 
 </html>
