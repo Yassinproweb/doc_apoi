@@ -108,7 +108,7 @@ img {
   grid-area: main;
 }
 
-/*aside styling*/
+/* aside styling */
 #appois::-webkit-scrollbar {
   height: 0px;
 }
