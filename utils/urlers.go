@@ -26,3 +26,24 @@ func Capitalize(s string) string {
 
 	return strings.Join(ws, " ")
 }
+
+func GetInitials(n string) string {
+	parts := strings.Fields(strings.TrimSpace(n))
+	if len(parts) == 0 {
+		return ""
+	}
+
+	initials := ""
+	for _, p := range parts {
+		initials = strings.ToUpper(string(p[0]))
+		if len(initials) == 2 {
+			break
+		}
+	}
+
+	if len(parts) > 2 {
+		initials += ".."
+	}
+
+	return initials
+}

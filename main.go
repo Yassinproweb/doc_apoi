@@ -17,6 +17,7 @@ func main() {
 	engine := html.New("./views", ".html")
 	engine.AddFunc("normalize", utils.NormalizeName)
 	engine.AddFunc("capitalize", utils.Capitalize)
+	engine.AddFunc("initials", utils.GetInitials)
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
@@ -32,5 +33,5 @@ func main() {
 	routes.DocRoutes(app)
 	routes.PatRoutes(app)
 
-	log.Fatal(app.Listen("0.0.0.0:4003"))
+	log.Fatal(app.Listen("0.0.0.0:4002"))
 }

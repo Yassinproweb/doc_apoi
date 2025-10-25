@@ -75,7 +75,7 @@
           </div>
           <div class="w-full aspect-[5/4] flex-col items-start justify-start gap-1.5 p-2.5 rounded-xl bg-w">
             <div class="w-11 aspect-square flex-col items-center justify-center rounded-xl bg-b">
-              <i class="text-3xl text-w hgi hgi-stroke hgi-appointment-01"></i>
+              <i class="text-3xl text-w hgi hgi-stroke hgi-calendar-user"></i>
             </div>
             <div class="w-full items-end justify-between gap-1">
               <div class="w-full flex-col items-start justify-center gap-1">
@@ -96,7 +96,16 @@
         <h3 class="text-lg text-start text-d font-bold">New Appointments</h3>
         <div class="w-full flex-col items-center justify-start gap-1.5">
           <button class="w-full text-w px-7 py-3 rounded-3xl bg-b">Edit List</button>
-          <div class="w-full items-center justify-start gap-2.5 overflow-x-scroll snap-mandatory">
+          <div id="appois"
+            class="w-full max-w-full h-14 flex items-center justify-start gap-2.5 font-['Mozilla_Headline'] snap-mandatory snap-x overflow-x-auto overflow-y-hidden">
+            <div
+              class="relative w-12 aspect-square inline-flex flex-col items-center justify-center rounded-full bg-d shadow-sm">
+              <span class="snap-center text-2xl text-w text-center font-bold uppercase">kb</span>
+              <span
+                class="absolute -bottom-0 left-8 text-[10px] text-w w-4 flex items-center justify-center aspect-square rounded-full bg-gradient-to-tr from-b via-b to-f">
+                <i class="hgi hgi-stroke hgi-notification-02"></i>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -114,12 +123,12 @@
       type: 'doughnut',
       data: {
         labels: [
-          'Offline',
-          'Online'
+          'Online',
+          'Offline'
         ],
         datasets: [{
-          data: [85, 146],
-          backgroundColor: ['rgb(56, 156, 223, 0.65)', 'rgb(56, 156, 223, 0.45)'],
+          data: [146, 85],
+          backgroundColor: ['rgb(56, 156, 223, 0.55)', 'rgb(56, 156, 223, 0.75)'],
           borderWidth: 2,
           borderColor: '#fefeff'
         }]
@@ -131,7 +140,7 @@
           legend: {
             position: 'bottom',
             font: {
-              size: 14
+              size: 16
             }
           },
           title: {
