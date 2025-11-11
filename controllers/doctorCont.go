@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -106,6 +107,7 @@ func LoginDoctorController() fiber.Handler {
 
 		d, err := models.GetDoctor(email)
 		if err != nil || !d.CheckPassword(password) {
+			fmt.Printf("Invalid %s details: email and password mismatch or wrong password!\n", email)
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
 

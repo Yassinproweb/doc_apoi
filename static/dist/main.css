@@ -833,6 +833,10 @@ video {
   width: 60%;
 }
 
+.w-32 {
+  width: 8rem;
+}
+
 .w-4 {
   width: 1rem;
 }
@@ -985,6 +989,10 @@ video {
 
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .grid-cols-7 {
@@ -1233,6 +1241,10 @@ video {
   background-color: rgb(254 254 255 / var(--tw-bg-opacity, 1));
 }
 
+.bg-gradient-to-t {
+  background-image: linear-gradient(to top, var(--tw-gradient-stops));
+}
+
 .bg-gradient-to-tr {
   background-image: linear-gradient(to top right, var(--tw-gradient-stops));
 }
@@ -1263,8 +1275,16 @@ video {
   --tw-gradient-to: #389CDF var(--tw-gradient-to-position);
 }
 
+.to-b\/65 {
+  --tw-gradient-to: rgb(56 156 223 / 0.65) var(--tw-gradient-to-position);
+}
+
 .to-f {
   --tw-gradient-to: #EDEDF0 var(--tw-gradient-to-position);
+}
+
+.to-f\/15 {
+  --tw-gradient-to: rgb(237 237 240 / 0.15) var(--tw-gradient-to-position);
 }
 
 .object-cover {
@@ -1640,6 +1660,10 @@ video {
   outline-color: #dc2626;
 }
 
+.duration-500 {
+  transition-duration: 500ms;
+}
+
 :root {
   /* colors for text and backgrounds */
   --w: #FEFEFF;
@@ -1743,6 +1767,9 @@ img {
   width: 100%;
   height: 100%;
   grid-area: main;
+  display: grid;
+  grid-template-columns: 1;
+  grid-template-rows: 85% 1fr;
 }
 
 /* aside styling */
@@ -1762,6 +1789,29 @@ img {
 
 .hover\:bg-b\/20:hover {
   background-color: rgb(56 156 223 / 0.2);
+}
+
+.hover\:bg-gradient-to-tl:hover {
+  background-image: linear-gradient(to top left, var(--tw-gradient-stops));
+}
+
+.hover\:bg-gradient-to-t:hover {
+  background-image: linear-gradient(to top, var(--tw-gradient-stops));
+}
+
+.hover\:from-f\/15:hover {
+  --tw-gradient-from: rgb(237 237 240 / 0.15) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(237 237 240 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.hover\:via-b:hover {
+  --tw-gradient-to: rgb(56 156 223 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #389CDF var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
+.hover\:to-b:hover {
+  --tw-gradient-to: #389CDF var(--tw-gradient-to-position);
 }
 
 .hover\:text-b:hover {

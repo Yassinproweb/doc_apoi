@@ -1,7 +1,7 @@
 {{ define "doctor" }}
 <div hx-get="/details/doctors/{{normalize .Name}}" hx-target="#doctor-info" hx-swap="innerHTML"
   data-skill="{{ .Skill }}"
-  class="mix {{ .Skill }} w-full aspect-[4/2.5] flex-col items-center justify-between gap-1.5 p-3 rounded-xl border-2 border-b hover:border-b/70 snap-end">
+  class="mix {{ .Skill }} w-full aspect-[4/2.5] flex-col items-center justify-between gap-1.5 p-3 rounded-xl border-2 border-b cursor-pointer hover:border-b/70 snap-end">
   <div class="w-full items-center justify-start gap-2.5">
     <img src={{ .Avatar }} alt="profile pic or avatar of Dr. {{ .Name }}"
       class="pic-profile w-12 aspect-square shrink-0 object-cover object-center rounded-lg">

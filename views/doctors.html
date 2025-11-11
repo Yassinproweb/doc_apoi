@@ -37,11 +37,11 @@
       class="w-full col-span-2 col-start-2 flex items-center justify-between gap-9 p-3 rounded-xl bg-f">
       <div class="w-fit items-center justify-between gap-5">
         <a href="/doctors/{{normalize .Doctor.Name}}" hx-boost="true"
-          class="text-base text-start text-w py-2.5 px-7 rounded-2xl bg-b hover:text-w hover:bg-b">Overview</a>
+          class="text-base text-start text-w py-2.5 px-7 rounded-3xl duration-500 bg-gradient-to-tr from-b via-b to-f/15 hover:text-w hover:from-f/15 hover:via-b hover:to-b">Overview</a>
         <a href="/doctors/{{normalize .Doctor.Name}}/patients" hx-boost="true"
-          class="text-base text-start text-w py-2.5 px-7 rounded-2xl bg-b hover:text-w hover:bg-b">Patients</a>
+          class="text-base text-start text-w py-2.5 px-7 rounded-3xl duration-500 bg-gradient-to-tr from-b via-b to-f/15 hover:text-w hover:from-f/15 hover:via-b hover:to-b">Patients</a>
         <a href="/doctors/{{normalize .Doctor.Name}}/records" hx-boost="true"
-          class="text-base text-start text-w py-2.5 px-7 rounded-2xl bg-b hover:text-w hover:bg-b">Records</a>
+          class="text-base text-start text-w py-2.5 px-7 rounded-3xl duration-500 bg-gradient-to-tr from-b via-b to-f/15 hover:text-w hover:from-f/15 hover:via-b hover:to-b">Records</a>
       </div>
 
       <div class="w-fit items-center gap-0">
@@ -51,7 +51,7 @@
       </div>
     </header>
 
-    <aside id="docside" class="h-full col-span-1 col-start-1 grid gap-3.5 p-3.5 rounded-xl bg-f">
+    <aside id="docside" class="h-full col-span-1 col-start-1 grid gap-3.5 p-3 rounded-xl bg-f">
       <div class="w-full flex-col items-center justify-center gap-1">
         <img src="{{ .Doctor.Avatar }}" alt="profile pic or avatar of Dr. {{ .Doctor.Name }}"
           class="w-24 aspect-square rounded-3xl object-cover object-center">
@@ -93,13 +93,15 @@
       </div>
 
       <div class="w-full flex-col items-start justify-between gap-1 p-2.5 rounded-xl bg-w">
-        <h3 class="text-lg text-start text-d font-bold">New Appointments</h3>
+        <h3 class="text-lg text-start text-d font-bold">Next Appointments</h3>
         <div class="w-full flex-col items-start justify-start gap-1.5">
-          <button class="w-full text-w px-7 py-3 rounded-3xl bg-b">View List</button>
+          <button
+            class="w-full text-w px-7 py-3 rounded-3xl duration-500 bg-gradient-to-tr from-b via-b to-f/15 hover:text-w hover:bg-gradient-to-t">View
+            List</button>
           <div id="appois"
             class="w-full max-w-[268px] h-14 flex flex-nowrap items-center justify-start gap-3.5 p-1.5 font-['Handjet'] snap-mandatory snap-x rounded-full overflow-x-auto overflow-y-hidden bg-f">
             <div
-              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-tr from-d via-d to-b">
+              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-t from-d via-d to-b">
               <span class="snap-center text-2xl text-w text-center font-bold uppercase">kb</span>
               <span
                 class="absolute -bottom-0 left-8 text-[10px] text-w w-4 flex items-center justify-center aspect-square rounded-full bg-gradient-to-tr from-b via-b to-f">
@@ -107,7 +109,7 @@
               </span>
             </div>
             <div
-              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-tr from-d via-d to-b">
+              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-t from-d via-d to-b">
               <span class="snap-center text-2xl text-w text-center font-bold uppercase">fb</span>
               <span
                 class="absolute -bottom-0 left-8 text-[10px] text-w w-4 flex items-center justify-center aspect-square rounded-full bg-gradient-to-tr from-b via-b to-f">
@@ -115,7 +117,7 @@
               </span>
             </div>
             <div
-              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-tr from-d via-d to-b">
+              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-t from-d via-d to-b">
               <span class="snap-center text-2xl text-w text-center font-bold uppercase">te</span>
               <span
                 class="absolute -bottom-0 left-8 text-[10px] text-w w-4 flex items-center justify-center aspect-square rounded-full bg-gradient-to-tr from-b via-b to-f">
@@ -123,7 +125,7 @@
               </span>
             </div>
             <div
-              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-tr from-d via-d to-b">
+              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-t from-d via-d to-b">
               <span class="snap-center text-2xl text-w text-center font-bold uppercase">rr</span>
               <span
                 class="absolute -bottom-0 left-8 text-[10px] text-w w-4 flex items-center justify-center aspect-square rounded-full bg-gradient-to-tr from-b via-b to-f">
@@ -131,7 +133,7 @@
               </span>
             </div>
             <div
-              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-tr from-d via-d to-b">
+              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-t from-d via-d to-b">
               <span class="snap-center text-2xl text-w text-center font-bold uppercase">sa</span>
               <span
                 class="absolute -bottom-0 left-8 text-[10px] text-w w-4 flex items-center justify-center aspect-square rounded-full bg-gradient-to-tr from-b via-b to-f">
@@ -139,7 +141,7 @@
               </span>
             </div>
             <div
-              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-tr from-d via-d to-b">
+              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-t from-d via-d to-b">
               <span class="snap-center text-2xl text-w text-center font-bold uppercase">tu</span>
               <span
                 class="absolute -bottom-0 left-8 text-[10px] text-w w-4 flex items-center justify-center aspect-square rounded-full bg-gradient-to-tr from-b via-b to-f">
@@ -147,7 +149,7 @@
               </span>
             </div>
             <div
-              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-tr from-d via-d to-b">
+              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-t from-d via-d to-b">
               <span class="snap-center text-2xl text-w text-center font-bold uppercase">ed</span>
               <span
                 class="absolute -bottom-0 left-8 text-[10px] text-w w-4 flex items-center justify-center aspect-square rounded-full bg-gradient-to-tr from-b via-b to-f">
@@ -155,7 +157,7 @@
               </span>
             </div>
             <div
-              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-tr from-d via-d to-b">
+              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-t from-d via-d to-b">
               <span class="snap-center text-2xl text-w text-center font-bold uppercase">fw</span>
               <span
                 class="absolute -bottom-0 left-8 text-[10px] text-w w-4 flex items-center justify-center aspect-square rounded-full bg-gradient-to-tr from-b via-b to-f">
@@ -163,7 +165,7 @@
               </span>
             </div>
             <div
-              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-tr from-d via-d to-b">
+              class="relative flex-none w-11 aspect-square flex flex-col items-center justify-center rounded-full bg-gradient-to-t from-d via-d to-b">
               <span class="snap-center text-2xl text-w text-center font-bold uppercase">km</span>
               <span
                 class="absolute -bottom-0 left-8 text-[10px] text-w w-4 flex items-center justify-center aspect-square rounded-full bg-gradient-to-tr from-b via-b to-f">
@@ -175,7 +177,28 @@
       </div>
     </aside>
 
-    <main id="docmain" class="h-full col-span-2 col-start-2 p-3.5 rounded-xl bg-f"></main>
+    <main id="docmain" class="h-full grid col-span-2 col-start-2 gap-3 p-3 rounded-xl bg-f">
+      <div class="w-full flex flex-col items-center justify-between gap-2.5 p-3.5 rounded-xl bg-w">
+        <div class="w-full items-center justify-between">
+          <h2 class="shrink-0 text-2xl text-start text-d font-bold capitalize">incoming patient history</h2>
+          <div class="w-full items-center justify-end gap-2.5">
+            <button id="monthly"
+              class="text-center text-base text-w w-32 py-2.5 duration-500 bg-gradient-to-tr from-b via-b to-f/15 hover:text-w hover:from-f/15 hover:via-b hover:to-b rounded-3xl capitalize">monthly</button>
+            <button id="yearly"
+              class="text-center text-base text-w w-32 py-2.5 duration-500 bg-gradient-to-tr from-b via-b to-f/15 hover:text-w hover:from-f/15 hover:via-b hover:to-b rounded-3xl capitalize">yearly</button>
+            <button id="all"
+              class="text-center text-base text-w w-32 py-2.5 duration-500 bg-gradient-to-tr from-b via-b to-f/15 hover:text-w hover:from-f/15 hover:via-b hover:to-b rounded-3xl capitalize">all</button>
+          </div>
+        </div>
+
+        <div class="w-full grid grid-cols-4 items-center gap-3.5">
+          <div class="w-full items-center justify-center gap-3 py-2.5"></div>
+        </div>
+      </div>
+
+      <div class="w-full flex flex-col items-center justify-between gap-2.5 p-2.5 rounded-xl bg-w">
+      </div>
+    </main>
   </div>
 
   <!-- <script type="module" src="/static/js/chart.js"></script> -->
