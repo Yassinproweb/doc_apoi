@@ -1782,21 +1782,12 @@ img {
   border-color: rgb(56 156 223 / 0.7);
 }
 
-.hover\:bg-b:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(56 156 223 / var(--tw-bg-opacity, 1));
-}
-
 .hover\:bg-b\/20:hover {
   background-color: rgb(56 156 223 / 0.2);
 }
 
 .hover\:bg-gradient-to-tl:hover {
   background-image: linear-gradient(to top left, var(--tw-gradient-stops));
-}
-
-.hover\:bg-gradient-to-t:hover {
-  background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
 
 .hover\:from-f\/15:hover {
